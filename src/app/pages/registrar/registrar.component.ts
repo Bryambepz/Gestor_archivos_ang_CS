@@ -22,11 +22,11 @@ export class RegistrarComponent implements OnInit {
 
   validar = async () => {
     try {
-      if (this.conf_pass != this.new_persona.password) {
+      if (this.conf_pass != this.new_persona.contrasenia) {
         var inputPass = document.getElementById("password");
         inputPass!.className = "icon";
 
-      } else if (this.conf_pass == this.new_persona.password) {
+      } else if (this.conf_pass == this.new_persona.contrasenia) {
         var inputPass = document.getElementById("password");
         inputPass!.classList.remove("icon");
       }

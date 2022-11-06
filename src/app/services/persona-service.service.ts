@@ -15,6 +15,6 @@ export class PersonaServiceService {
     const body = JSON.stringify(persona);
     console.log(" pos p => ", body);
     
-    return this.http.post<any>(this.url, body, {'headers':headers});
+    return this.http.post(this.url, body, {'headers':headers});
   }
 }

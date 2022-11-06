@@ -2,11 +2,11 @@ export class Persona{
     cedula:string = "";
     nombres:string = "";
     apellidos:string = "";
-    fecha_nac:Date =  new Date;
+    fecha_nacimiento:Date =  new Date;
     profesion: string = "";
-    domicilio: string = "";
+    direccion: string = "";
     email: string = "";
-    password: string = "";
+    contrasenia: string = "";
     estado:boolean = true;
     rol: string = "Usuario";
 }
