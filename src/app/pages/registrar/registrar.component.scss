@@ -69,12 +69,12 @@ html {
   border-radius: 4px;
   box-shadow: 0 0 30px rgba(3, 1, 114, 0.493);
   box-sizing: border-box;
-  margin: 100px auto 10px;
+  margin: 65px auto 10px;
   overflow: hidden;
 }
 
 .form-panel {
-  padding: 60px 60px 60px;
+  padding: 50px 50px 30px;
   box-sizing: border-box;
 }
 
@@ -89,6 +89,13 @@ h1 {
   font-size: 24px;
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.form-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+  margin-bottom: 1rem;
 }
 
 .form-group {
@@ -142,12 +149,6 @@ h1 {
   cursor: pointer;
 }
 
-// .form-group #l-profesion::after {
-//   margin-bottom: 0.1px;
-//   content: "\A";
-//   white-space: pre;
-// }
-
 .form-group .select {
   background-color: rgba(152, 202, 243, 0.39);
   border: 0;
@@ -159,9 +160,26 @@ h1 {
 }
 
 .select:focus {
-  background-color: rgba(105, 148, 190, 0.664);
+  background-color: rgba(152, 202, 243, 0.877);
 }
 
 .select:hover{
-    background-color: rgba(105, 148, 190, 0.664);
+  background-color: rgba(152, 202, 243, 0.877);
+}
+
+.form-group ul{
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  padding: 15px;
+  display:inline-block;
+}
+
+.option-select
+:focus{
+  background-color: darkblue;
+}
+
+.icon{
+  background: url("../../../assets/imgs/advertencia.png") no-repeat right rgba(89, 171, 238, 0.507) !important;
 }
