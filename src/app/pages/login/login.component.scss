@@ -1,3 +1,109 @@
-body{
-    background-color: blueviolet;
+body {
+  background-image: radial-gradient(
+    circle,
+    rgb(43, 206, 206),
+    rgb(55, 45, 143)
+  );
+  // font-family: var(--base-font-family);
+  // font-size: var(--base-font-size);
+  // line-height: var(--base-line-height);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 1rem;
+  color: rgb(29, 133, 218);
+}
+
+.form {
+  position: relative;
+  background: #ffffff;
+  width: 500px;
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(3, 1, 114, 0.493);
+  box-sizing: border-box;
+  margin: 65px auto 10px;
+  overflow: hidden;
+}
+
+.form-panel {
+  padding: 50px 40px 30px;
+  box-sizing: border-box;
+}
+
+.form-header {
+  margin: 0 0 20px;
+}
+
+.form-header,
+h1 {
+  padding: 4px 0;
+  color: #4285f4;
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+// .grid{
+//     display: grid;
+//     grid-template-columns: 1fr;
+//     column-gap: 2rem;
+//     margin-bottom: 1rem;
+//   }
+
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: "Times New Roman", Times, serif;
+  justify-content: space-between;
+  line-height: 25px;
+  margin: 0 0 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin: 0 0 10px;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-left: 2rem;
+}
+
+.form-group input {
+  outline: none;
+  display: block;
+  background: rgba(152, 202, 243, 0.39);
+  width: 50%;
+  border: 0;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 5px 10px;
+  color: rgba(0, 0, 0, 0.9);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 100;
+  line-height: inherit;
+  transition: 0.3s ease;
+  margin-right: 2rem;
+}
+
+.form-group button {
+  outline: none;
+  background: #3671cf;
+  width: 70%;
+  border: 0;
+  border-radius: 4px;
+  padding: 12px 20px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  line-height: inherit;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
 }

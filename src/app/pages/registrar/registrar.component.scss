@@ -136,7 +136,7 @@ h1 {
 .form-group button {
   outline: none;
   background: #3671cf;
-  width: 100%;
+  width: 70%;
   border: 0;
   border-radius: 4px;
   padding: 12px 20px;
@@ -147,6 +147,7 @@ h1 {
   line-height: inherit;
   text-transform: uppercase;
   cursor: pointer;
+  text-align: center;
 }
 
 .form-group .select {
@@ -175,11 +176,13 @@ h1 {
   display:inline-block;
 }
 
-.option-select
-:focus{
-  background-color: darkblue;
-}
-
 .icon{
   background: url("../../../assets/imgs/advertencia.png") no-repeat right rgba(89, 171, 238, 0.507) !important;
+}
+
+a{
+  text-decoration: none;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1rem;
+  color: rgb(29, 133, 218);
 }
