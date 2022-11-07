@@ -9,13 +9,15 @@ import { AppComponent } from './app.component';
 import { RegistrarComponent } from './pages/registrar/registrar.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ActividadesComponent } from './pages/actividades/actividades.component';
+import { ListarActividadesComponent } from './pages/listar-actividades/listar-actividades.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrarComponent,
     LoginComponent,
-    ActividadesComponent
+    ActividadesComponent,
+    ListarActividadesComponent
   ],
   imports: [
     BrowserModule,

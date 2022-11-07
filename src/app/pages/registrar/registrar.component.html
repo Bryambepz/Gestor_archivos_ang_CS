@@ -1,5 +1,12 @@
 <div class="form">
   <div class="form-toggle"></div>
+  
+  <div style="text-align: right; padding-right: 15px;">
+    <div class="div-logo">
+      <img src="../../../assets/imgs/icon.png" alt="centrosur-icon" />
+      <div class="texto-logo">Dpto. de Gestion Ambiental</div>
+    </div>
+  </div>
 
   <div class="form-panel">
     <div class="form-header">
@@ -9,45 +16,104 @@
       <form class="form-grid">
         <div class="form-group">
           <label for="cedula">cedula</label>
-          <input [(ngModel)]="new_persona.cedula" id="cedula" type="text" name="Cedula" required="required" placeholder="Cedula" />
+          <input
+            [(ngModel)]="new_persona.cedula"
+            id="cedula"
+            type="text"
+            name="Cedula"
+            required="required"
+            placeholder="Cedula"
+          />
         </div>
         <div class="form-group">
           <label for="nombres">Nombres</label>
-          <input [(ngModel)]="new_persona.nombres" id="nombres" type="text" name="Nombres" required="required" placeholder="Nombres Completos"/>
+          <input
+            [(ngModel)]="new_persona.nombres"
+            id="nombres"
+            type="text"
+            name="Nombres"
+            required="required"
+            placeholder="Nombres Completos"
+          />
         </div>
         <div class="form-group">
           <label for="apellidos">Apellidos</label>
-          <input [(ngModel)]="new_persona.apellidos" id="apellidos" type="text" name="Apellidos" required="required" placeholder="Apellidos Completos"/>
+          <input
+            [(ngModel)]="new_persona.apellidos"
+            id="apellidos"
+            type="text"
+            name="Apellidos"
+            required="required"
+            placeholder="Apellidos Completos"
+          />
         </div>
         <div class="form-group">
           <label for="nacimiento">Fecha nacimiento</label>
-          <input [(ngModel)]="new_persona.fecha_nacimiento" id="nacimiento" type="date" name="fecha_nac" required="required"/>
+          <input
+            [(ngModel)]="new_persona.fecha_nacimiento"
+            id="nacimiento"
+            type="date"
+            name="fecha_nac"
+            required="required"
+          />
         </div>
         <div class="form-group">
           <label id="l-profesion" for="profesion">Profesion</label>
-          <select class="select" name="profesion" [(ngModel)] = "new_persona.profesion">
+          <select
+            class="select"
+            name="profesion"
+            [(ngModel)]="new_persona.profesion"
+          >
             <option value="" disabled>** Escoja una opción **</option>
-            <option *ngFor="let prof of Profesion">{{prof}}</option>
+            <option *ngFor="let prof of Profesion">{{ prof }}</option>
           </select>
         </div>
-        <div>
-        </div>
+        <div></div>
 
         <div class="form-group">
           <label for="domicilio">Domicilio</label>
-          <input [(ngModel)]="new_persona.direccion" id="domicilio" type="text" name="domicilio" required="required" placeholder="Domicilio"/>
+          <input
+            [(ngModel)]="new_persona.direccion"
+            id="domicilio"
+            type="text"
+            name="domicilio"
+            required="required"
+            placeholder="Domicilio"
+          />
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input [(ngModel)]="new_persona.email" id="email" type="email" name="email" required="required" placeholder="Correo Electrónico"/>
+          <input
+            [(ngModel)]="new_persona.email"
+            id="email"
+            type="email"
+            name="email"
+            required="required"
+            placeholder="Correo Electrónico"
+          />
         </div>
         <div class="form-group">
           <label for="password">Contraseña</label>
-          <input [(ngModel)]="new_persona.contrasenia" id="password" type="password" name="password" required="required" placeholder="Contraseña"/>
+          <input
+            [(ngModel)]="new_persona.contrasenia"
+            id="password"
+            type="password"
+            name="password"
+            required="required"
+            placeholder="Contraseña"
+          />
         </div>
         <div class="form-group">
           <label for="cpassword">Confirme Contraseña</label>
-          <input [(ngModel)]="conf_pass" id="cpassword" type="password" name="cpassword" required="required" placeholder="Confirme su contraseña" (keyup)="validar()"/>
+          <input
+            [(ngModel)]="conf_pass"
+            id="cpassword"
+            type="password"
+            name="cpassword"
+            required="required"
+            placeholder="Confirme su contraseña"
+            (keyup)="validar()"
+          />
         </div>
         <!-- <div class="form-group">
           <label for="estado">Estado</label>

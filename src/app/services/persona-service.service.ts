@@ -20,7 +20,6 @@ export class PersonaServiceService {
   }
 
   login(email: string, password: string): Observable<any> {
-    // this.url = this.url + 'login?email=' + email + '&password=' + password;
     console.log('url', this.url);
 
     const body = {};

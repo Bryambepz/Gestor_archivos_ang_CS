@@ -37,6 +37,35 @@ h1 {
   margin-inline-end: 0px;
 }
 
+h4{
+  text-transform: none;
+  color: #4285f4;
+  font-size: 1rem;
+  margin: 0 0;
+  position: relative;
+}
+
+img{
+  font-size: 0.5rem;
+  text-transform: none;
+  padding: 0.3rem 2.5rem;
+}
+
+.div-logo{
+  position: relative;
+  display: inline-block;
+  // text-align: center;
+  // padding-right: 2.5rem;
+}
+
+.texto-logo{
+  position: absolute;
+  top: 70%;
+  font-size: 13px;
+  color: #13243f;
+  // transform: translate(-50%, -50%);
+}
+
 form,
 label {
   padding: 0;
@@ -74,12 +103,15 @@ html {
 }
 
 .form-panel {
-  padding: 50px 50px 30px;
+  padding: 1px 40px 30px;
   box-sizing: border-box;
 }
 
 .form-header {
   margin: 0 0 20px;
+  // display: grid;
+  // grid-template-columns: 1fr 1fr;
+  // align-items: center;
 }
 
 .form-header,

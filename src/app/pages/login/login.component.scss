@@ -28,8 +28,29 @@ a {
   overflow: hidden;
 }
 
+img{
+  font-size: 0.5rem;
+  text-transform: none;
+  padding: 0.3rem 2.5rem;
+}
+
+.div-logo{
+  position: relative;
+  display: inline-block;
+  // text-align: center;
+  // padding-right: 2.5rem;
+}
+
+.texto-logo{
+  position: absolute;
+  top: 70%;
+  font-size: 13px;
+  color: #13243f;
+  padding-left: 0.6rem;
+}
+
 .form-panel {
-  padding: 50px 40px 30px;
+  padding: 10px 40px 30px;
   box-sizing: border-box;
 }
 

@@ -1,1 +1,52 @@
-<p>actividades works!</p>
+<!-- <p>actividades works!!!!!!</p> -->
+<div class="main-contenedor">
+  <div class="header grid-header">
+    <h1>Crear Actividad</h1>
+  </div>
+
+  <div class="grid-sidebar menu">
+    <h3>Menu</h3>
+    <a href="/actividades">Crear Actividad</a>
+    <a href="#">Auditorias</a>
+    <a href="#">Actualizar Información</a>
+    <a href="/login">Cerrar Sesion</a>
+  </div>
+
+  <div class="form grid-content">
+    <form>
+      <div>
+        <label for="nombre">Actividad</label>
+        <input type="text" placeholder="Nombre de Actividad" />
+      </div>
+      <div>
+        <label for="description">Descripción</label>
+        <textarea name="descript" id="description" cols="30" rows="10"></textarea>
+      </div>
+      <div>
+        <label for="frecuencia">Frecuencia</label>
+        <select name="frecuencia" id="frecuencia">
+          <option value="" disabled>Indique la frecuencia</option>
+          <option value="Diaria">Diaria</option>
+          <option value="Semanal">Semanal</option>
+          <option value="Mensual">Mensual</option>
+          <option value="Anual">Anual</option>
+        </select>
+      </div>
+      <div>
+        <label for="estado">Estado</label>
+        <input type="checkbox" />
+      </div>
+      <div>
+        <label for="fecha_fin">Fecha de inicio</label>
+        <input type="date" />
+      </div>
+      <div>
+        <label for="fecha_fin">Fecha de Finalización</label>
+        <input type="date" />
+      </div>
+      <div>
+        <button (click)="crear()">Crear</button>
+      </div>
+    </form>
+  </div>
+</div>
