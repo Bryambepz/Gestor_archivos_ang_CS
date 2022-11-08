@@ -1,5 +1,16 @@
 <!-- <p>actividades works!!!!!!</p> -->
 <div class="main-contenedor">
+
+  <div class="grid-logo">
+    <div class="div-logo">
+      <img src="../../../assets/imgs/picon2.png" alt="centrosur-icon" />
+      <div class="texto-logo">Dpto. de Gestion Ambiental</div>
+    </div>
+  </div>
+
+  <!-- <div style="text-align: right; padding-right: 15px;">
+  </div> -->
+
   <div class="header grid-header">
     <h1>Crear Actividad</h1>
   </div>
@@ -12,41 +23,42 @@
     <a href="/login">Cerrar Sesion</a>
   </div>
 
-  <div class="form grid-content">
-    <form>
-      <div>
+  <div class="grid-content">
+    <form class="form-panel">
+      <div class="form-group">
         <label for="nombre">Actividad</label>
-        <input type="text" placeholder="Nombre de Actividad" />
+        <input id="actividad" type="text" placeholder="Nombre de Actividad" />
       </div>
-      <div>
+      
+      <div class="form-group">
         <label for="description">Descripción</label>
-        <textarea name="descript" id="description" cols="30" rows="10"></textarea>
+        <textarea name="descript" id="description" cols="30" rows="5"></textarea>
       </div>
-      <div>
+      <div class="form-group">
         <label for="frecuencia">Frecuencia</label>
-        <select name="frecuencia" id="frecuencia">
+        <select class="select" name="frecuencia" id="frecuencia" style="justify-self: center;">
           <option value="" disabled>Indique la frecuencia</option>
-          <option value="Diaria">Diaria</option>
-          <option value="Semanal">Semanal</option>
           <option value="Mensual">Mensual</option>
+          <option value="Trimestral">Trimestral</option>
+          <option value="Semestral">Semestral</option>
           <option value="Anual">Anual</option>
         </select>
       </div>
-      <div>
+      <!-- <div class="form-group">
         <label for="estado">Estado</label>
         <input type="checkbox" />
-      </div>
-      <div>
+      </div> -->
+      <div class="form-group">
         <label for="fecha_fin">Fecha de inicio</label>
-        <input type="date" />
+        <input style="width: auto;" type="date" />
       </div>
-      <div>
+      <div class="form-group">
         <label for="fecha_fin">Fecha de Finalización</label>
         <input type="date" />
       </div>
-      <div>
-        <button (click)="crear()">Crear</button>
-      </div>
     </form>
+    <div style="text-align: center; padding: 1rem 0;">
+      <button (click)="crear()">Crear</button>
+    </div>
   </div>
 </div>

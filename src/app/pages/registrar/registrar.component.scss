@@ -54,16 +54,13 @@ img{
 .div-logo{
   position: relative;
   display: inline-block;
-  // text-align: center;
-  // padding-right: 2.5rem;
 }
 
 .texto-logo{
   position: absolute;
   top: 70%;
   font-size: 13px;
-  color: #13243f;
-  // transform: translate(-50%, -50%);
+  color: #0543a7;
 }
 
 form,
@@ -109,9 +106,6 @@ html {
 
 .form-header {
   margin: 0 0 20px;
-  // display: grid;
-  // grid-template-columns: 1fr 1fr;
-  // align-items: center;
 }
 
 .form-header,
@@ -142,7 +136,7 @@ h1 {
 .form-group label {
   display: block;
   margin: 0 0 10px;
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(0, 0, 0, 0.8);
   font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
@@ -165,6 +159,17 @@ h1 {
   transition: 0.3s ease;
 }
 
+.form-group .select {
+  background-color: rgba(152, 202, 243, 0.39);
+  border: 0;
+  border-radius: 6px;
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  font-family: inherit;
+  width: 100%;
+}
+
 .form-group button {
   outline: none;
   background: #3671cf;
@@ -182,15 +187,6 @@ h1 {
   text-align: center;
 }
 
-.form-group .select {
-  background-color: rgba(152, 202, 243, 0.39);
-  border: 0;
-  border-radius: 6px;
-  display: block;
-  text-align: center;
-  font-size: 17px;
-  font-family: inherit;
-}
 
 .select:focus {
   background-color: rgba(152, 202, 243, 0.877);

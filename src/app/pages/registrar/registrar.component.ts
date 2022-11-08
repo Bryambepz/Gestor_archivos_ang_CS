@@ -12,8 +12,8 @@ export class RegistrarComponent implements OnInit {
   new_persona: Persona = new Persona();
   conf_pass: string = '';
 
-  roles: string[] = ['SuperAdmmin', 'Administrador', 'Usuario'];
-  Profesion: string[] = ['Lic. Contabilidad', 'Ing. Ambiental', 'Ing. Civil'];
+  // roles: string[] = ['SuperAdmmin', 'Administrador', 'Usuario'];
+  cargo: string[] = ['Lic. Contabilidad', 'Ing. Ambiental', 'Ing. Civil'];
 
   constructor(private personaServ: PersonaServiceService) {}
 
@@ -36,9 +36,6 @@ export class RegistrarComponent implements OnInit {
   };
 
   registrar() {
-    // console.log('Persona Reg => ', JSON.stringify(this.new_persona));
-    // var fecha = this.new_persona.fecha_nac.toDateString();
-    // this.new_persona.fecha_nac = this.datepipe.transform(this.new_persona.fecha_nac, 'dd-MM-yyyy');
     console.log("json => ", this.new_persona);
     
     this.personaServ.registrar(this.new_persona).subscribe((data) => {
