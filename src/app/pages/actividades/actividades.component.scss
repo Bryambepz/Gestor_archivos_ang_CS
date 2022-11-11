@@ -1,16 +1,18 @@
+
+
 body {
   background-image: radial-gradient(
     circle,
     rgba(43, 206, 206, 0.682),
     rgba(55, 45, 143, 0.768)
   );
-  font-family: 'Times New Roman', Times, serif;
+  // font-family: "Times New Roman", Times, serif;
   // font-size: var(--base-font-size);
   // line-height: var(--base-line-height);
   -webkit-font-smoothing: antialiased;
 }
 
-.grid-logo{
+.grid-logo {
   grid-area: logo;
   text-align: center;
   background-image: radial-gradient(
@@ -18,30 +20,31 @@ body {
     rgba(43, 206, 206, 0.682),
     rgba(55, 45, 143, 0.768)
   );
+  border-radius: 10rem;
 }
 
-.div-logo{
+.div-logo {
   position: relative;
   display: inline-block;
 }
 
-.texto-logo{
+.texto-logo {
   position: absolute;
   top: 77%;
   font-size: 13px;
   color: #0543a7;
-  padding: 0 1rem;
+  padding: 0 1rem;  
 }
 
-.grid-header{
+.grid-header {
   grid-area: header;
 }
 
-.header{
+.header {
   text-align: center;
 }
 
-.grid-sidebar{
+.grid-sidebar {
   grid-area: sidebar;
 }
 
@@ -51,14 +54,15 @@ body {
   align-items: flex-start;
 }
 
-.grid-content{
+.grid-content {
   grid-area: contenido;
   background-color: white;
   margin: 1rem 1.5rem;
   align-items: center;
+  border-radius: 3rem;
 }
 
-.form-panel{
+.form-panel {
   padding: 3rem 3rem 1px;
 }
 
@@ -77,29 +81,28 @@ body {
   color: rgba(0, 0, 0, 0.8);
   font-size: 12px;
   font-weight: 500;
-  text-transform: uppercase;  
+  text-transform: uppercase;
 }
 
 .form-group textarea {
   background: rgba(152, 202, 243, 0.39);
-  width: 100%;
-  height: 50%;
   border: 0;
   border-radius: 1rem;
-  box-sizing: border-box;
-  // padding: 5px 10px;
   color: rgba(0, 0, 0, 0.9);
+  box-sizing: border-box;
+  padding: 5px 10px;
+  width: 100%;
   font-family: inherit;
   font-size: inherit;
   font-weight: 100;
-  text-align: justify;  
+  text-align: justify;
 }
 
 .form-group input {
   outline: none;
   display: block;
   background: rgba(152, 202, 243, 0.39);
-  width: 100%;  
+  width: 100%;
   border: 0;
   border-radius: 4px;
   box-sizing: border-box;
@@ -142,22 +145,19 @@ button {
 
 .main-contenedor {
   display: grid;
-  grid-template-columns: repeat(4,1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-template-rows: auto;
-  grid-template-areas: 
-  "logo header header header"
-  "sidebar contenido contenido contenido";
+  grid-template-areas:
+    "logo header header header"
+    "sidebar contenido contenido contenido";
 }
-
-
-
 
 a {
   text-decoration: none;
   color: rgb(8, 0, 255);
 }
 
-img{
+img {
   font-size: 0.5rem;
   text-transform: none;
   // padding: 0.3rem 2.5rem;

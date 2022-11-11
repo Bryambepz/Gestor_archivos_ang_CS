@@ -27,12 +27,12 @@
           <input [(ngModel)]="new_persona.apellidos" id="apellidos" type="text" name="Apellidos" required="required" placeholder="Apellidos Completos"/>
         </div>
         <div class="form-group">
-          <label id="cargoP" for="cargoS">Cargo</label>
-          <select id="cargoS" class="select" [(ngModel)]="new_persona.cargo">
-            <option value="" disabled>Indique su cargo<option>
-            <option *ngFor="let carg of cargo">{{ carg }}</option>
+          <label for="cargoP">Cargo</label>
+          <select class="select" name="cargoP" id="cargoP" style="justify-self: center;" [(ngModel)]="new_persona.cargo">
+            <option value="" disabled>Indique la frecuencia</option>
+            <option *ngFor="let c of cargo" [ngValue]="c">{{c}}</option>
           </select>
-        </div>        
+        </div>
         <div class="form-group">
           <label for="email">Email</label>
           <input [(ngModel)]="new_persona.email" id="email" type="email" name="email" required="required" placeholder="Correo Electrónico"/>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Persona } from '../domain/Persona';
+import { Persona } from '../../domain/Persona';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,12 +11,12 @@ export class PersonaServiceService {
   constructor(private http: HttpClient) {}
 
   registrar(persona: Persona): Observable<any> {
-    this.url = this.url + 'registrarse';
+    // this.url = this.url + 'registrarse';
     const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify(persona);
     console.log(' pos p => ', body);
 
-    return this.http.post(this.url, body, { headers: headers });
+    return this.http.post(this.url + 'registrarse', body, { headers: headers });
   }
 
   login(email: string, password: string): Observable<any> {

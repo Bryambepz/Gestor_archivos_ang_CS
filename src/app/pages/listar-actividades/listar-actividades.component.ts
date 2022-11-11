@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar-actividades',
@@ -8,14 +9,13 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class ListarActividadesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    // console.log('logg ', login.cedulaLog);
+    // if(login.cedulaLog == ""){
+    //   this.router.navigate(["/login"])
+    // }
   }
 
-
-
-  //i
-  
-  //f
 }

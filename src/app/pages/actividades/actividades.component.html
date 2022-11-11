@@ -1,4 +1,5 @@
 <!-- <p>actividades works!!!!!!</p> -->
+<link rel="stylesheet" href="actividades.component.scss">
 <div class="main-contenedor">
 
   <div class="grid-logo">
@@ -17,7 +18,8 @@
 
   <div class="grid-sidebar menu">
     <h3>Menu</h3>
-    <a href="/actividades">Crear Actividad</a>
+    <a href="/actividad">Crear Actividad</a>
+    <a href="/Listar">Actividades</a>
     <a href="#">Auditorias</a>
     <a href="#">Actualizar Información</a>
     <a href="/login">Cerrar Sesion</a>
@@ -25,36 +27,34 @@
 
   <div class="grid-content">
     <form class="form-panel">
+
       <div class="form-group">
-        <label for="nombre">Actividad</label>
-        <input id="actividad" type="text" placeholder="Nombre de Actividad" />
+        <label for="actividad">Actividad</label>
+        <input name="actividad" type="text" placeholder="Nombre de Actividad" [(ngModel)] = "actividad.titulo" />
       </div>
       
       <div class="form-group">
         <label for="description">Descripción</label>
-        <textarea name="descript" id="description" cols="30" rows="5"></textarea>
+        <textarea name="descript" id="description" cols="30" rows="5" [(ngModel)] = "actividad.descripcion"></textarea>
       </div>
+
       <div class="form-group">
         <label for="frecuencia">Frecuencia</label>
-        <select class="select" name="frecuencia" id="frecuencia" style="justify-self: center;">
+        <select id="frecuencia" name="frecuencia" class="select" style="justify-self: center;" [(ngModel)] = "actividad.frecuencia">
           <option value="" disabled>Indique la frecuencia</option>
-          <option value="Mensual">Mensual</option>
-          <option value="Trimestral">Trimestral</option>
-          <option value="Semestral">Semestral</option>
-          <option value="Anual">Anual</option>
+          <option value="1">Mensual</option>
+          <option value="3">Trimestral</option>
+          <option value="6">Semestral</option>
+          <option value="12">Anual</option>
         </select>
       </div>
-      <!-- <div class="form-group">
-        <label for="estado">Estado</label>
-        <input type="checkbox" />
-      </div> -->
       <div class="form-group">
-        <label for="fecha_fin">Fecha de inicio</label>
-        <input style="width: auto;" type="date" />
+        <label for="fecha_in">Fecha de inicio</label>
+        <input name="fecha_in" style="width: auto;" type="date" placeholder="Fecha inicio" [(ngModel)] = "actividad.fecha_inicio" (change)="calcular_fecha()"/>
       </div>
       <div class="form-group">
         <label for="fecha_fin">Fecha de Finalización</label>
-        <input type="date" />
+        <input id="fecha_fin" name="fecha_fn" type="date" value="{{fecha}}" placeholder="dd-mm-yyyy" ngModel="actividad.fecha_fin" readonly/> 
       </div>
     </form>
     <div style="text-align: center; padding: 1rem 0;">

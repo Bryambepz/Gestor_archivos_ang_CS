@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Persona } from 'src/app/domain/Persona';
-import { PersonaServiceService } from 'src/app/services/persona-service.service';
+import { PersonaServiceService } from 'src/app/services/serv_per/persona-service.service';
 
 @Component({
   selector: 'app-registrar',
@@ -13,12 +13,11 @@ export class RegistrarComponent implements OnInit {
   conf_pass: string = '';
 
   // roles: string[] = ['SuperAdmmin', 'Administrador', 'Usuario'];
-  cargo: string[] = ['Lic. Contabilidad', 'Ing. Ambiental', 'Ing. Civil'];
-
+  cargo: string[] = ['Jefe Departamento', 'Jefe Area', 'Otro'];
+  
   constructor(private personaServ: PersonaServiceService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   validar = async () => {
     try {
