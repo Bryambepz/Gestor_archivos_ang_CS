@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(private personaServ: PersonaServiceService, private router: Router) { }
 
   ngOnInit(): void {
+    localStorage.setItem('ced_log', "")
   }
 
   login(){
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit {
       console.log("log ", data.cedula);
       if(data){
         localStorage.setItem('ced_log', data.cedula)
-        this.router.navigate(['/actividad']).then(() => window.location.reload())
+        // this.router.navigate(['/actividad']).then(() => window.location.reload())
+        window.location.href = "/actividad"
       }else{
         alert("Correo o contraseña incorrectos")
       }

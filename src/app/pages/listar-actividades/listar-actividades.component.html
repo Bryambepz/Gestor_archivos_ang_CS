@@ -22,9 +22,43 @@
   <div class="grid-content">
     <div>
       listado
+      <div >
+        <table>
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Descripción</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let act of actividades">
+              <td>{{act.titulo}}</td>
+              <td>{{act.descripcion}}</td>
+              <td><button>+</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div>
-      calendario
+      <form>
+        <div class="form-group">
+          <label for="">Nombre Documento</label>
+          <input type="text">
+        </div>
+        <div class="form-group">
+          <label for="">Culminado</label>
+          <input type="checkbox">
+        </div>
+        <div class="form-group">
+          <label for="">Fecha</label>
+          <input type="date">
+        </div>
+        <div class="butt-guardar">
+          <button>Cumplir</button>
+        </div>
+      </form>
     </div>
     <!-- <div style="text-align: center; padding: 1rem 0;">
       <button>Crear</button>
