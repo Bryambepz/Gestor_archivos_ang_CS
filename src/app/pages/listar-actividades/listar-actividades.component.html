@@ -32,8 +32,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let act of actividades">
-              <td>{{act.titulo}}</td>
+            <tr (click)="click_tabla(act.titulo)" *ngFor="let act of actividades">
+              <td >{{act.titulo}}</td>
               <td>{{act.descripcion}}</td>
               <td><button>+</button></td>
             </tr>
@@ -45,18 +45,22 @@
       <form>
         <div class="form-group">
           <label for="">Nombre Documento</label>
-          <input type="text">
+          <input [(ngModel)] = "titulo" name = "titulo" type="text" readonly>
+        </div>
+        <div class="form-group">
+          <label for="">Nombre Documento</label>
+          <input [(ngModel)] = "registro_act.nombre_documento" name = "nombre" type="text" placeholder="Nombre Documento">
         </div>
         <div class="form-group">
           <label for="">Culminado</label>
-          <input type="checkbox">
+          <input [(ngModel)] = "registro_act.estado" name = "estado" type="checkbox" readonly>
         </div>
         <div class="form-group">
           <label for="">Fecha</label>
-          <input type="date">
+          <input [value]="vFecha" name = "fecha" type="date" readonly placeholder="dd-MM-yyyy">
         </div>
         <div class="butt-guardar">
-          <button>Cumplir</button>
+          <button (click)="guardar_registro()">Cumplir</button>
         </div>
       </form>
     </div>

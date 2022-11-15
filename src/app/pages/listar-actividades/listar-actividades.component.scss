@@ -57,6 +57,7 @@ body {
 
 .grid-content {
   opacity: 10;
+  width: min-content;
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-area: contenido;
@@ -65,6 +66,7 @@ body {
   margin: 1rem 1.5rem;
   padding: 1rem;
   align-items: center;
+  justify-self: center;
   border-radius: 0.7rem;
 }
 
@@ -93,7 +95,18 @@ thead th {
 tbody tr:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
-tbody td {
+
+tbody tr:active {
+  background-color: #123456;
+  color: #fff;
+}
+
+tbody tr::after {
+  background-color: #123456;
+  color: #fff;
+}
+
+tbody td{
   position: relative;
 }
 
@@ -120,7 +133,7 @@ tbody td {
   outline: none;
   display: block;
   background: rgba(152, 202, 243, 0.59);
-  width: 100%;
+  width: 20rem;
   border: 0;
   border-radius: 4px;
   box-sizing: border-box;

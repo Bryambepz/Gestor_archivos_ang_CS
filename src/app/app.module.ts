@@ -10,6 +10,7 @@ import { RegistrarComponent } from './pages/registrar/registrar.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ActividadesComponent } from './pages/actividades/actividades.component';
 import { ListarActividadesComponent } from './pages/listar-actividades/listar-actividades.component';
+import { AuditoriasComponent } from './pages/auditorias/auditorias.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ListarActividadesComponent } from './pages/listar-actividades/listar-ac
     RegistrarComponent,
     LoginComponent,
     ActividadesComponent,
-    ListarActividadesComponent
+    ListarActividadesComponent,
+    AuditoriasComponent
   ],
   imports: [
     BrowserModule,

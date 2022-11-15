@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Actividad_Gen } from 'src/app/domain/Actividad_Gen';
+import { Registro_Act } from 'src/app/domain/Registro_Act';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +34,18 @@ export class ActividadesService {
     return this.http.get<Actividad_Gen[]>(this.url + 'ListarporUsuario?', {
       headers: headers,
       params: { cedula: cedulaPersona },
+    });
+  }
+
+  registroActividad(registro: Registro_Act, titulo: string):Observable<Registro_Act>{
+    const headers = { 'content-type': 'application/json' };
+    const body = JSON.stringify(registro);    
+    
+    console.log("json ",body);
+    
+    return this.http.post<Registro_Act>(this.url + 'registrar_actividad', body, {
+      headers: headers,
+      params: { actividad: titulo}
     });
   }
 }
