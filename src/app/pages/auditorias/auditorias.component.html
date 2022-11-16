@@ -1,1 +1,106 @@
-<p>auditorias works!</p>
+<div class="main-contenedor">
+  <div class="grid-logo">
+    <div>
+      <div class="div-logo">
+        <img src="../../../assets/imgs/picon2.png" alt="centrosur-icon" />
+        <div class="texto-logo">Dpto. de Gestion Ambiental</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header grid-header">
+    <h1>Auditorias</h1>
+  </div>
+
+  <div class="grid-sidebar menu">
+    <h3>Menu</h3>
+    <a href="/actividad">Crear Actividad</a>
+    <a href="/Listar">Actividades</a>
+    <a href="/auditorias">Auditorias</a>
+    <a href="#">Actualizar Información</a>
+    <a href="/login">Cerrar Sesion</a>
+  </div>
+
+  <div class="grid-content">
+    <div class="contenido">
+      <div class="proyecto">
+        <div>
+          <form>
+            <div class="form-group">
+              <label for="proy_name">Proyecto</label>
+              <input
+                [(ngModel)]="proyecto.nombre"
+                name="proy_name"
+                type="text"
+                placeholder="Nombre de Proyecto"
+              />
+            </div>
+            <div class="form-group">
+              <label for="fecha">Fecha Creación</label>
+              <input
+                [(ngModel)]="proyecto.fecha_creacion"
+                name="fecha"
+                type="date"
+                placeholder="dd-MM-yyyy"
+              />
+            </div>
+            <div class="butt-guardar">
+              <button (click)="crearProyecto()">Crear Proyecto</button>
+            </div>
+          </form>
+        </div>
+    
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Proyecto</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr (click)="clickTProyectos()" *ngFor="let proy of proyectos">
+                <td>{{ proy.nombre }}</td>
+                <td>{{ proy.fecha_creacion }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <div class="contenido">
+      <div>
+        <div>
+          <form class="form_descripcion">
+              <div class="form-group">
+                <label for="proy_name">Identificador</label>
+                <input [(ngModel)] = "desc_proy.identificador_desc" name = "proy_name" type="text" placeholder="Identificador Proyecto">
+              </div>
+              <div class="form-group">
+                <label for="fecha">Fecha</label>
+                <input [(ngModel)] = 'desc_proy.fecha_emision' name = "fecha" type="date" placeholder="dd-MM-yyyy">
+              </div>
+              <div class="form-group">
+                <label for="dga">Código DGA</label>
+                <input [(ngModel)] = "desc_proy.codigo_dga" name = "dga" type="text" placeholder="DGA">
+              </div>
+              <div class="form-group">
+                <label for="caar">Código AAR</label>
+                <input [(ngModel)] = "desc_proy.codigo_aar" name = "caar" type="text" placeholder="CAAR">
+              </div>
+              <div class="form-group">
+                <label for="aar">AAR</label>
+                <input [(ngModel)] = "desc_proy.aar" name = "aar" type="text" placeholder="AAR">
+              </div>
+              <div class="butt-guardar">
+                <button>Agregar Descripción</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

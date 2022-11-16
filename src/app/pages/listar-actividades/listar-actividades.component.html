@@ -14,7 +14,7 @@
     <h3>Menu</h3>
     <a href="/actividad">Crear Actividad</a>
     <a href="/Listar">Actividades</a>
-    <a href="#">Auditorias</a>
+    <a href="/auditorias">Auditorias</a>
     <a href="#">Actualizar Información</a>
     <a href="/login">Cerrar Sesion</a>
   </div>
@@ -53,7 +53,7 @@
         </div>
         <div class="form-group">
           <label for="">Culminado</label>
-          <input [(ngModel)] = "registro_act.estado" name = "estado" type="checkbox" readonly>
+          <input [(ngModel)] = "registro_act.estado" name = "estado" type="checkbox" readonly disabled>
         </div>
         <div class="form-group">
           <label for="">Fecha</label>
