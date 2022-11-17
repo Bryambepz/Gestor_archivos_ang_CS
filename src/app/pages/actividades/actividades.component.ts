@@ -17,12 +17,10 @@ export class ActividadesComponent implements OnInit {
 
   fecha: string = "";
 
-  ngOnInit(): void {
-    
-    console.log("yuap ", localStorage.getItem('ced_log'));
-    // if(AppComponent.cedulaLogueado == ""){
-    //   this.router.navigate(['/login']);
-    // }    
+  ngOnInit(): void {    
+    if(localStorage.getItem('ced_log') == ""){
+      this.router.navigate(["/login"])
+    }
   }
 
   crear() {
