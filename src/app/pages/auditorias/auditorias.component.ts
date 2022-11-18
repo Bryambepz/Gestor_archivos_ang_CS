@@ -24,11 +24,18 @@ export class AuditoriasComponent implements OnInit {
   procesos: Proceso[] = [];
 
   proyectoSeleccionado:string = '';
+  procesoSeleccionado:string = '';
   mostrar:boolean = false;
 
+  // date:Date = new Date();
   ngOnInit(): void {
+    // let year = this.date.getFullYear();
+    // let month = this.date.getMonth() + 1;
+    // let day = this.date.getDate();
     this.listarProyectos();
     this.listarDescripciones();
+
+    // document.getElementsByName("fecha_ini")[0].innerHTML = year + '-' + month + '-' + day;
     if(localStorage.getItem('ced_log') == ""){
       this.router.navigate(["/login"])
     }
@@ -63,6 +70,16 @@ export class AuditoriasComponent implements OnInit {
     }
   }
 
+  crearProceso(){
+    if(this.procesoSeleccionado != ''){
+      console.log(this.procesoSeleccionado);
+      this.servAuditorias.crearProceso(this.procesoSeleccionado, this.proceso).subscribe((d) => console.log('creado =.', d));
+    }else{
+      console.log('escoja');
+      
+    }
+  }
+
   clickTProyectos(titulo:string){
     if(!this.mostrar){
       this.mostrar = true
@@ -71,5 +88,15 @@ export class AuditoriasComponent implements OnInit {
     }
     this.proyectoSeleccionado = titulo;
     // console.log('mos ', this.mostrar, " -- ", titulo);
+  }
+  
+  clickTProcesos(titulo:string){
+    if(!this.mostrar){
+      this.mostrar = true
+    }else{
+      this.mostrar = false
+    }
+    this.procesoSeleccionado = titulo;
+    // console.log('mos ', titulo);
   }
 }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Desc_Proyecto } from 'src/app/domain/Desc_Proyecto';
+import { Proceso } from 'src/app/domain/Proceso';
 import { Proyecto } from 'src/app/domain/Proyecto';
 
 @Injectable({
@@ -34,5 +35,16 @@ export class AuditoriasServiceService {
 
   getDescripciones():Observable<Desc_Proyecto[]>{
     return this.http.get<Desc_Proyecto[]>(this.url + 'getDescripciones');
+  }
+
+  crearProceso(indentificador: string, proceso: Proceso):Observable<Proceso>{
+    const headers = { 'content-type': 'application/json' };
+    const body = JSON.stringify(proceso);
+    console.log(body);
+    
+    return this.http.post<Proceso>(this.url + 'proceso', body, {
+      headers: headers,
+      params: {identificadorProyecto: indentificador}
+    });
   }
 }

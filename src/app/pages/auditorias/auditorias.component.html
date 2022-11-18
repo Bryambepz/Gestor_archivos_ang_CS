@@ -23,49 +23,162 @@
 
   <div class="grid-content">
 
-    <div class="contenido">
-      <div class="proyecto">
+    <div class="grid_scroll">
+      <div class="contenido">
+        <div class="proyecto">
+          <div>
+            <form>
+              <div class="form-group">
+                <label for="proy_name">Proyecto</label>
+                <input [(ngModel)]="proyecto.nombre" name="proy_name" type="text" placeholder="Proyecto"/>
+              </div>
+              <div class="form-group">
+                <label for="fecha">Fecha Creación</label>
+                <input [(ngModel)]="proyecto.fecha_creacion" name="fecha" type="date" placeholder="dd-MM-yyyy"/>
+              </div>
+              <div class="butt-guardar">
+                <button style="font-size: 0.9rem;" (click)="crearProyecto()">Crear Proyecto</button>
+              </div>
+            </form>
+          </div>
+  
+          <div class="table_scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Proyecto</th>
+                  <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  (click)="clickTProyectos(proy.nombre)"
+                  *ngFor="let proy of proyectos"
+                >
+                  <td>{{ proy.nombre }}</td>
+                  <td>{{ proy.fecha_creacion }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  
+      <div class="contenido">
         <div>
-          <form>
+          <form class="form_descripcion">
             <div class="form-group">
-              <label for="proy_name">Proyecto</label>
-              <input
-                [(ngModel)]="proyecto.nombre"
-                name="proy_name"
-                type="text"
-                placeholder="Nombre de Proyecto"
-              />
+              <label for="proy_name">Identificador</label>
+              <input [(ngModel)]="desc_proy.identificador_desc" name="proy_name" type="text" placeholder="Identificador Proyecto"/>
             </div>
             <div class="form-group">
-              <label for="fecha">Fecha Creación</label>
-              <input
-                [(ngModel)]="proyecto.fecha_creacion"
-                name="fecha"
-                type="date"
-                placeholder="dd-MM-yyyy"
-              />
+              <label for="fecha">Fecha</label>
+              <input [(ngModel)]="desc_proy.fecha_emision" name="fecha" type="date" placeholder="dd-MM-yyyy" />
             </div>
-            <div class="butt-guardar">
-              <button (click)="crearProyecto()">Crear Proyecto</button>
+            <div class="form-group">
+              <label for="dga">Código DGA</label>
+              <input [(ngModel)]="desc_proy.codigo_dga" name="dga" type="text" placeholder="DGA"/>
+            </div>
+            <div class="form-group">
+              <label for="caar">Código AAR</label>
+              <input [(ngModel)]="desc_proy.codigo_aar" name="caar" type="text" placeholder="CAAR"/>
+            </div>
+            <div class="form-group">
+              <label for="aar">AAR</label>
+              <input [(ngModel)]="desc_proy.aar" name="aar" type="text" placeholder="AAR"/>
             </div>
           </form>
+          <div class="butt-guardar">
+            <button (click)="crearDescProy()">Agregar Descripción</button>
+          </div>
+        </div>
+  
+        <div class="table_descripcion">
+          <table style="margin: auto;">
+            <thead>
+              <tr>
+                <th>Identificador</th>
+                <th>AAR</th>
+                <th>DGA</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr (click)="clickTProcesos(descP.identificador_desc)" *ngFor="let descP of desc_proyectos">
+                <td>{{ descP.identificador_desc }}</td>
+                <td>{{ descP.codigo_dga }}</td>
+                <td>{{ descP.codigo_aar }}</td>
+                <td>{{ descP.fecha_emision }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  
+      <div class="contenido">
+        <div>
+          <form class="form_descripcion">
+            <div class="form-group">
+              <label for="cod_reg">Codigo Regístro</label>
+              <input [(ngModel)]="proceso.codigo_registro" name="cod_reg" type="text" placeholder="Codigo"/>
+            </div>
+            <div class="form-group">
+              <label for="proc_num"># Contrato</label>
+              <input [(ngModel)]="proceso.num_contrato" name="proc_num" type="text" placeholder="Contrato"/>
+            </div>
+            <div class="form-group">
+              <label for="consultor">Consultor</label>
+              <input [(ngModel)]="proceso.consultor" name="consultor" type="text" placeholder="Consultor"/>
+            </div>
+            <div class="form-group">
+              <label for="monto">Monto</label>
+              <input [(ngModel)]="proceso.monto" name="monto" type="number" placeholder="Monto"/>
+            </div>
+            <div class="form-group">
+              <label for="fecha_in">Fecha Inicio</label>
+              <input [(ngModel)]="proceso.fecha_ini" name="fecha_in" type="date" placeholder="dd-MM-yyyy"/>
+            </div>
+            <div class="form-group">
+              <label for="fecha_fin">Fecha Fin</label>
+              <input [(ngModel)]="proceso.fecha_fin" name="fecha_fin" type="date" placeholder="dd-MM-yyyy"/>
+            </div>
+            <div class="form-group">
+              <label for="estado">Aprobado</label>
+              <input [(ngModel)]="proceso.estado_contrato" name="estado" type="checkbox" placeholder="Aprobado"/>
+            </div>
+            <div class="form-group">
+              <label for="pl_accion">Plan de Acción</label>
+              <input [(ngModel)]="proceso.plan_acc" name="pl_accion" type="checkbox" placeholder="Plan Accion"/>
+            </div>
+            <div class="form-group">
+              <label for="pl_manejo">Actualización Plan de Manejo</label>
+              <input [(ngModel)]="proceso.confirmacion_actual" name="pl_manejo" type="checkbox" placeholder="Plan Manejo"/>
+            </div>
+            <div class="form-group">
+              <label for="descripcion">Descripción</label>
+              <input [(ngModel)]="proceso.descripcion" name="descripcion" type="tex" placeholder="Descripción"/>
+            </div>
+          </form>
+          <div class="butt-guardar">
+            <button (click)="crearProceso()">Proceso</button>
+          </div>
         </div>
 
         <div>
           <table>
             <thead>
               <tr>
-                <th>Proyecto</th>
-                <th>Fecha</th>
+                <th>Registro</th>
+                <th>Contrato</th>
+                <th>Consultor</th>
               </tr>
             </thead>
+
             <tbody>
-              <tr
-                (click)="clickTProyectos(proy.nombre)"
-                *ngFor="let proy of proyectos"
-              >
-                <td>{{ proy.nombre }}</td>
-                <td>{{ proy.fecha_creacion }}</td>
+              <tr *ngFor="let procs of procesos">
+                <td>{{procs.num_contrato}}</td>
+                <td>{{procs.num_contrato}}</td>
+                <td>{{procs.consultor}}</td>
               </tr>
             </tbody>
           </table>
@@ -73,88 +186,6 @@
       </div>
     </div>
 
-    <div class="contenido" style="display: none;">
-      <div>
-        <form class="form_descripcion">
-          <div class="form-group">
-            <label for="proy_name">Identificador</label>
-            <input
-              [(ngModel)]="desc_proy.identificador_desc"
-              name="proy_name"
-              type="text"
-              placeholder="Identificador Proyecto"
-            />
-          </div>
-          <div class="form-group">
-            <label for="fecha">Fecha</label>
-            <input
-              [(ngModel)]="desc_proy.fecha_emision"
-              name="fecha"
-              type="date"
-              placeholder="dd-MM-yyyy"
-            />
-          </div>
-          <div class="form-group">
-            <label for="dga">Código DGA</label>
-            <input
-              [(ngModel)]="desc_proy.codigo_dga"
-              name="dga"
-              type="text"
-              placeholder="DGA"
-            />
-          </div>
-          <div class="form-group">
-            <label for="caar">Código AAR</label>
-            <input
-              [(ngModel)]="desc_proy.codigo_aar"
-              name="caar"
-              type="text"
-              placeholder="CAAR"
-            />
-          </div>
-          <div class="form-group">
-            <label for="aar">AAR</label>
-            <input
-              [(ngModel)]="desc_proy.aar"
-              name="aar"
-              type="text"
-              placeholder="AAR"
-            />
-          </div>
-          <div class="butt-guardar">
-            <button (click)="crearDescProy()">Agregar Descripción</button>
-          </div>
-        </form>
-      </div>
 
-      <div class="table_descripcion">
-        <table style="margin: auto;">
-          <thead>
-            <tr>
-              <th>Identificador</th>
-              <th>AAR</th>
-              <th>DGA</th>
-              <th>Fecha</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let descP of desc_proyectos">
-              <td>{{ descP.identificador_desc }}</td>
-              <td>{{ descP.codigo_dga }}</td>
-              <td>{{ descP.codigo_aar }}</td>
-              <td>{{ descP.fecha_emision }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="contenido">
-      <div>
-        <form action="">
-          l
-        </form>
-      </div>
-    </div>
   </div>
 </div>

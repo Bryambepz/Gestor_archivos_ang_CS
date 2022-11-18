@@ -72,9 +72,18 @@ body {
   // border-radius: 0.7rem;
 }
 
+.grid_scroll{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  overflow: scroll;
+}
+
+
 .contenido{
   opacity: 10;
   width: min-content;
+  height: min-content;
   background-color: rgba(255, 255, 255, 0.499);
   margin: 1rem 1.5rem;
   padding: 1rem;
@@ -123,7 +132,7 @@ body {
   outline: none;
   display: block;
   background: rgb(152, 202, 243);
-  width: 20rem;
+  width: 100%;
   border: 0;
   border-radius: 4px;
   box-sizing: border-box;
@@ -136,6 +145,12 @@ body {
   transition: 0.3s ease;
   text-align: center;
 }
+
+// input[type=number]::-webkit-inner-spin-button, 
+// input[type=number]::-webkit-outer-spin-button { 
+//   -webkit-appearance: none;
+//   margin: 0; 
+// }
 
 button {
   background: #3a63a5;
@@ -153,11 +168,18 @@ button {
 }
 
 table {
-  width: 400px;
+  overflow: auto;
+  width: 400px;  
   border-radius: .7rem;
   border-collapse: collapse;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.table_scroll{
+  width: max-content;
+  height: 200px;
+  overflow: auto;
 }
 
 th,
