@@ -37,6 +37,14 @@ export class AuditoriasServiceService {
     return this.http.get<Desc_Proyecto[]>(this.url + 'getDescripciones');
   }
 
+  getDescByProyecto(proyecto:string):Observable<Desc_Proyecto[]>{
+    return this.http.get<Desc_Proyecto[]>(this.url + 'getDescripcionByProyecto', {
+      params: {
+        proyecto: proyecto
+      }
+    })
+  }
+
   crearProceso(indentificador: string, proceso: Proceso):Observable<Proceso>{
     const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify(proceso);
@@ -45,6 +53,18 @@ export class AuditoriasServiceService {
     return this.http.post<Proceso>(this.url + 'proceso', body, {
       headers: headers,
       params: {identificadorProyecto: indentificador}
+    });
+  }
+
+  getProcesos():Observable<Proceso[]>{
+    return this.http.get<Proceso[]>(this.url + 'getProcesos');
+  }
+
+  getProcesoBy(descripcion:string):Observable<Proceso[]>{
+    return this.http.get<Proceso[]>(this.url + 'getProcesosByProy', {
+      params: {
+        proy_desc: descripcion
+      }
     });
   }
 }

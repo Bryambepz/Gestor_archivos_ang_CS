@@ -66,6 +66,10 @@
   
       <div class="contenido">
         <div>
+          <div class="form-group" style="padding: 1rem 0; display: inline-flex; gap: 1rem;">
+            <label for="Proyecto" style="font-size: 2rem; font-weight: bold;">Proyecto:  </label>           
+            <label style="font-size: 1.5rem; text-transform: none;"> {{proyectoSeleccionado}}</label>             
+          </div>
           <form class="form_descripcion">
             <div class="form-group">
               <label for="proy_name">Identificador</label>
@@ -117,6 +121,10 @@
   
       <div class="contenido">
         <div>
+          <div class="form-group" style="padding: 1rem 0; display: inline-flex; gap: 1rem;">
+            <label for="Proyecto" style="font-size: 1.5rem; font-weight: bold;">Descripción:  </label>           
+            <label style="font-size: 1.5rem; text-transform: none;"> {{descripcionSeleccionado}}</label>             
+          </div>
           <form class="form_descripcion">
             <div class="form-group">
               <label for="cod_reg">Codigo Regístro</label>
@@ -184,6 +192,55 @@
           </table>
         </div>
       </div>
+  
+      <div class="contenido">
+        <div>
+          <div class="form-group" style="padding: 1rem 0; display: inline-flex; gap: 1rem;">
+            <label for="Proyecto" style="font-size: 2rem; font-weight: bold;">Proceso:  </label>           
+            <label style="font-size: 1.5rem; text-transform: none;"> {{registroSeleccionado}}</label>             
+          </div>
+          <div class="form-group">
+            <label for="descripc">Descripción</label>
+            <textarea [(ngModel)]="proceso.descripcion" name="descripc" type="text" placeholder="Consultor"></textarea>
+          </div>            
+          <form class="form_descripcion">
+            <div class="form-group">
+              <label for="fecha">Fecha</label>
+              <input [(ngModel)]="proceso.num_contrato" name="fecha" type="fecha" placeholder="Contrato"/>
+            </div>
+
+            <div class="form-group">
+              <!-- <label for="arch">Archivo</label>
+              <input [(ngModel)]="proceso.codigo_registro" name="arch" type="text" placeholder="Archivo"/> -->
+                <button>Cargar Archivo</button>
+            </div>
+          </form>
+          <div class="butt-guardar">
+            <button (click)="crearProceso()">Proceso</button>
+          </div>
+        </div>
+
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Registro</th>
+                <th>Contrato</th>
+                <th>Consultor</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let procs of procesos">
+                <td>{{procs.num_contrato}}</td>
+                <td>{{procs.num_contrato}}</td>
+                <td>{{procs.consultor}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    
     </div>
 
 

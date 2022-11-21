@@ -24,18 +24,15 @@ export class AuditoriasComponent implements OnInit {
   procesos: Proceso[] = [];
 
   proyectoSeleccionado:string = '';
-  procesoSeleccionado:string = '';
+  descripcionSeleccionado:string = '';
+  registroSeleccionado:string = '';
   mostrar:boolean = false;
 
-  // date:Date = new Date();
   ngOnInit(): void {
-    // let year = this.date.getFullYear();
-    // let month = this.date.getMonth() + 1;
-    // let day = this.date.getDate();
     this.listarProyectos();
     this.listarDescripciones();
+    this.listarProcesos();
 
-    // document.getElementsByName("fecha_ini")[0].innerHTML = year + '-' + month + '-' + day;
     if(localStorage.getItem('ced_log') == ""){
       this.router.navigate(["/login"])
     }
@@ -46,6 +43,7 @@ export class AuditoriasComponent implements OnInit {
       this.proyectos = d;
     })    
   }
+
   crearProyecto(){
     console.log('p ', this.proyecto);
     this.servAuditorias.crearProyecto(this.proyecto).subscribe((data) => {
@@ -55,7 +53,10 @@ export class AuditoriasComponent implements OnInit {
   }  
 
   listarDescripciones(){
-    this.servAuditorias.getDescripciones().subscribe((d) => this.desc_proyectos = d);
+    this.servAuditorias.getDescByProyecto(this.proyectoSeleccionado).subscribe((d) => {
+      this.desc_proyectos = d
+      
+    })
   }
 
   crearDescProy(){
@@ -70,24 +71,33 @@ export class AuditoriasComponent implements OnInit {
     }
   }
 
+  listarProcesos(){
+    this.servAuditorias.getProcesoBy(this.descripcionSeleccionado).subscribe((d) => {
+        this.procesos = d;
+    })
+  }
+
   crearProceso(){
-    if(this.procesoSeleccionado != ''){
-      console.log(this.procesoSeleccionado);
-      this.servAuditorias.crearProceso(this.procesoSeleccionado, this.proceso).subscribe((d) => console.log('creado =.', d));
+    if(this.descripcionSeleccionado != ''){
+      console.log(this.descripcionSeleccionado);
+      this.servAuditorias.crearProceso(this.descripcionSeleccionado, this.proceso).subscribe((d) => {
+        console.log('creado =.', d)
+        this.listarProcesos();
+      });
     }else{
       console.log('escoja');
-      
     }
   }
 
   clickTProyectos(titulo:string){
     if(!this.mostrar){
+      // console.log('mos ', this.mostrar, " -- ", titulo);
       this.mostrar = true
     }else{
       this.mostrar = false
     }
     this.proyectoSeleccionado = titulo;
-    // console.log('mos ', this.mostrar, " -- ", titulo);
+    this.listarDescripciones();
   }
   
   clickTProcesos(titulo:string){
@@ -96,7 +106,9 @@ export class AuditoriasComponent implements OnInit {
     }else{
       this.mostrar = false
     }
-    this.procesoSeleccionado = titulo;
-    // console.log('mos ', titulo);
+    // this.registroSeleccionado = titulo;
+    console.log('mos ', titulo);
+    this.descripcionSeleccionado = titulo;
+    this.listarProcesos();    
   }
 }
