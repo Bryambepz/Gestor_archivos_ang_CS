@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Desc_Proyecto } from 'src/app/domain/Desc_Proyecto';
+import { Info_Proceso } from 'src/app/domain/Info_Proceso';
 import { Proceso } from 'src/app/domain/Proceso';
 import { Proyecto } from 'src/app/domain/Proyecto';
 
@@ -47,7 +48,7 @@ export class AuditoriasServiceService {
 
   crearProceso(indentificador: string, proceso: Proceso):Observable<Proceso>{
     const headers = { 'content-type': 'application/json' };
-    const body = JSON.stringify(proceso);
+    const body = JSON.stringify(proceso);    
     console.log(body);
     
     return this.http.post<Proceso>(this.url + 'proceso', body, {
@@ -66,5 +67,18 @@ export class AuditoriasServiceService {
         proy_desc: descripcion
       }
     });
+  }
+
+  informacionProceso( info_p:Info_Proceso, proceso: number, id_descrip:string ){
+    const headers = { 'content-type': 'application/json' };
+    const body = JSON.stringify(info_p);    
+    console.log(body);
+    return this.http.post(this.url + 'AdjuntarInformacion', body,{
+      headers: headers,
+      params: {
+        proceso: proceso,
+        id_descrip: id_descrip
+      }
+    })
   }
 }

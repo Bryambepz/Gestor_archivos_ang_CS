@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Desc_Proyecto } from 'src/app/domain/Desc_Proyecto';
+import { Info_Proceso } from 'src/app/domain/Info_Proceso';
 import { Proceso } from 'src/app/domain/Proceso';
 import { Proyecto } from 'src/app/domain/Proyecto';
 import { AuditoriasServiceService } from 'src/app/services/serv_aud/auditorias-service.service';
@@ -18,17 +19,24 @@ export class AuditoriasComponent implements OnInit {
 
   proyecto:Proyecto = new Proyecto();
   proyectos: Proyecto[] = [];
+
   desc_proy:Desc_Proyecto = new Desc_Proyecto();
   desc_proyectos:Desc_Proyecto[] = [];
+
   proceso: Proceso = new Proceso();
   procesos: Proceso[] = [];
+
+  info_proceso: Info_Proceso = new Info_Proceso();
+  registros: Info_Proceso[] = [];
+  
 
   proyectoSeleccionado:string = '';
   descripcionSeleccionado:string = '';
   registroSeleccionado:string = '';
+  procesoSeleccionado:number = 0;
   mostrar:boolean = false;
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.listarProyectos();
     this.listarDescripciones();
     this.listarProcesos();
@@ -55,7 +63,6 @@ export class AuditoriasComponent implements OnInit {
   listarDescripciones(){
     this.servAuditorias.getDescByProyecto(this.proyectoSeleccionado).subscribe((d) => {
       this.desc_proyectos = d
-      
     })
   }
 
@@ -73,22 +80,42 @@ export class AuditoriasComponent implements OnInit {
 
   listarProcesos(){
     this.servAuditorias.getProcesoBy(this.descripcionSeleccionado).subscribe((d) => {
-        this.procesos = d;
+      // console.log());
+      
+      this.procesos = d.sort((a, b) => a.proceso - b.proceso);
     })
   }
 
   crearProceso(){
-    if(this.descripcionSeleccionado != ''){
-      console.log(this.descripcionSeleccionado);
+    if(this.descripcionSeleccionado != ''){      
       this.servAuditorias.crearProceso(this.descripcionSeleccionado, this.proceso).subscribe((d) => {
         console.log('creado =.', d)
         this.listarProcesos();
       });
+      console.log(this.descripcionSeleccionado);
     }else{
       console.log('escoja');
     }
   }
 
+  listarInformacion(){
+
+  }
+
+  addInformacion(){
+    if(this.registroSeleccionado != ''){
+      console.log(this.info_proceso);
+      this.servAuditorias.informacionProceso(this.info_proceso, this.procesoSeleccionado ,this.descripcionSeleccionado).subscribe((d) => {
+        console.log('ccc = ',d);
+        
+      })
+    }else{
+      console.log('escoja');
+      
+    }
+    
+  }
+  
   clickTProyectos(titulo:string){
     if(!this.mostrar){
       // console.log('mos ', this.mostrar, " -- ", titulo);
@@ -100,7 +127,7 @@ export class AuditoriasComponent implements OnInit {
     this.listarDescripciones();
   }
   
-  clickTProcesos(titulo:string){
+  clickTDescripcion(titulo:string){
     if(!this.mostrar){
       this.mostrar = true
     }else{
@@ -110,5 +137,13 @@ export class AuditoriasComponent implements OnInit {
     console.log('mos ', titulo);
     this.descripcionSeleccionado = titulo;
     this.listarProcesos();    
+  }
+
+  clickTProceso(titulo:string, nproc:number){
+    console.log('proc ', titulo);
+    console.log('procn ', nproc);
+    this.registroSeleccionado = titulo;
+    this.procesoSeleccionado = nproc;
+    // this.listarProcesos();  
   }
 }

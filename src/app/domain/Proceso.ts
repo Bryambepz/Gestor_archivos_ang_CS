@@ -1,4 +1,5 @@
 export class Proceso{
+    proceso:number = 0;
     descripcion:string = "";
     confirmacion_actual: boolean = false;
     num_contrato:string = '';
