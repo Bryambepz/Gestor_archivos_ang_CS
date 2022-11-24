@@ -12,7 +12,13 @@ const routes: Routes = [
   {path: 'registrar', component: RegistrarComponent},
   {path: 'actividad', component: ActividadesComponent},
   {path: 'Listar', component: ListarActividadesComponent},
-  {path: 'auditorias', component: AuditoriasComponent},
+  {path: 'auditorias', component: AuditoriasComponent,
+    children: [
+      {
+        path: '#id_proyecto',
+        loadChildren: () => import('./pages/auditorias/auditorias.component').then(p => p.AuditoriasComponent)
+      }
+    ]},
 ];
 
 @NgModule({

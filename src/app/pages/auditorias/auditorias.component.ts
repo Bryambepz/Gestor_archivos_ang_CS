@@ -34,14 +34,19 @@ export class AuditoriasComponent implements OnInit {
   descripcionSeleccionado:string = '';
   registroSeleccionado:string = '';
   procesoSeleccionado:number = 0;
+
+  list_contenido: string[] = ['id_proyecto', 'id_descripcion', 'id_proceso', 'id_info'];
+  menu_cont: string[] = [];
+
   mostrar:boolean = false;
 
   ngOnInit(): void {    
     this.listarProyectos();
     this.listarDescripciones();
-    this.listarProcesos();
-
-    if(localStorage.getItem('ced_log') == ""){
+    this.listarProcesos();    
+    this.menu_cont.push('proyecto')
+    
+    if(localStorage.getItem('ced_log') === "" ){
       this.router.navigate(["/login"])
     }
   }
@@ -80,8 +85,6 @@ export class AuditoriasComponent implements OnInit {
 
   listarProcesos(){
     this.servAuditorias.getProcesoBy(this.descripcionSeleccionado).subscribe((d) => {
-      // console.log());
-      
       this.procesos = d.sort((a, b) => a.proceso - b.proceso);
     })
   }
@@ -101,7 +104,6 @@ export class AuditoriasComponent implements OnInit {
   listarInformacion(){
     this.servAuditorias.getInformacionBy(this.descripcionSeleccionado, this.procesoSeleccionado).subscribe((d) =>{
       this.registros = d.sort()
-      
     })
   }
 
@@ -116,7 +118,6 @@ export class AuditoriasComponent implements OnInit {
       console.log('escoja');
       
     }
-    
   }
   
   clickTProyectos(titulo:string){
@@ -128,6 +129,8 @@ export class AuditoriasComponent implements OnInit {
     }
     this.proyectoSeleccionado = titulo;
     this.listarDescripciones();
+    this.menu_cont.push('Descripción Proyecto')
+    this.accionDiv('id_descripcion')
   }
   
   clickTDescripcion(titulo:string){
@@ -140,6 +143,8 @@ export class AuditoriasComponent implements OnInit {
     console.log('mos ', titulo);
     this.descripcionSeleccionado = titulo;
     this.listarProcesos();    
+    this.menu_cont.push('Proceso')
+    this.accionDiv('id_proceso');
   }
 
   clickTProceso(titulo:string, nproc:number){
@@ -148,12 +153,29 @@ export class AuditoriasComponent implements OnInit {
     this.registroSeleccionado = titulo;
     this.procesoSeleccionado = nproc;
     this.listarInformacion();
+    this.menu_cont.push('Información Procesos')
+    this.accionDiv('id_info')
   }
-
 
   cargaArchivo(event:any){
     console.log(event.target.files[0].name);
     this.info_proceso.ubi_archivo = event.target.files[0].name
-    
   }
+
+  accionDiv(id:string){   
+    console.log(id);
+    var contenido = document.getElementById(id);
+    contenido!.style.display = '';
+
+    this.list_contenido.forEach((f) => {
+      if(f !== id){
+        contenido = document.getElementById(f)
+        contenido!.style.display = 'none'
+      }
+    })
+  }
+
+  // accionHref(id:string){
+  //   id = 'id_'+id;
+  // }
 }

@@ -79,6 +79,9 @@ body {
   overflow: scroll;
 }
 
+// .grid_scroll ::-webkit-scrollbar {
+//     display: none;
+// }
 
 .contenido{
   opacity: 10;
@@ -231,4 +234,10 @@ tbody td{
 
 .table_descripcion{
   margin-top: 1rem;
+}
+
+.link{
+  // padding: 1.5rem 1rem;
+  background-color: #000c43;  
+  text-align: center;
 }
