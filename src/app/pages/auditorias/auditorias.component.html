@@ -24,6 +24,7 @@
   <div class="grid-content">
 
     <div class="grid_scroll">
+      
       <div class="contenido">
         <div class="proyecto">
           <div>
@@ -204,6 +205,7 @@
 
       
       </div>
+
   
       <div class="contenido">
         <div>
@@ -222,10 +224,10 @@
             </div>
 
             <div class="form-group" style="align-items: center;">
-              <!-- <label for="arch">Archivo</label>
-              <input [(ngModel)]="proceso.codigo_registro" name="arch" type="text" placeholder="Archivo"/> -->
-              <label for="">Ningun Archivo</label>
-              <button style="padding: .3rem;">Cargar Archivo</button>
+              <label for="arch">Archivo</label>
+              <!-- <label for="">Ningun Archivo</label> -->
+              <input (change)="cargaArchivo($event)" name="arch" type="file" placeholder="Archivo"/>
+              <!-- <button style="padding: .3rem;">Cargar Archivo</button> -->
             </div>
           </form>
           <div class="butt-guardar">

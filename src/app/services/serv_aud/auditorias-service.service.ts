@@ -81,4 +81,13 @@ export class AuditoriasServiceService {
       }
     })
   }
+
+  getInformacionBy( id_descrip:string, proceso: number):Observable<Info_Proceso[]>{
+    return this.http.get<Info_Proceso[]>(this.url + 'getInfoProcesoBy', {
+      params: {
+        id_descripcion: id_descrip,
+        proceso: proceso
+      }
+    })
+  }
 }

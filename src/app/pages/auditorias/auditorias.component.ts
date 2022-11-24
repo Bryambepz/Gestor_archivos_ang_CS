@@ -99,15 +99,18 @@ export class AuditoriasComponent implements OnInit {
   }
 
   listarInformacion(){
-
+    this.servAuditorias.getInformacionBy(this.descripcionSeleccionado, this.procesoSeleccionado).subscribe((d) =>{
+      this.registros = d.sort()
+      
+    })
   }
 
   addInformacion(){
-    if(this.registroSeleccionado != ''){
+    if(this.registroSeleccionado != '' && this.info_proceso.ubi_archivo != ''){
       console.log(this.info_proceso);
       this.servAuditorias.informacionProceso(this.info_proceso, this.procesoSeleccionado ,this.descripcionSeleccionado).subscribe((d) => {
         console.log('ccc = ',d);
-        
+        this.listarInformacion()  
       })
     }else{
       console.log('escoja');
@@ -144,6 +147,13 @@ export class AuditoriasComponent implements OnInit {
     console.log('procn ', nproc);
     this.registroSeleccionado = titulo;
     this.procesoSeleccionado = nproc;
-    // this.listarProcesos();  
+    this.listarInformacion();
+  }
+
+
+  cargaArchivo(event:any){
+    console.log(event.target.files[0].name);
+    this.info_proceso.ubi_archivo = event.target.files[0].name
+    
   }
 }
