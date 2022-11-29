@@ -236,8 +236,42 @@ tbody td{
   margin-top: 1rem;
 }
 
-.link{
-  // padding: 1.5rem 1rem;
-  background-color: #000c43;  
+.link_id_proyecto, .link_id_descripcion, .link_id_proceso, .link_id_info{
+  border-radius: 1rem;
+  padding: 1rem .5rem;
+  margin-right: 1rem;
+  background-color: #3a63a5;  
+  color: white;
   text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
 }
+
+.link_id_proyecto:hover, .link_id_descripcion:hover, .link_id_proceso:hover, .link_id_info:hover{
+  background-color: #123456;
+}
+
+
+// .link_id_proyecto:active{
+//   background-color: #327ac3;
+// }
+
+.href:visited{
+  background-color: #123456;
+}
+
+// .link_id_proyecto:link, .link_id_descripcion:link, .link_id_proceso:link, .link_id_info:link{
+//   background-color: #2a629a;
+// }
+
+// .link_id_proyecto:active, .link_id_descripcion:active, .link_id_proceso:active, .link_id_info:active{
+//   background-color: #123456;
+// }
+
+// .link_id_proyecto:active, .link_id_proyecto:visited{
+//   background-color: #123456;
+// }
+
+// .link_id_proyecto:active::after, .link_id_proyecto:visited::after, .link_id_proyecto:link{
+//   background-color: #3a63a5;
+// }

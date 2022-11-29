@@ -28,7 +28,7 @@
       <a href="/auditorias#id_descripcion" (click)="accionDiv('id_descripcion')">Descripción de Proyecto</a>
       <a href="/auditorias#id_proceso" (click)="accionDiv('id_proceso')">Proceso</a>
       <a href="/auditorias#id_info" (click)="accionDiv('id_info')">Información Procesos</a> -->
-      <a (click)="accionDiv( list_contenido[i] )" class="link" href="/auditorias#{{nav}}" *ngFor="let nav of menu_cont; let i=index">{{nav}}</a>
+      <a (click)="accionDiv( list_contenido[i] )" class="link_{{list_contenido[i]}} href" href="/auditorias#{{nav}}" *ngFor="let nav of menu_cont; let i=index">{{nav}}</a>
     </div>
 
     <div id="id_proyecto" class="contenido">
@@ -72,58 +72,63 @@
     </div>
 
     <div id="id_descripcion" class="contenido" style="display: none;">
-      <div>
-        <div class="form-group" style="padding: 1rem 0; display: inline-flex; gap: 1rem;">
-          <label for="Proyecto" style="font-size: 2rem; font-weight: bold;">Proyecto:  </label>           
-          <label style="font-size: 1.5rem; text-transform: none;"> {{proyectoSeleccionado}}</label>             
+      <div class="proyecto">
+        
+        <div>
+          <div class="form-group" style="padding: 1rem 0; display: inline-flex; gap: 1rem;">
+            <label for="Proyecto" style="font-size: 2rem; font-weight: bold;">Proyecto:  </label>           
+            <label style="font-size: 1.5rem; text-transform: none;"> {{proyectoSeleccionado}}</label>             
+          </div>
+          <form class="form_descripcion">
+            <div class="form-group">
+              <label for="proy_name">Identificador</label>
+              <input [(ngModel)]="desc_proy.identificador_desc" name="proy_name" type="text" placeholder="Identificador Proyecto"/>
+            </div>
+            <div class="form-group">
+              <label for="fecha">Fecha</label>
+              <input [(ngModel)]="desc_proy.fecha_emision" name="fecha" type="date" placeholder="dd-MM-yyyy" />
+            </div>
+            <div class="form-group">
+              <label for="dga">Código DGA</label>
+              <input [(ngModel)]="desc_proy.codigo_dga" name="dga" type="text" placeholder="DGA"/>
+            </div>
+            <div class="form-group">
+              <label for="caar">Código AAR</label>
+              <input [(ngModel)]="desc_proy.codigo_aar" name="caar" type="text" placeholder="CAAR"/>
+            </div>
+            <div class="form-group">
+              <label for="aar">AAR</label>
+              <input [(ngModel)]="desc_proy.aar" name="aar" type="text" placeholder="AAR"/>
+            </div>
+          </form>
+          <div class="butt-guardar">
+            <button (click)="crearDescProy()">Agregar Descripción</button>
+          </div>
         </div>
-        <form class="form_descripcion">
-          <div class="form-group">
-            <label for="proy_name">Identificador</label>
-            <input [(ngModel)]="desc_proy.identificador_desc" name="proy_name" type="text" placeholder="Identificador Proyecto"/>
-          </div>
-          <div class="form-group">
-            <label for="fecha">Fecha</label>
-            <input [(ngModel)]="desc_proy.fecha_emision" name="fecha" type="date" placeholder="dd-MM-yyyy" />
-          </div>
-          <div class="form-group">
-            <label for="dga">Código DGA</label>
-            <input [(ngModel)]="desc_proy.codigo_dga" name="dga" type="text" placeholder="DGA"/>
-          </div>
-          <div class="form-group">
-            <label for="caar">Código AAR</label>
-            <input [(ngModel)]="desc_proy.codigo_aar" name="caar" type="text" placeholder="CAAR"/>
-          </div>
-          <div class="form-group">
-            <label for="aar">AAR</label>
-            <input [(ngModel)]="desc_proy.aar" name="aar" type="text" placeholder="AAR"/>
-          </div>
-        </form>
-        <div class="butt-guardar">
-          <button (click)="crearDescProy()">Agregar Descripción</button>
+  
+        <div class="table_descripcion">
+          <table style="margin: auto;">
+            <thead>
+              <tr>
+                <th>Identificador</th>
+                <th>AAR</th>
+                <th>DGA</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr (click)="clickTDescripcion(descP.identificador_desc)" *ngFor="let descP of desc_proyectos">
+                <td>{{ descP.identificador_desc }}</td>
+                <td>{{ descP.codigo_dga }}</td>
+                <td>{{ descP.codigo_aar }}</td>
+                <td>{{ descP.fecha_emision }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
 
-      <div class="table_descripcion">
-        <table style="margin: auto;">
-          <thead>
-            <tr>
-              <th>Identificador</th>
-              <th>AAR</th>
-              <th>DGA</th>
-              <th>Fecha</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr (click)="clickTDescripcion(descP.identificador_desc)" *ngFor="let descP of desc_proyectos">
-              <td>{{ descP.identificador_desc }}</td>
-              <td>{{ descP.codigo_dga }}</td>
-              <td>{{ descP.codigo_aar }}</td>
-              <td>{{ descP.fecha_emision }}</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
+    
     </div>
 
     <div id="id_proceso" class="contenido" style="display: none;">
@@ -213,59 +218,57 @@
     </div>
 
     <div id="id_info" class="contenido" style="display: none;">
-      <div>
-        <div class="form-group" style="padding: 1rem 0; display: inline-flex; gap: 1rem;">
-          <label for="Proyecto" style="font-size: 1.5rem; font-weight: bold;">Registro Proceso:  </label>           
-          <label style="font-size: 1.5rem; text-transform: none;"> {{registroSeleccionado}}</label>             
-        </div>
-        <div class="form-group">
-          <label for="descripc">Descripción</label>
-          <textarea [(ngModel)]="info_proceso.descripcion" name="descripc" type="text" placeholder="Consultor"></textarea>
-        </div>            
-        <form class="form_descripcion">
+      <div class="proyecto">
+        
+        <div>
+          <div class="form-group" style="padding: 1rem 0; display: inline-flex; gap: 1rem;">
+            <label for="Proyecto" style="font-size: 1.5rem; font-weight: bold;">Registro Proceso:  </label>           
+            <label style="font-size: 1.5rem; text-transform: none;"> {{registroSeleccionado}}</label>             
+          </div>
           <div class="form-group">
-            <label for="fecha">Fecha</label>
-            <input [(ngModel)]="info_proceso.fechaArch" name="fecha" type="date" placeholder="Contrato"/>
+            <label for="descripc">Descripción</label>
+            <textarea [(ngModel)]="info_proceso.descripcion" name="descripc" type="text" placeholder="Consultor"></textarea>
+          </div>            
+          <form class="form_descripcion">
+            <div class="form-group">
+              <label for="fecha">Fecha</label>
+              <input [(ngModel)]="info_proceso.fechaArch" name="fecha" type="date" placeholder="Contrato"/>
+            </div>
+  
+            <div class="form-group" style="align-items: center;">
+              <label for="arch">Archivo</label>
+              <!-- <label for="">Ningun Archivo</label> -->
+              <input (change)="cargaArchivo($event)" name="arch" type="file" placeholder="Archivo"/>
+              <!-- <button style="padding: .3rem;">Cargar Archivo</button> -->
+            </div>
+          </form>
+          <div class="butt-guardar">
+            <button (click)="addInformacion()">Agregar Registro</button>
           </div>
-
-          <div class="form-group" style="align-items: center;">
-            <label for="arch">Archivo</label>
-            <!-- <label for="">Ningun Archivo</label> -->
-            <input (change)="cargaArchivo($event)" name="arch" type="file" placeholder="Archivo"/>
-            <!-- <button style="padding: .3rem;">Cargar Archivo</button> -->
-          </div>
-        </form>
-        <div class="butt-guardar">
-          <button (click)="addInformacion()">Agregar Registro</button>
         </div>
-      </div>
+  
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Archivo</th>
+                <th>Descripción</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+  
+            <tbody>
+              <tr *ngFor="let regs of registros">
+                <td>{{regs.ubi_archivo}}</td>
+                <td>{{regs.descripcion}}</td>
+                <td>{{regs.fechaArch}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Archivo</th>
-              <th>Descripción</th>
-              <th>Fecha</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr *ngFor="let regs of registros">
-              <td>{{regs.ubi_archivo}}</td>
-              <td>{{regs.descripcion}}</td>
-              <td>{{regs.fechaArch}}</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
-
-    <!-- <div class="grid_scroll">
-      
-    
-    </div> -->
-
 
   </div>
 </div>
