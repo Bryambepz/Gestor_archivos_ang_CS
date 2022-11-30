@@ -14,13 +14,22 @@ export class ActividadesComponent implements OnInit {
   constructor(private servActividadGen: ActividadesService ,private router: Router) {}
 
   actividad: Actividad_Gen = new Actividad_Gen();
-
+  actividades: Actividad_Gen[] = [];
   fecha: string = "";
 
   ngOnInit(): void {    
     if(localStorage.getItem('ced_log') == ""){
       this.router.navigate(["/login"])
     }
+
+    let datos_fecha = this.actividad.fecha_inicio.toLocaleDateString().split('/');
+    this.fecha = datos_fecha[0] + '-' + datos_fecha[1] + '-' + datos_fecha[2];
+    console.log('fec ', this.fecha);
+   
+    this.servActividadGen.listarActividades(localStorage.getItem('ced_log')!.toString()).subscribe((d) => {
+      console.log('acto ',d);
+      this.actividades = d;
+    })
   }
 
   crear() {
@@ -31,29 +40,29 @@ export class ActividadesComponent implements OnInit {
     
   }
 
-  calcular_fecha() {
+  // calcular_fecha() {
 
-    if(this.actividad.frecuencia != ""){
+  //   if(this.actividad.frecuencia != ""){
       
-      var fecha_f = this.actividad.fecha_inicio;
-      let fecha_split = fecha_f.toLocaleString().split("-",3);
+  //     var fecha_f = this.actividad.fecha_inicio;
+  //     let fecha_split = fecha_f.toLocaleString().split("-",3);
       
-      let mes = parseInt(fecha_split[1]) + parseInt(this.actividad.frecuencia);
-      let res;
-      let year = parseInt(fecha_split[0]);
-      if(mes > 12){
-        mes = mes - 12;
-        year +=1;
-      }
+  //     let mes = parseInt(fecha_split[1]) + parseInt(this.actividad.frecuencia);
+  //     let res;
+  //     let year = parseInt(fecha_split[0]);
+  //     if(mes > 12){
+  //       mes = mes - 12;
+  //       year +=1;
+  //     }
       
-      this.fecha = year + '-' +(mes >=10 ? mes:'0'+mes) + '-' + fecha_split[2];
-      this.actividad.fecha_fin = new Date(this.fecha);
+  //     this.fecha = year + '-' +(mes >=10 ? mes:'0'+mes) + '-' + fecha_split[2];
+  //     this.actividad.fecha_fin = new Date(this.fecha);
 
-    }else{
-      alert("Indique la frecuencia");
+  //   }else{
+  //     alert("Indique la frecuencia");
 
-    }
+  //   }
 
     
-  }
+  // }
 }

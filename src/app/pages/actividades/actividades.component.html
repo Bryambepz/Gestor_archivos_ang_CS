@@ -26,39 +26,85 @@
   </div>
 
   <div class="grid-content">
-    <form class="form-panel">
-
-      <div class="form-group">
-        <label for="actividad">Actividad</label>
-        <input name="actividad" type="text" placeholder="Nombre de Actividad" [(ngModel)] = "actividad.titulo" />
+    <div>
+      <form class="form-panel">
+  
+        <div class="form-group">
+          <label for="actividad">Actividad</label>
+          <input name="actividad" type="text" placeholder="Nombre de Actividad" [(ngModel)] = "actividad.titulo" />
+        </div>
+        
+        <div class="form-group">
+          <label for="description">Descripción</label>
+          <textarea name="descript" id="description" cols="30" rows="5" [(ngModel)] = "actividad.descripcion"></textarea>
+        </div>
+  
+        <div class="form-group">
+          <label for="frecuencia">Frecuencia</label>
+          <select id="frecuencia" name="frecuencia" class="select" style="justify-self: center;" [(ngModel)] = "actividad.frecuencia">
+            <option value="" disabled>Indique la frecuencia</option>
+            <option value="1">Mensual</option>
+            <option value="3">Trimestral</option>
+            <option value="6">Semestral</option>
+            <option value="12">Anual</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fecha_in">Fecha de inicio</label>
+          <input name="fecha_in" style="width: auto;" type="date" placeholder="Fecha inicio" [(ngModel)] = "actividad.fecha_inicio"/>
+        </div>
+        <div class="form-group">
+          <label for="fecha_fin">Fecha de Finalización</label>
+          <input id="fecha_fin" name="fecha_fn" type="date" value="{{fecha}}" placeholder="dd-mm-yyyy" ngModel="actividad.fecha_fin"/> 
+        </div>
+      </form>
+      <div style="text-align: center; padding: 1rem 0;">
+        <button (click)="crear()">Crear</button>
       </div>
-      
-      <div class="form-group">
-        <label for="description">Descripción</label>
-        <textarea name="descript" id="description" cols="30" rows="5" [(ngModel)] = "actividad.descripcion"></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="frecuencia">Frecuencia</label>
-        <select id="frecuencia" name="frecuencia" class="select" style="justify-self: center;" [(ngModel)] = "actividad.frecuencia">
-          <option value="" disabled>Indique la frecuencia</option>
-          <option value="1">Mensual</option>
-          <option value="3">Trimestral</option>
-          <option value="6">Semestral</option>
-          <option value="12">Anual</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="fecha_in">Fecha de inicio</label>
-        <input name="fecha_in" style="width: auto;" type="date" placeholder="Fecha inicio" [(ngModel)] = "actividad.fecha_inicio" (change)="calcular_fecha()"/>
-      </div>
-      <div class="form-group">
-        <label for="fecha_fin">Fecha de Finalización</label>
-        <input id="fecha_fin" name="fecha_fn" type="date" value="{{fecha}}" placeholder="dd-mm-yyyy" ngModel="actividad.fecha_fin" readonly/> 
-      </div>
-    </form>
-    <div style="text-align: center; padding: 1rem 0;">
-      <button (click)="crear()">Crear</button>
     </div>
+
+    <div class='container'>
+      <div class='elemento'>
+        <div class='calendario'>
+          <div class='cal-header'>
+            Calendario Actividades
+          </div>
+          <div class='cal-body' *ngFor="let act of actividades; let i = index">
+
+            <div class='cal-row'>
+              <div class='badge rosso'></div>
+              <div class='date'>
+                <!-- <div class='month'>{{act.fecha_inicio}}</div>
+                <div class='day'>01</div> -->
+                <div class="month">{{i+1}}</div>
+              </div>
+              <div class='info' >
+                <a>{{act.descripcion}}</a>
+                <div class='info-time' >
+                  <i class='fa fa-clock-o'></i>
+                  {{act.fecha_inicio}}
+                </div>
+                <!-- <div class='info-loc'>
+                  <a href='#'>
+                    <i class='fa fa-map-marker'></i>
+                    Basilica dei Frari, Venezia
+                  </a>
+                </div> -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
   </div>
+  
+  
+  <div style="background-color: rgba(127, 255, 212, 0.196);">
+  
+     
+
+  </div>
+
 </div>

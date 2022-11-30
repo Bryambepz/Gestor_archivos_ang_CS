@@ -55,6 +55,8 @@ body {
 }
 
 .grid-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
   grid-area: contenido;
   background-color: rgba(255, 255, 255, 0.51);
   margin: 1rem 1.5rem;
@@ -63,7 +65,7 @@ body {
 }
 
 .form-panel {
-  padding: 3rem 3rem 1px;
+  padding: 3rem 1rem 1px;
 }
 
 .form-group {
@@ -71,7 +73,7 @@ body {
   grid-template-columns: repeat(2, 1fr);
   font-family: "Times New Roman", Times, serif;
   line-height: 15px;
-  margin: 1rem 1.5rem;
+  margin: 1rem 1rem;
   padding-left: 2rem;
 }
 
@@ -161,4 +163,127 @@ img {
   font-size: 0.5rem;
   text-transform: none;
   // padding: 0.3rem 2.5rem;
+}
+
+
+
+
+// Calendario
+
+// .body_calendar {
+//   margin: 0;
+//   top: 0;
+//   // background-image: radial-gradient(white, rgba(0, 0, 0, 0.2));
+//   // font-family: "Open Sans", sans-serif;
+// }
+
+.container {
+  
+  //   background-color: rgb(255, 255, 255);
+  //   border-top-width: 1rem;
+  border: rgba(0, 0, 0, 0.236) solid;
+  margin-right: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-flow: row wrap;
+  height: auto;
+  align-items: center;
+}
+.container .elemento {
+  min-width: 250px;
+  height: 300px;
+  margin: 10px auto;
+}
+
+.calendario {
+  width: auto;
+  padding: 10px 5px;
+  position: sticky;
+}
+.calendario .cal-header {
+  border-radius: .5rem;
+  background-color: #0543a755;
+  margin: 5px 5px 10px;
+  font-family: "Lato", "Open Sans", sans-serif;
+  font-weight: bold;
+  font-size: 1.3em;
+  text-transform: uppercase;
+  text-align: center;
+}
+.calendario .cal-row {
+  border-top: 1px lightgrey solid;
+  border-right: 1px lightgrey solid;
+  // border-bottom: 1px lightgrey solid;
+  border-radius: 1rem;
+  position: relative;
+  display: block;
+  height: 75px;
+  color: rgb(0, 0, 0);
+  transition: all ease 0.9s;
+}
+.calendario .cal-row:last-child {
+  border-bottom: 1px lightgrey solid;
+}
+.calendario .cal-row:hover .badge {
+  width: 100%;
+}
+.calendario .cal-row:hover .date, .calendario .cal-row:hover .info, .calendario .cal-row:hover .info a {
+  color: #f8f8ff;
+}
+.calendario .cal-row .badge {
+  display: block;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  margin: 0 0 0 0px;
+  transition: 0.9s ease-in-out;
+  width: 5px;
+  background: #12ae39;
+  border-radius: 1rem;
+}
+// .calendario .cal-row .rosso {
+//   background-color: #ff0000;
+//   border-radius: 1rem;
+// }
+// .calendario .cal-row .blu {
+//   background-color: #3333dd;
+// }
+// .calendario .cal-row .verde {
+//   background-color: #12ae39;
+// }
+.calendario .cal-row .date, .calendario .cal-row .info {
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+  // transition: all ease 0.9s;
+}
+.calendario .cal-row .date {
+  width: 15%;
+  margin: 0 10px 0 10px;
+  font-family: "Lato", "Open Sans", sans-serif;
+  text-align: center;
+}
+.calendario .cal-row .date .month {
+  text-transform: uppercase;
+  line-height: 0.5;
+  margin-top: 10px;
+}
+.calendario .cal-row .date .day {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.calendario .cal-row .info {
+  text-align: left;
+}
+.calendario .cal-row .info a {
+  color: rgb(51, 51, 51);
+  text-decoration: none;
+  transition: all ease 0.9s;
+}
+.calendario .cal-row .info a:hover {
+  text-decoration: underline;
+}
+.calendario .cal-row .info .info-time, .calendario .cal-row .info .info-loc {
+  font-size: 0.8em;
 }
