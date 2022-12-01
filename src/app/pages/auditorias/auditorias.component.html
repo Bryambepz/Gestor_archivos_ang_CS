@@ -20,35 +20,21 @@
     <a href="#">Actualizar Información</a>
     <a href="/login">Cerrar Sesion</a>
   </div>
-
+   
   <div class="grid-content">
+    
+    <div id="menu-content">
 
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr);">
-      <!-- <a href="/auditorias#id_proyecto" (click)="accionDiv('id_proyecto')">Proyecto</a>
-      <a href="/auditorias#id_descripcion" (click)="accionDiv('id_descripcion')">Descripción de Proyecto</a>
-      <a href="/auditorias#id_proceso" (click)="accionDiv('id_proceso')">Proceso</a>
-      <a href="/auditorias#id_info" (click)="accionDiv('id_info')">Información Procesos</a> -->
-      <a (click)="accionDiv( list_contenido[i] )" class="link_{{list_contenido[i]}} href" href="/auditorias#{{nav}}" *ngFor="let nav of menu_cont; let i=index">{{nav}}</a>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr);">
+        <a class="link_historial" href="/auditorias#historial" (click)="accionDiv('historial')">Historial Proyectos</a>
+        <a class="link_proyectos" href="/auditorias#proyectos" (click)="accionDiv('proyectos')">Crear Proyectos</a>
+      </div>
+
     </div>
 
-    <div id="id_proyecto" class="contenido">
-      <div class="proyecto">
-        <div>
-          <form>
-            <div class="form-group">
-              <label for="proy_name">Proyecto</label>
-              <input [(ngModel)]="proyecto.nombre" name="proy_name" type="text" placeholder="Proyecto"/>
-            </div>
-            <div class="form-group">
-              <label for="fecha">Fecha Creación</label>
-              <input [(ngModel)]="proyecto.fecha_creacion" name="fecha" type="date" placeholder="dd-MM-yyyy"/>
-            </div>
-            <div class="butt-guardar">
-              <button style="font-size: 0.9rem;" (click)="crearProyecto()">Crear Proyecto</button>
-            </div>
-          </form>
-        </div>
-
+    <div id="historial">
+      <h1>historial de proyectos</h1>
+      <div id="proyecto_hist" class="contenido">
         <div class="table_scroll">
           <table>
             <thead>
@@ -58,217 +44,310 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                (click)="clickTProyectos(proy.nombre)"
+              <tr 
+                (click)="clickTHistorial(proy.nombre)"
                 *ngFor="let proy of proyectos"
               >
-                <td>{{ proy.nombre }}</td>
-                <td>{{ proy.fecha_creacion }}</td>
+                <td style="border-right: .3px solid #0000002b;width: min-content;padding-right: .5rem;text-align: justify;" >{{ proy.nombre }}</td>
+                <td style="width: 5rem;">{{ proy.fecha_creacion }}</td>
               </tr>
             </tbody>
           </table>
         </div>
+
+
+      </div>
+
+      <div>
+        <h1>Proyecto:</h1>
+        <h4 style="width: 50%;">{{proyectoSeleccionado}}</h4>
+      </div>
+
+      <div *ngFor="let descs of desc_proyectos">
+        <h1>Descripción</h1>
+        <table style="margin: auto; width: max-content;">
+          <thead>
+            <tr>
+              <th>Identificador</th>
+              <th>Autoridad Ambiental Resp.</th>
+              <th>Dpt. Gestion Amb</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>LA00112</td>
+              <td>LIC-AMB-003</td>
+              <td>001/12</td>
+              <td>2012-01-06</td>
+            </tr>            
+          <tbody>
+            </table>
       </div>
     </div>
 
-    <div id="id_descripcion" class="contenido" style="display: none;">
-      <div class="proyecto">
-        
-        <div>
-          <div class="form-group" style="padding: 1rem 0; display: inline-flex; gap: 1rem;">
-            <label for="Proyecto" style="font-size: 2rem; font-weight: bold;">Proyecto:  </label>           
-            <label style="font-size: 1.5rem; text-transform: none;"> {{proyectoSeleccionado}}</label>             
-          </div>
-          <form class="form_descripcion">
-            <div class="form-group">
-              <label for="proy_name">Identificador</label>
-              <input [(ngModel)]="desc_proy.identificador_desc" name="proy_name" type="text" placeholder="Identificador Proyecto"/>
-            </div>
-            <div class="form-group">
-              <label for="fecha">Fecha</label>
-              <input [(ngModel)]="desc_proy.fecha_emision" name="fecha" type="date" placeholder="dd-MM-yyyy" />
-            </div>
-            <div class="form-group">
-              <label for="dga">Código Dpt. Gestión Ambiental</label>
-              <input [(ngModel)]="desc_proy.codigo_dga" name="dga" type="text" placeholder="Dpt. Gestión Ambiental"/>
-            </div>
-            <div class="form-group">
-              <label for="caar">Código Autoridad Ambiental Responsable</label>
-              <input [(ngModel)]="desc_proy.codigo_aar" name="caar" type="text" placeholder="Autoridad Ambiental Responsable"/>
-            </div>
-            <div class="form-group">
-              <label for="aar">Autoridad Ambiental Responsable</label>
-              <input [(ngModel)]="desc_proy.aar" name="aar" type="text" placeholder="Autoridad Ambiental Responsable"/>
-            </div>
-          </form>
-          <div class="butt-guardar">
-            <button (click)="crearDescProy()">Agregar Descripción</button>
-          </div>
-        </div>
+    <div id="proyectos" style="display: none;">
+
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); width: initial;">
+        <a (click)="accionDiv( list_contenido[i] )" class="link_{{list_contenido[i]}} href" href="/auditorias#{{nav}}" *ngFor="let nav of menu_cont; let i=index">{{nav}}</a>
+      </div>
   
-        <div class="table_descripcion">
-          <table style="margin: auto;">
-            <thead>
-              <tr>
-                <th>Identificador</th>
-                <th>AAR</th>
-                <th>DGA</th>
-                <th>Fecha</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr (click)="clickTDescripcion(descP.identificador_desc)" *ngFor="let descP of desc_proyectos">
-                <td>{{ descP.identificador_desc }}</td>
-                <td>{{ descP.codigo_dga }}</td>
-                <td>{{ descP.codigo_aar }}</td>
-                <td>{{ descP.fecha_emision }}</td>
-              </tr>
-            </tbody>
-          </table>
+      <div id="id_proyecto" class="contenido">
+        <div class="proyecto">
+          <div>
+            <form>
+              <div class="form-group">
+                <label for="proy_name">Proyecto</label>
+                <input [(ngModel)]="proyecto.nombre" name="proy_name" type="text" placeholder="Proyecto"/>
+              </div>
+              <div class="form-group">
+                <label for="fecha">Fecha Creación</label>
+                <input [(ngModel)]="proyecto.fecha_creacion" name="fecha" type="date" placeholder="dd-MM-yyyy"/>
+              </div>
+              <div class="butt-guardar">
+                <button style="font-size: 0.9rem;" (click)="crearProyecto()">Crear Proyecto</button>
+              </div>
+            </form>
+          </div>
+  
+          <div class="table_scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Proyecto</th>
+                  <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr 
+                  (click)="clickTProyectos(proy.nombre)"
+                  *ngFor="let proy of proyectos"
+                >
+                  <td style="border-right: .3px solid #0000002b;width: min-content;padding-right: .5rem;text-align: justify;" >{{ proy.nombre }}</td>
+                  <td style="width: 5rem;">{{ proy.fecha_creacion }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-
       </div>
-    
-    </div>
-
-    <div id="id_proceso" class="contenido" style="display: none;">
-      <div class="proyecto">
-
-        <div>
-          <div class="form-group" style="padding: 1rem 0; display: inline-flex; gap: 1rem;">
-            <label for="Proyecto" style="font-size: 1.5rem; font-weight: bold;">Proceso:  </label>           
-            <label style="font-size: 1.5rem; text-transform: none;"> {{descripcionSeleccionado}}</label>             
-          </div>
-          <div class="form-group">
-            <label for="cod_reg"># Proceso</label>
-            <input [(ngModel)]="proceso.proceso" name="cod_reg" type="Number" placeholder="# Proceso"/>
-          </div>
-          <form class="form_descripcion">
-            <div class="form-group">
-              <label for="cod_reg"># de Regístro de Consultor</label>
-              <input [(ngModel)]="proceso.codigo_registro" name="cod_reg" type="text" placeholder="Codigo"/>
-            </div>
-            <div class="form-group">
-              <label for="proc_num"># Contrato</label>
-              <input [(ngModel)]="proceso.num_contrato" name="proc_num" type="text" placeholder="Contrato"/>
-            </div>
-            <div class="form-group">
-              <label for="consultor">Consultor</label>
-              <input [(ngModel)]="proceso.consultor" name="consultor" type="text" placeholder="Consultor"/>
-            </div>
-            <div class="form-group">
-              <label for="monto">Monto</label>
-              <input [(ngModel)]="proceso.monto" name="monto" type="number" placeholder="Monto"/>
-            </div>
-            <div class="form-group">
-              <label for="fecha_in">Fecha Inicio</label>
-              <input [(ngModel)]="proceso.fecha_ini" name="fecha_in" type="date" placeholder="dd-MM-yyyy"/>
-            </div>
-            <div class="form-group">
-              <label for="fecha_fin">Fecha Fin</label>
-              <input [(ngModel)]="proceso.fecha_fin" name="fecha_fin" type="date" placeholder="dd-MM-yyyy"/>
-            </div>
-            <div class="form-group">
-              <label for="estado">Aprobado</label>
-              <input [(ngModel)]="proceso.estado_contrato" name="estado" type="checkbox" placeholder="Aprobado"/>
-            </div>
-            <div class="form-group">
-              <label for="pl_accion">Plan de Acción</label>
-              <input [(ngModel)]="proceso.plan_acc" name="pl_accion" type="checkbox" placeholder="Plan Accion"/>
-            </div>
-            <div class="form-group">
-              <label for="pl_manejo">Actualización Plan de Manejo</label>
-              <input [(ngModel)]="proceso.confirmacion_actual" name="pl_manejo" type="checkbox" placeholder="Plan Manejo"/>
-            </div>
-            <div class="form-group">
-              <label for="descripcion">Descripción</label>
-              <input [(ngModel)]="proceso.descripcion" name="descripcion" type="tex" placeholder="Descripción"/>
-            </div>
-          </form>
-          <div class="butt-guardar">
-            <button (click)="crearProceso()">Proceso</button>
-          </div>
+  
+      <div id="id_descripcion" class="contenido" style="display: none;">
+        <div class="form-group" style="padding: 1rem 0; display: inline-flex; gap: 1rem;">
+          <label for="Proyecto" style="font-size: 2rem; font-weight: bold; align-self: center;" >Proyecto:  </label>           
+          <label style="font-size: 1.5rem; text-transform: none; line-height: 1.5rem"> {{proyectoSeleccionado}}</label>             
         </div>
-        
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Registro</th>
-                <th>Contrato</th>
-                <th>Consultor</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr (click)="clickTProceso(procs.codigo_registro, procs.proceso)" *ngFor="let procs of procesos">
-                <td>{{procs.proceso}}</td>
-                <td>{{procs.codigo_registro}}</td>
-                <td>{{procs.num_contrato}}</td>
-                <td>{{procs.consultor}}</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="proyecto">
+          
+          <div>
+            <form class="form_descripcion" style="width: max-content 80%;">
+              <div class="form-group">
+                <label for="proy_name">Identificador</label>
+                <input [(ngModel)]="desc_proy.identificador_desc" name="proy_name" type="text" placeholder="Identificador Proyecto"/>
+              </div>
+              <div class="form-group">
+                <label for="fecha">Fecha</label>
+                <input [(ngModel)]="desc_proy.fecha_emision" name="fecha" type="date" placeholder="dd-MM-yyyy" />
+              </div>
+              <div class="form-group">
+                <label for="dga">Código Dpt. Gestión Ambiental</label>
+                <input [(ngModel)]="desc_proy.codigo_dga" name="dga" type="text" placeholder="Dpt. Gestión Ambiental"/>
+              </div>
+              <div class="form-group">
+                <label for="caar">Código Autoridad Ambiental Responsable</label>
+                <input [(ngModel)]="desc_proy.codigo_aar" name="caar" type="text" placeholder="Autoridad Ambiental Responsable"/>
+              </div>
+              <div class="form-group">
+                <label for="aar">Autoridad Ambiental Responsable</label>
+                <input [(ngModel)]="desc_proy.aar" name="aar" type="text" placeholder="Autoridad Ambiental Responsable"/>
+              </div>
+            </form>
+            <div class="butt-guardar">
+              <button (click)="crearDescProy()">Agregar Descripción</button>
+            </div>
+          </div>
+    
+          <div class="table_descripcion">
+            <table style="margin: auto; width: max-content;">
+              <thead>
+                <tr>
+                  <th>Identificador</th>
+                  <th>Autoridad Ambiental Resp.</th>
+                  <th>Dpt. Gestion Amb</th>
+                  <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr (click)="clickTDescripcion(descP.identificador_desc)" *ngFor="let descP of desc_proyectos">
+                  <td>{{ descP.identificador_desc }}</td>
+                  <td>{{ descP.codigo_dga }}</td>
+                  <td>{{ descP.codigo_aar }}</td>
+                  <td>{{ descP.fecha_emision }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
         </div>
       
       </div>
-
-    
-    </div>
-
-    <div id="id_info" class="contenido" style="display: none;">
-      <div class="proyecto">
-        
-        <div>
-          <div class="form-group" style="padding: 1rem 0; display: inline-flex; gap: 1rem;">
-            <label for="Proyecto" style="font-size: 1.5rem; font-weight: bold;">Registro Proceso:  </label>           
-            <label style="font-size: 1.5rem; text-transform: none;"> {{registroSeleccionado}}</label>             
-          </div>
-          <div class="form-group">
-            <label for="descripc">Descripción</label>
-            <textarea [(ngModel)]="info_proceso.descripcion" name="descripc" type="text" placeholder="Consultor"></textarea>
-          </div>            
-          <form class="form_descripcion">
+  
+      <div id="id_proceso" class="contenido" style="display: none;">
+        <div class="form-group" style="padding: 1rem 0; display: inline-flex; gap: 1rem;">
+          <label for="Proyecto" style="font-size: 1.5rem; font-weight: bold;">Proceso:  </label>           
+          <label style="font-size: 1.5rem; text-transform: none;"> {{descripcionSeleccionado}}</label>             
+        </div>
+        <div class="proyecto">
+  
+          <div>
             <div class="form-group">
-              <label for="fecha">Fecha</label>
-              <input [(ngModel)]="info_proceso.fechaArch" name="fecha" type="date" placeholder="Contrato"/>
+              <label for="cod_reg"># Proceso</label>
+              <input [(ngModel)]="proceso.proceso" name="cod_reg" type="Number" placeholder="# Proceso"/>
             </div>
-  
-            <div class="form-group" style="align-items: center;">
-              <label for="arch">Archivo</label>
-              <!-- <label for="">Ningun Archivo</label> -->
-              <input (change)="cargaArchivo($event)" name="arch" type="file" placeholder="Archivo"/>
-              <!-- <button style="padding: .3rem;">Cargar Archivo</button> -->
+            <form class="form_descripcion">
+              <div class="form-group">
+                <label for="cod_reg"># de Regístro de Consultor</label>
+                <input [(ngModel)]="proceso.codigo_registro" name="cod_reg" type="text" placeholder="Codigo"/>
+              </div>
+              <div class="form-group">
+                <label for="proc_num"># Contrato</label>
+                <input [(ngModel)]="proceso.num_contrato" name="proc_num" type="text" placeholder="Contrato"/>
+              </div>
+              <div class="form-group">
+                <label for="consultor">Consultor</label>
+                <input [(ngModel)]="proceso.consultor" name="consultor" type="text" placeholder="Consultor"/>
+              </div>
+              <div class="form-group">
+                <label for="monto">Monto</label>
+                <input [(ngModel)]="proceso.monto" name="monto" type="number" placeholder="Monto"/>
+              </div>
+              <div class="form-group">
+                <label for="fecha_in">Fecha Inicio</label>
+                <input [(ngModel)]="proceso.fecha_ini" name="fecha_in" type="date" placeholder="dd-MM-yyyy"/>
+              </div>
+              <div class="form-group">
+                <label for="fecha_fin">Fecha Fin</label>
+                <input [(ngModel)]="proceso.fecha_fin" name="fecha_fin" type="date" placeholder="dd-MM-yyyy"/>
+              </div>
+              <div class="form-group">
+                <label for="estado">Aprobado</label>
+                <input [(ngModel)]="proceso.estado_contrato" name="estado" type="checkbox" placeholder="Aprobado"/>
+              </div>
+              <div class="form-group">
+                <label for="pl_accion">Plan de Acción</label>
+                <input [(ngModel)]="proceso.plan_acc" name="pl_accion" type="checkbox" placeholder="Plan Accion"/>
+              </div>
+              <div class="form-group">
+                <label for="pl_manejo">Actualización Plan de Manejo</label>
+                <input [(ngModel)]="proceso.confirmacion_actual" name="pl_manejo" type="checkbox" placeholder="Plan Manejo"/>
+              </div>
+              <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <input [(ngModel)]="proceso.descripcion" name="descripcion" type="tex" placeholder="Descripción"/>
+              </div>
+            </form>
+            <div class="butt-guardar">
+              <button (click)="crearProceso()">Proceso</button>
             </div>
-          </form>
-          <div class="butt-guardar">
-            <button (click)="addInformacion()">Agregar Registro</button>
           </div>
+          
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Registro</th>
+                  <th>Contrato</th>
+                  <th>Consultor</th>
+                </tr>
+              </thead>
+  
+              <tbody>
+                <tr (click)="clickTProceso(procs.codigo_registro, procs.proceso)" *ngFor="let procs of procesos">
+                  <td>{{procs.proceso}}</td>
+                  <td>{{procs.codigo_registro}}</td>
+                  <td>{{procs.num_contrato}}</td>
+                  <td>{{procs.consultor}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        
         </div>
   
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>Archivo</th>
-                <th>Descripción</th>
-                <th>Fecha</th>
-              </tr>
-            </thead>
-  
-            <tbody>
-              <tr *ngFor="let regs of registros">
-                <td>{{regs.ubi_archivo}}</td>
-                <td>{{regs.descripcion}}</td>
-                <td>{{regs.fechaArch}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
+      
       </div>
+  
+      <div id="id_info" class="contenido" style="display: none;">
+        <div class="form-group" style="padding: 1rem 0; display: inline-flex; gap: 1rem;">
+          <label for="Proyecto" style="font-size: 1.5rem; font-weight: bold;">Registro Proceso:  </label>           
+          <label style="font-size: 1.5rem; text-transform: none;"> {{registroSeleccionado}}</label>             
+        </div>
+        <div class="proyecto">
+          
+          <div>
+  
+            <div class="form-group">
+              <h4 for="titulo">Título</h4>
+              <div style="display: inline;">
+                <input style="display: inline; width: auto;" id="TDR" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Terminos De Referencia">
+                <label style="display: inline; width: auto;" for="TDR">Terminos De Referencia</label><br>
+                <input style="display: inline; width: auto;" id="IAA" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Informe Auditoria Ambiental">
+                <label style="display: inline; width: auto;" for="IAA">Informe Auditoria Ambiental</label><br>
+                <input style="display: inline; width: auto;" id="AAA" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Aprobación Auditoria Ambiental">
+                <label style="display: inline; width: auto;" for="AAA">Aprobación Auditoria Ambiental</label><br>
+                <input style="display: inline; width: auto;" id="NP" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Notificación a Proponente">
+                <label style="display: inline; width: auto;" for="NP">Notificación a Proponente</label><br>
+              </div>
+              
+            </div>            
+            <form class="form_descripcion">
+              <div class="form-group" style="align-items: center;">
+                <label for="arch">Archivo Inicial</label>
+                <input (change)="cargaArchivo($event,'inicial')" name="arch" type="file" placeholder="Archivo"/>
+              </div>
+              <div class="form-group" style="align-items: center;">
+                <label for="arch">Archivo Final</label>
+                <input (change)="cargaArchivo($event,'final')" name="arch" type="file" placeholder="Archivo"/>
+              </div>
+            </form>
+            <div class="form-group">
+              <label for="descripc">Descripción</label>
+              <textarea [(ngModel)]="info_proceso.descripcion" name="descripc" rows="4" type="text" placeholder="Descripción"></textarea>
+            </div>            
+            <div class="butt-guardar">
+              <button (click)="addInformacion()">Agregar Registro</button>
+            </div>
+          </div>
+    
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Titulo</th>
+                  <th>Archivo Inicial</th>
+                  <th>Archivo Final</th>
+                  <th>Descripción</th>
+                </tr>
+              </thead>
+    
+              <tbody>
+                <tr *ngFor="let regs of registros">
+                  <td>{{regs.titulo}}</td>
+                  <td>{{regs.arch_inicial}}</td>
+                  <td>{{regs.arch_final}}</td>
+                  <td>{{regs.descripcion}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+        </div>
+      </div>
+
     </div>
+    
 
   </div>
+  
 </div>

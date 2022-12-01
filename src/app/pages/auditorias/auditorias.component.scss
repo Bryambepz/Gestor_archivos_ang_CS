@@ -69,13 +69,17 @@ body {
   // padding: 1rem;
   align-items: center;
   justify-self: center;
-  // border-radius: 0.7rem;
+  gap: 1.5rem;
+  width: -webkit-fill-available;
 }
-
+#menu-content{
+  text-align: center;
+}
 .grid_scroll{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto;
+  // display: grid;
+  // grid-template-columns: repeat(2, 1fr);
+  // grid-template-rows: auto;
+  width: max-content;
   overflow: scroll;
 }
 
@@ -103,10 +107,12 @@ body {
 }
 .form_descripcion{
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto;
+  grid-template-columns: 1fr;
 }
-
+#id_proceso .form_descripcion{
+  text-align: left;
+  grid-template-columns: repeat(2,1fr);
+}
 .main-contenedor {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -163,11 +169,23 @@ body {
   box-sizing: border-box;
   padding: 5px 10px;
   width: 100%;
-  height: 30%;
+  height: 50%;
   font-family: inherit;
   font-size: inherit;
   font-weight: 100;
   text-align: justify;
+}
+
+#id_descripcion .form_descripcion .form-group input{
+  width: auto;
+}
+
+#id_descripcion .form_descripcion{
+  display: grid;  
+}
+
+.form_descripcion .form-group{
+  width: max-content;
 }
 
 button {
@@ -193,7 +211,15 @@ table {
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
-
+#id_proyecto table{
+  width: 600px;
+}
+#id_info table{
+  width: 600px;
+}
+#proyecto_hist table{
+  width: 60rem;
+}
 .table_scroll{
   width: max-content;
   height: 200px;
@@ -236,7 +262,7 @@ tbody td{
   margin-top: 1rem;
 }
 
-.link_id_proyecto, .link_id_descripcion, .link_id_proceso, .link_id_info{
+.link_historial, .link_proyectos, .link_id_proyecto, .link_id_descripcion, .link_id_proceso, .link_id_info{
   border-radius: 1rem;
   padding: 1rem .5rem;
   margin-right: 1rem;
