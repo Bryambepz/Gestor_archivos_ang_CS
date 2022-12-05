@@ -254,18 +254,19 @@ export class AuditoriasComponent implements OnInit {
     this.servAuditorias.getDescByProyecto(titulo).subscribe((d) => {        
         this.desc_proyectos = d;
         console.log('desc ', d);
-        d.forEach((f_desc) => {
-          this.servAuditorias.getProcesoBy(f_desc.identificador_desc).subscribe((d2) => {
-            console.log('proc ', d2);
-            this.procesos = d2;
-            d2.forEach((f_proc) => {
-              this.servAuditorias.getInformacionBy(f_desc.identificador_desc,f_proc.proceso).subscribe((d3) => {
-                console.log('inf ', d3);
-                this.registros = d3;                
-              })
-            })
-          })
-        })
+        
+        // d.forEach((f_desc) => {
+        //   this.servAuditorias.getProcesoBy(f_desc.identificador_desc).subscribe((d2) => {
+        //     console.log('proc ', d2);
+        //     this.procesos = d2;
+        //     d2.forEach((f_proc) => {
+        //       this.servAuditorias.getInformacionBy(f_desc.identificador_desc,f_proc.proceso).subscribe((d3) => {
+        //         console.log('inf ', d3);
+        //         this.registros = d3;                
+        //       })
+        //     })
+        //   })
+        // })
       });
   }
 }

@@ -63,26 +63,58 @@
         <h4 style="width: 50%;">{{proyectoSeleccionado}}</h4>
       </div>
 
-      <div *ngFor="let descs of desc_proyectos">
-        <h1>Descripción</h1>
-        <table style="margin: auto; width: max-content;">
+      <h1>Descripción</h1>
+      <div *ngFor="let descs of desc_proyectos; let i=index ">
+        <h2>Descripción {{i+1}}</h2>
+
+        <table style="margin: auto; width: -webkit-fill-available; margin-right: 3.5rem;">
           <thead>
             <tr>
               <th>Identificador</th>
-              <th>Autoridad Ambiental Resp.</th>
-              <th>Dpt. Gestion Amb</th>
               <th>Fecha</th>
+              <th>Código Dpt. Gestion Amb</th>
+              <th>Código Autoridad Ambiental Resp.</th>
+              <th>Autoridad Ambiental Resp.</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>LA00112</td>
-              <td>LIC-AMB-003</td>
-              <td>001/12</td>
-              <td>2012-01-06</td>
-            </tr>            
+              <td >{{descs.identificador_desc}}</td>
+              <td>{{descs.fecha_emision}}</td>
+              <td>{{descs.codigo_dga}}</td>
+              <td>{{descs.codigo_aar}}</td>
+              <td>{{descs.aar}}</td>
+            </tr>               
           <tbody>
-            </table>
+        </table>            
+
+        <h3>Procesos</h3>
+        
+        <div onshow="listarProcesos()" *ngFor="let procs of procesos">
+          <table style="margin: auto; width: -webkit-fill-available; margin-right: 3.5rem;">          
+            <thead>
+              <tr>
+                <th>Descripción</th>
+                <th>ID</th>
+                <th>Registro</th>
+                <th>Contrato</th>
+                <th>Consultor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>                    
+                <td>{{procs.descripcion}}</td>
+                <td>{{procs.proceso}}</td>
+                <td>{{procs.codigo_registro}}</td>
+                <td>{{procs.num_contrato}}</td>
+                <td>{{procs.consultor}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+
       </div>
     </div>
 
