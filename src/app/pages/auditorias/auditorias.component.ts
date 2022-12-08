@@ -31,6 +31,7 @@ export class AuditoriasComponent implements OnInit {
   info_proceso: Info_Proceso = new Info_Proceso();
   registros: Info_Proceso[] = [];
 
+  descripcionObt:string="";
   proyectoSeleccionado: string = '';
   descripcionSeleccionado: string = '';
   registroSeleccionado: string = '';
@@ -43,8 +44,8 @@ export class AuditoriasComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarProyectos();
-    this.listarDescripciones();
-    this.listarProcesos();
+    // this.listarDescripciones();
+    // this.listarProcesos();
     this.menu_cont.push('proyecto');
     this.list_contenido.push('id_proyecto');
 
@@ -91,6 +92,8 @@ export class AuditoriasComponent implements OnInit {
   }
 
   listarProcesos() {
+    // console.log("poccscs ", this.descripcionSeleccionado);
+    
     this.servAuditorias
       .getProcesoBy(this.descripcionSeleccionado)
       .subscribe((d) => {
@@ -251,22 +254,57 @@ export class AuditoriasComponent implements OnInit {
   clickTHistorial(titulo:string){
     this.proyectoSeleccionado = titulo;
     console.log(titulo);
-    this.servAuditorias.getDescByProyecto(titulo).subscribe((d) => {        
-        this.desc_proyectos = d;
-        console.log('desc ', d);
-        
-        // d.forEach((f_desc) => {
-        //   this.servAuditorias.getProcesoBy(f_desc.identificador_desc).subscribe((d2) => {
-        //     console.log('proc ', d2);
-        //     this.procesos = d2;
-        //     d2.forEach((f_proc) => {
-        //       this.servAuditorias.getInformacionBy(f_desc.identificador_desc,f_proc.proceso).subscribe((d3) => {
-        //         console.log('inf ', d3);
-        //         this.registros = d3;                
-        //       })
-        //     })
-        //   })
-        // })
-      });
+    this.desc_proyectos = [];
+    this.procesos = [];
+    this.registros = [];
+
+    this.servAuditorias.getDescByProyecto(titulo).forEach((d) => {
+      this.desc_proyectos=d;
+      this.desc_proyectos = this.desc_proyectos.sort((a,b) =>new Date(a.fecha_emision).getTime() - new Date(b.fecha_emision).getTime())
+      d.forEach((d2) => {
+        this.servAuditorias.getProcesoBy(d2.identificador_desc).forEach((f_d2) => {
+          for (let i = 0; i < f_d2.length; i++) {
+            this.procesos.push(f_d2[i]);
+            
+          }
+          this.procesos = this.procesos.sort((a,b) => a.proceso - b.proceso)
+
+          f_d2.forEach((d3) => {
+            this.servAuditorias.getInformacionBy(d2.identificador_desc,d3.proceso).forEach((f_d3) => {
+              for (let i = 0; i < f_d3.length; i++) {
+                console.log("id proceso = ", d3.proceso);
+                console.log(f_d3);
+                f_d3[i].proceso = d3.proceso;
+                this.registros.push(f_d3[i]);    
+                // this.registros.push(d3.proceso)           
+              }
+            })
+          })
+        })
+      })
+    })
+      // console.log(" >> ",d);
+      // this.desc_proyectos = d;
+      // d.forEach((f_desc) => {
+      //   this.servAuditorias.getProcesoBy(f_desc.identificador_desc).subscribe((d2) => {
+      //     console.log(" Procesos");
+      //     console.log(" >> ",d2);
+      //     this.procesos = d2;        
+      //     d2.forEach((f_proc) => {
+      //       this.servAuditorias.getInformacionBy(f_desc.identificador_desc,f_proc.proceso).subscribe((d3) => {
+      //           // console.log(" >> ",d3);
+                
+      //           this.registros = d3;                
+      //         })
+      //       })
+      //     })
+      //   })
+
+      
+  }
+
+  listar(){
+    console.log("motrassassa");
+    this.listarProcesos();
   }
 }
