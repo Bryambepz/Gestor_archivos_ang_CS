@@ -11,6 +11,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { ActividadesComponent } from './pages/actividades/actividades.component';
 import { ListarActividadesComponent } from './pages/listar-actividades/listar-actividades.component';
 import { AuditoriasComponent } from './pages/auditorias/auditorias.component';
+import { HistorialComponent } from './pages/historial/historial.component';
+// import { HistorialComponent } from './page/historial/historial.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { AuditoriasComponent } from './pages/auditorias/auditorias.component';
     LoginComponent,
     ActividadesComponent,
     ListarActividadesComponent,
-    AuditoriasComponent
+    AuditoriasComponent,
+    HistorialComponent,
   ],
   imports: [
     BrowserModule,

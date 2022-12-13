@@ -1,0 +1,158 @@
+<div class="main-contenedor">
+
+  <div class="grid-logo">
+    <div>
+      <div class="div-logo">
+        <img src="../../../assets/imgs/picon2.png" alt="centrosur-icon" />
+        <div class="texto-logo">Dpto. de Gestion Ambiental</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header grid-header">
+    <h1>Historial de Auditorías</h1>
+  </div>
+
+  <div class="grid-sidebar menu">
+    <h3>Menu</h3>
+    <a href="/actividad">Crear Actividad</a>
+    <a href="/Listar">Actividades</a>
+    <a href="/auditorias">Auditorias</a>
+    <a href="#">Actualizar Información</a>
+    <a href="/login">Cerrar Sesion</a>
+  </div>
+   
+  <div class="grid-content">
+
+    <div id="proyecto_hist" class="contenido select_tables">
+      <div class="table_scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Proyecto</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr 
+              (click)="clickTHistorial(proy.nombre)"
+              *ngFor="let proy of proyectos"
+            >
+              <td style="border-right: .3px solid #0000002b;width: min-content;padding-right: .5rem;text-align: justify;" >{{ proy.nombre }}</td>
+              <td style="width: 5rem;">{{ proy.fecha_creacion }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>        
+    </div>                  
+
+    <div class="contenido" style="width: auto; display: none;">
+      
+      <div>
+        <h1>Proyecto:</h1>
+        <h4 style="width: 50%;">{{proyectoSeleccionado}}</h4>
+      </div>
+
+      <h1>Descripción</h1>
+      <div >
+
+        <table  style="margin: auto; width: 100%; margin-right: 3.5rem;">
+          <thead>
+            <tr>
+              <th>Identificador</th>
+              <th>Fecha</th>
+              <th>Código Dpt. Gestion Amb</th>
+              <th>Código Autoridad Ambiental Resp.</th>
+              <th>Autoridad Ambiental Resp.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let descs of desc_proyectos">
+              <td>{{descs.identificador_desc}}</td>
+              <td>{{descs.fecha_emision}}</td>
+              <td>{{descs.codigo_dga}}</td>
+              <td>{{descs.codigo_aar}}</td>
+              <td>{{descs.aar}}</td>
+            </tr>               
+          <tbody>
+        </table>            
+        
+      </div>
+
+      <div>
+        <h2>Procesos</h2>
+      </div>
+      
+      <div id="table_proceso" class="select_tables">
+        <div>
+          <table style="margin: auto; width: 100%; margin-right: 3.5rem;">          
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tipo de Auditoria</th>
+                <th>Periodo Inicio</th>
+                <th>Periodo Fin</th>
+                <th>Estado del Proceso</th>
+                <th>Actualización Plan de Manejo</th>
+                <th>Plan de Acción</th>
+                <th>Contrato</th>
+                <th>Monto</th>
+                <th>Consultor</th>
+                <th>Num. de REgistro de Consultor</th>                  
+              </tr>
+            </thead>
+            <tbody>
+              <tr (click)="clickTProceso(proceso.codigo_registro, proceso.proceso)"
+              *ngFor="let proceso of procesos">                    
+                <td>{{proceso.proceso}}</td>
+                <td>{{proceso.descripcion}}</td>
+                <td>{{proceso.fecha_ini}}</td>
+                <td>{{proceso.fecha_fin}}</td>
+                <td>{{proceso.estado_contrato}}</td>
+                <td>{{proceso.confirmacion_actual}}</td>
+                <td>{{proceso.plan_acc}}</td>
+                <td>{{proceso.num_contrato}}</td>
+                <td>{{proceso.monto}}</td>
+                <td>{{proceso.consultor}}</td>
+                <td>{{proceso.codigo_registro}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div id="tbl_info" style="display: none;">
+        <div>
+          <h2>Adjuntos de los Procesos</h2>
+        </div>
+  
+        <div>
+          <div >
+            <table style="margin: auto; width: -webkit-fill-available; margin-right: 3.5rem;">          
+              <thead>
+                <tr>
+                  <th>Titulo</th>
+                  <th>Descripción Archivo</th>
+                  <th>Archivo Inicial</th>
+                  <th>Archivo Final</th>
+                  <th>Id Proceso</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let regs of registros">
+                  <td>{{regs.titulo}}</td>
+                  <td>{{regs.descripcion}}</td>
+                  <td>{{regs.arch_inicial}}</td>
+                  <td>{{regs.arch_final}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

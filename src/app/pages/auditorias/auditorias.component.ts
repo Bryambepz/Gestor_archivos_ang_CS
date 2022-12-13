@@ -31,7 +31,6 @@ export class AuditoriasComponent implements OnInit {
   info_proceso: Info_Proceso = new Info_Proceso();
   registros: Info_Proceso[] = [];
 
-  descripcionObt:string="";
   proyectoSeleccionado: string = '';
   descripcionSeleccionado: string = '';
   registroSeleccionado: string = '';
@@ -40,12 +39,8 @@ export class AuditoriasComponent implements OnInit {
   list_contenido: string[] = [];
   menu_cont: string[] = [];
 
-  mostrar: boolean = false;
-
   ngOnInit(): void {
     this.listarProyectos();
-    // this.listarDescripciones();
-    // this.listarProcesos();
     this.menu_cont.push('proyecto');
     this.list_contenido.push('id_proyecto');
 
@@ -92,8 +87,6 @@ export class AuditoriasComponent implements OnInit {
   }
 
   listarProcesos() {
-    // console.log("poccscs ", this.descripcionSeleccionado);
-    
     this.servAuditorias
       .getProcesoBy(this.descripcionSeleccionado)
       .subscribe((d) => {
@@ -149,12 +142,6 @@ export class AuditoriasComponent implements OnInit {
   }
 
   clickTProyectos(titulo: string) {
-    // if (!this.mostrar) {
-    //   // console.log('mos ', this.mostrar, " -- ", titulo);
-    //   this.mostrar = true;
-    // } else {
-    //   this.mostrar = false;
-    // }
     this.proyectoSeleccionado = titulo;
     this.listarDescripciones();
     if (!this.menu_cont.some((s) => s == 'Descripción Proyecto')) {
@@ -165,12 +152,7 @@ export class AuditoriasComponent implements OnInit {
   }
 
   clickTDescripcion(titulo: string) {
-    if (!this.mostrar) {
-      this.mostrar = true;
-    } else {
-      this.mostrar = false;
-    }
-    // this.registroSeleccionado = titulo;
+    
     console.log('mos ', titulo);
     this.descripcionSeleccionado = titulo;
     this.listarProcesos();
@@ -203,34 +185,6 @@ export class AuditoriasComponent implements OnInit {
 
   accionDiv(id: string) {
 
-    if (id == 'proyectos') {
-      let contenido = document.getElementById('historial');
-      contenido!.style.display = 'none';
-      var href = document.getElementsByClassName('link_historial')[0];
-      href!.classList.remove('href');
-            
-      contenido = document.getElementById(id);
-      
-      contenido!.style.display = '';
-      try {
-        var href = document.getElementsByClassName('link_' + id)[0];
-        href!.classList.add('href');        
-      } catch (error) {}
-
-    } else if (id == 'historial') {
-      let contenido = document.getElementById('proyectos');
-      contenido!.style.display = 'none';
-      var href = document.getElementsByClassName('link_proyectos')[0];
-      href!.classList.remove('href');
-
-      contenido = document.getElementById(id);
-      
-      contenido!.style.display = '';
-      try {
-        var href = document.getElementsByClassName('link_' + id)[0];
-        href!.classList.add('href');        
-      } catch (error) {}
-    }else{
       var contenido = document.getElementById(id);
       contenido!.style.display = '';
       try {
@@ -246,65 +200,7 @@ export class AuditoriasComponent implements OnInit {
           href!.classList.remove('href');
         }
       });
-
-    }
-
   }
 
-  clickTHistorial(titulo:string){
-    this.proyectoSeleccionado = titulo;
-    console.log(titulo);
-    this.desc_proyectos = [];
-    this.procesos = [];
-    this.registros = [];
-
-    this.servAuditorias.getDescByProyecto(titulo).forEach((d) => {
-      this.desc_proyectos=d;
-      this.desc_proyectos = this.desc_proyectos.sort((a,b) =>new Date(a.fecha_emision).getTime() - new Date(b.fecha_emision).getTime())
-      d.forEach((d2) => {
-        this.servAuditorias.getProcesoBy(d2.identificador_desc).forEach((f_d2) => {
-          for (let i = 0; i < f_d2.length; i++) {
-            this.procesos.push(f_d2[i]);
-            
-          }
-          this.procesos = this.procesos.sort((a,b) => a.proceso - b.proceso)
-
-          f_d2.forEach((d3) => {
-            this.servAuditorias.getInformacionBy(d2.identificador_desc,d3.proceso).forEach((f_d3) => {
-              for (let i = 0; i < f_d3.length; i++) {
-                console.log("id proceso = ", d3.proceso);
-                console.log(f_d3);
-                f_d3[i].proceso = d3.proceso;
-                this.registros.push(f_d3[i]);    
-                // this.registros.push(d3.proceso)           
-              }
-            })
-          })
-        })
-      })
-    })
-      // console.log(" >> ",d);
-      // this.desc_proyectos = d;
-      // d.forEach((f_desc) => {
-      //   this.servAuditorias.getProcesoBy(f_desc.identificador_desc).subscribe((d2) => {
-      //     console.log(" Procesos");
-      //     console.log(" >> ",d2);
-      //     this.procesos = d2;        
-      //     d2.forEach((f_proc) => {
-      //       this.servAuditorias.getInformacionBy(f_desc.identificador_desc,f_proc.proceso).subscribe((d3) => {
-      //           // console.log(" >> ",d3);
-                
-      //           this.registros = d3;                
-      //         })
-      //       })
-      //     })
-      //   })
-
-      
-  }
-
-  listar(){
-    console.log("motrassassa");
-    this.listarProcesos();
-  }
+  
 }

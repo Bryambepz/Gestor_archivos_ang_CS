@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
       if(data){
         localStorage.setItem('ced_log', data.cedula)
         // this.router.navigate(['/actividad']).then(() => window.location.reload())
-        window.location.href = "/actividad"
+        window.location.href = "/auditorias"
       }else{
         alert("Correo o contraseña incorrectos")
       }

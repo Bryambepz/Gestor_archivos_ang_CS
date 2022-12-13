@@ -1,0 +1,167 @@
+body {
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.77),
+    rgba(74, 153, 198, 0.68)
+  );
+  font-family: "Times New Roman", Times, serif;
+  // font-size: var(--base-font-size);
+  // line-height: var(--base-line-height);
+  -webkit-font-smoothing: antialiased;
+}
+
+.grid-logo {
+  grid-area: logo;
+  text-align: center;
+  background-image: radial-gradient(
+    circle,
+    rgba(43, 206, 206, 0.682),
+    rgba(55, 45, 143, 0.768)
+  );
+  border-radius: 10rem;
+}
+
+.div-logo {
+  position: relative;
+  display: inline-block;
+}
+
+.texto-logo {
+  position: absolute;
+  top: 77%;
+  font-size: 13px;
+  color: #02112a;
+  padding: 0 1rem;
+}
+
+.grid-header {
+  grid-area: header;
+}
+
+.header {
+  text-align: center;
+  align-self: center;
+  font-size: 2rem;
+  color: #000c43;
+}
+
+.grid-sidebar {
+  grid-area: sidebar;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.grid-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-area: contenido;
+  align-items: center;
+  justify-self: center;
+  gap: 1.5rem;
+//   width: -webkit-fill-available;
+  padding: 1rem 2rem;
+}
+
+.grid_scroll {
+  width: max-content;
+  overflow: scroll;
+}
+
+// .grid_scroll ::-webkit-scrollbar {
+//     display: none;
+// }
+
+.contenido {
+  opacity: 10;
+  width: auto;
+  height: min-content;
+  background-color: rgba(255, 255, 255, 0.499);
+//   margin: 1rem 1.5rem;
+  padding: 1rem;
+  // align-items: center;
+  justify-self: center;
+  border-radius: 0.7rem;
+}
+
+.proyecto {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-area: contenido;
+  gap: 1rem;
+}
+.form_descripcion {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.main-contenedor {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas:
+    "header header header logo"
+    ". . sidebar ."
+    "contenido contenido contenido contenido";
+}
+
+table {
+  overflow: auto;
+  width: 400px;
+  border-radius: 0.7rem;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+// #id_proyecto table {
+//   width: 600px;
+// }
+// #id_info table {
+//   width: 600px;
+// }
+#proyecto_hist table {
+  width: 100%;
+}
+.table_scroll {
+  width: auto;
+  height: 200px;
+  overflow: auto;
+}
+
+th,
+td {
+  font-family: inherit;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: rgb(0, 0, 0);
+}
+th {
+  text-align: left;
+}
+
+thead th {
+  background-color: #3a63a5;
+}
+.select_tables tbody tr:hover {
+  background-color: rgba(51, 130, 199, 0.3);
+}
+
+.select_tables tbody tr:active {
+  background-color: #123456;
+  color: #fff;
+}
+
+.select_tables tbody tr::after {
+  background-color: #123456;
+  color: #fff;
+}
+
+tbody td {
+  position: relative;
+  border-bottom: 1px groove;
+  border-color: #c4cdf561;
+}
