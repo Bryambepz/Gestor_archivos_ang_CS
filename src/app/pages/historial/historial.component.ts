@@ -50,12 +50,13 @@ export class HistorialComponent implements OnInit {
   clickTProceso(titulo: string, nproc: number) {
     console.log('proc ', titulo);
     console.log('procn ', nproc);
-    this.registroSeleccionado = titulo;
+    this.descripcionSeleccionado = titulo;
     this.procesoSeleccionado = nproc;
     this.accionDiv('tbl_info');
     console.log("yeaaaa > ", this.desc_proyectos);
     
-    // this.listarInformacion();
+
+    this.listarInformacion();
     // if (!this.menu_cont.some((s) => s == 'Información Procesos')) {
     //   this.menu_cont.push('Información Procesos');
     //   this.list_contenido.push('id_info');
@@ -63,6 +64,8 @@ export class HistorialComponent implements OnInit {
   }
 
   clickTHistorial(titulo:string){
+    var doc = document.getElementById("id_contenido");
+    doc!.style.display='';
     this.proyectoSeleccionado = titulo;
     console.log(titulo);
     this.desc_proyectos = [];
@@ -75,10 +78,11 @@ export class HistorialComponent implements OnInit {
       d.forEach((d2) => {
         this.servAuditorias.getProcesoBy(d2.identificador_desc).forEach((f_d2) => {
           for (let i = 0; i < f_d2.length; i++) {
-            this.procesos.push(f_d2[i]);
-            
+            f_d2[i].identificador = d2.identificador_desc;            
+            this.procesos.push(f_d2[i]);            
           }
-          this.procesos = this.procesos.sort((a,b) => a.proceso - b.proceso)
+          this.procesos = this.procesos.sort((a,b) => b.proceso - a.proceso)
+
 
           // f_d2.forEach((d3) => {
           //   this.servAuditorias.getInformacionBy(d2.identificador_desc,d3.proceso).forEach((f_d3) => {
@@ -105,5 +109,14 @@ export class HistorialComponent implements OnInit {
       console.log(error);
       
     }
+  }
+
+  chang(opcion:string){
+    if (opcion == 'edit'){
+      console.log("presiono edit");
+    }else{
+      console.log("presiono bye");
+    }
+    
   }
 }

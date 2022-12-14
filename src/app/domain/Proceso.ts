@@ -10,4 +10,5 @@ export class Proceso{
     fecha_fin:Date = new Date();
     plan_acc:boolean = false;
     estado_contrato:boolean = false;
+    identificador:string = "";
 }

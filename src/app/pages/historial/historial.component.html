@@ -10,16 +10,38 @@
   </div>
 
   <div class="header grid-header">
-    <h1>Historial de Auditorías</h1>
+    <h1>Control de Auditorias</h1>
   </div>
 
   <div class="grid-sidebar menu">
-    <h3>Menu</h3>
-    <a href="/actividad">Crear Actividad</a>
+    <!-- ini -->
+
+    <nav id="primary_nav_wrap">
+      <ul>
+        <!-- <li class="current-menu-item"><a href="#">Home</a></li> -->
+        <li><a href="">Actividad</a>
+          <ul>
+            <li><a href="/actividad">Crear</a></li>
+            <li><a href="/Listar">Ver</a></li>                        
+          </ul>
+        </li>
+        <li><a href="">Auditoria</a>
+          <ul>
+            <li><a href="/Historial_auditorias">Historial</a></li>
+            <li><a href="/auditorias">Crear Proyecto</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Configuración</a></li>
+        <li><a href="/login">Cerrar Sesión</a></li>        
+      </ul>
+      </nav>
+
+    <!-- <h3>Menu</h3>
+    <a href="/actividad">Actividad</a>
     <a href="/Listar">Actividades</a>
     <a href="/auditorias">Auditorias</a>
     <a href="#">Actualizar Información</a>
-    <a href="/login">Cerrar Sesion</a>
+    <a href="/login">Cerrar Sesion</a> -->
   </div>
    
   <div class="grid-content">
@@ -46,11 +68,11 @@
       </div>        
     </div>                  
 
-    <div class="contenido" style="width: auto; display: none;">
+    <div id="id_contenido" class="contenido" style="width: auto; display: none;">
       
-      <div>
+      <div style="width: auto;">
         <h1>Proyecto:</h1>
-        <h4 style="width: 50%;">{{proyectoSeleccionado}}</h4>
+        <h4 style="width: auto">{{proyectoSeleccionado}}</h4>
       </div>
 
       <h1>Descripción</h1>
@@ -59,6 +81,7 @@
         <table  style="margin: auto; width: 100%; margin-right: 3.5rem;">
           <thead>
             <tr>
+              <th></th>
               <th>Identificador</th>
               <th>Fecha</th>
               <th>Código Dpt. Gestion Amb</th>
@@ -67,7 +90,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let descs of desc_proyectos">
+            <tr *ngFor="let descs of desc_proyectos">                           
               <td>{{descs.identificador_desc}}</td>
               <td>{{descs.fecha_emision}}</td>
               <td>{{descs.codigo_dga}}</td>
@@ -88,6 +111,7 @@
           <table style="margin: auto; width: 100%; margin-right: 3.5rem;">          
             <thead>
               <tr>
+                <th></th>
                 <th>ID</th>
                 <th>Tipo de Auditoria</th>
                 <th>Periodo Inicio</th>
@@ -98,12 +122,20 @@
                 <th>Contrato</th>
                 <th>Monto</th>
                 <th>Consultor</th>
-                <th>Num. de REgistro de Consultor</th>                  
+                <th>Num. de Registro de Consultor</th>
+                <th>Pertenece a:</th>
               </tr>
             </thead>
             <tbody>
-              <tr (click)="clickTProceso(proceso.codigo_registro, proceso.proceso)"
-              *ngFor="let proceso of procesos">                    
+              <tr (click)="clickTProceso(proceso.identificador, proceso.proceso)"
+              *ngFor="let proceso of procesos">
+                <td class="bot_table">
+                  <input class="seleccion" (click)="chang('edit')" src="../../../assets/imgs/edit.png" type="image" value="edit">
+                  
+                  <input class="seleccion" (click)="chang('del')" src="../../../assets/imgs/delet.png" type="image" value="del">
+
+                  <input class="seleccion" (click)="chang('del')" src="../../../assets/imgs/vermas.png" type="image" value="del">
+                </td> 
                 <td>{{proceso.proceso}}</td>
                 <td>{{proceso.descripcion}}</td>
                 <td>{{proceso.fecha_ini}}</td>
@@ -115,6 +147,7 @@
                 <td>{{proceso.monto}}</td>
                 <td>{{proceso.consultor}}</td>
                 <td>{{proceso.codigo_registro}}</td>
+                <td>{{proceso.identificador}}</td>
               </tr>
             </tbody>
           </table>
@@ -123,7 +156,7 @@
       
       <div id="tbl_info" style="display: none;">
         <div>
-          <h2>Adjuntos de los Procesos</h2>
+          <h2>Adjuntos del Proceso: {{procesoSeleccionado}}</h2>
         </div>
   
         <div>
@@ -135,7 +168,6 @@
                   <th>Descripción Archivo</th>
                   <th>Archivo Inicial</th>
                   <th>Archivo Final</th>
-                  <th>Id Proceso</th>
                 </tr>
               </thead>
               <tbody>
