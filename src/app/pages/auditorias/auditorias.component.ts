@@ -57,7 +57,7 @@ export class AuditoriasComponent implements OnInit {
 
   crearProyecto() {
     console.log('p ', this.proyecto);
-    this.servAuditorias.crearProyecto(this.proyecto).subscribe((data) => {
+    this.servAuditorias.crearProyecto(this.proyecto, localStorage.getItem('ced_log')!.toString()).subscribe((data) => {
       console.log('creado ', data);
       this.listarProyectos();
     });

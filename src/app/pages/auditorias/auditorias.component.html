@@ -13,12 +13,34 @@
   </div>
 
   <div class="grid-sidebar menu">
-    <h3>Menu</h3>
-    <a href="/actividad">Crear Actividad</a>
+    <!-- ini -->
+
+    <nav id="primary_nav_wrap">
+      <ul>
+        <!-- <li class="current-menu-item"><a href="#">Home</a></li> -->
+        <li><a href="">Actividad</a>
+          <ul>
+            <li><a href="/actividad">Crear</a></li>
+            <li><a href="/Listar">Ver</a></li>                        
+          </ul>
+        </li>
+        <li><a href="">Auditoria</a>
+          <ul>
+            <li><a href="/Historial_auditorias">Historial</a></li>
+            <li><a href="/auditorias">Crear Proyecto</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Configuración</a></li>
+        <li><a href="/login">Cerrar Sesión</a></li>        
+      </ul>
+      </nav>
+
+    <!-- <h3>Menu</h3>
+    <a href="/actividad">Actividad</a>
     <a href="/Listar">Actividades</a>
     <a href="/auditorias">Auditorias</a>
     <a href="#">Actualizar Información</a>
-    <a href="/login">Cerrar Sesion</a>
+    <a href="/login">Cerrar Sesion</a> -->
   </div>
    
   <div class="grid-content">
@@ -119,18 +141,20 @@
             <table style="margin: auto; width: max-content;">
               <thead>
                 <tr>
-                  <th>Identificador</th>
-                  <th>Autoridad Ambiental Resp.</th>
-                  <th>Dpt. Gestion Amb</th>
+                  <th>Num. Licencia</th>
                   <th>Fecha</th>
+                  <th>Código Dpt. Gestion Amb</th>
+                  <th>Código Autoridad Ambiental Resp.</th>
+                  <th>Autoridad Ambiental Resp.</th>
                 </tr>
               </thead>
               <tbody>
                 <tr (click)="clickTDescripcion(descP.identificador_desc)" *ngFor="let descP of desc_proyectos">
                   <td>{{ descP.identificador_desc }}</td>
+                  <td>{{ descP.fecha_emision }}</td>
                   <td>{{ descP.codigo_dga }}</td>
                   <td>{{ descP.codigo_aar }}</td>
-                  <td>{{ descP.fecha_emision }}</td>
+                  <td>{{ descP.aar }}</td>
                 </tr>
               </tbody>
             </table>

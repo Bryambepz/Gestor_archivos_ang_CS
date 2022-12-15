@@ -13,11 +13,14 @@ export class AuditoriasServiceService {
   private url: string = 'http://localhost:8081/CentroSur/Auditorias/';
   constructor(private http: HttpClient) {}
 
-  crearProyecto(proyecto: Proyecto): Observable<Proyecto> {
+  crearProyecto(proyecto: Proyecto, cedula:string): Observable<Proyecto> {
     const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify(proyecto);
     return this.http.post<Proyecto>(this.url + 'proyecto', body, {
       headers: headers,
+      params: {
+        cedulaLogin: cedula
+      }
     });
   }
 

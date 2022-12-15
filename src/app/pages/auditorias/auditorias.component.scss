@@ -1,8 +1,8 @@
 body {
   background-image: radial-gradient(
     circle,
-    rgba(43, 206, 206, 0.682),
-    rgba(55, 45, 143, 0.768)
+    rgba(255, 255, 255, 0.77),
+    rgba(74, 153, 198, 0.68)
   );
   font-family: "Times New Roman", Times, serif;
   // font-size: var(--base-font-size);
@@ -55,6 +55,98 @@ body {
   align-items: flex-start;
 }
 
+// i
+li{
+  background: #3a63a5;
+}
+#primary_nav_wrap
+{
+	margin-top:15px
+}
+
+#primary_nav_wrap ul
+{
+	list-style:none;
+	position:relative;
+	float:left;
+	margin-top: 0;
+	padding:0;
+  
+}
+
+#primary_nav_wrap ul a
+{
+	display:block;
+	color:#000c43;
+	text-decoration:none;
+	font-weight:700;
+	font-size:1rem;
+	line-height:32px;
+	padding:1rem 1.5rem;
+  
+	// font-family:"HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif
+}
+
+#primary_nav_wrap ul li
+{
+	position:relative;
+	float:left;
+	margin:0;
+	padding:0;
+  border-radius: 1.5rem;
+}
+
+// #primary_nav_wrap ul li.current-menu-item
+// {
+// 	background:rgb(172, 19, 21)
+// }
+
+#primary_nav_wrap ul li:hover a:hover
+{
+  color: white;
+	background: #123456;
+  border-radius: 1.5rem;
+}
+
+#primary_nav_wrap ul ul
+{
+	display:none;
+	position:absolute;
+	top:100%;
+	left:0;
+	background:#3a63a5;
+	padding:0;  
+}
+
+#primary_nav_wrap ul ul li
+{
+	float:none;
+	width:200px;
+  
+}
+
+#primary_nav_wrap ul ul a
+{
+	line-height:120%;
+	padding:10px 15px
+  
+}
+
+#primary_nav_wrap ul ul ul
+{
+	top:0;
+	left:100%;
+  
+}
+
+#primary_nav_wrap ul li:hover > ul
+{
+	display:block;
+  border-radius: 1.5rem;
+  box-shadow: .3rem .2rem .7rem #123456;
+}
+// f
+
 .grid-content{
   display: grid;
   grid-template-columns: 1fr;
@@ -89,7 +181,7 @@ body {
 
 .contenido{
   opacity: 10;
-  width: min-content;
+  width: auto;
   height: min-content;
   background-color: rgba(255, 255, 255, 0.499);
   margin: 1rem 1.5rem;
@@ -118,8 +210,9 @@ body {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: auto;
   grid-template-areas:
-    "logo header header header"
-    "sidebar contenido contenido contenido";
+    "header header header logo"
+    ". sidebar sidebar ."
+    "contenido contenido contenido contenido";
 }
 
 .form-group {
@@ -182,7 +275,13 @@ body {
 
 #id_descripcion .form_descripcion{
   display: grid;  
+  @media only screen and (max-width: 1400px) {
+    grid-template-columns: repeat(1, 1fr);    
+  }
+    grid-template-columns: repeat(2, 1fr);
+  
 }
+
 
 .form_descripcion .form-group{
   width: max-content;
