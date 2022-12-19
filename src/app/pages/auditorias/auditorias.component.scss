@@ -248,11 +248,16 @@ li{
   text-align: center;
 }
 
-// input[type=number]::-webkit-inner-spin-button, 
-// input[type=number]::-webkit-outer-spin-button { 
-//   -webkit-appearance: none;
-//   margin: 0; 
-// }
+.select {
+  background-color: rgb(152, 202, 243);
+  border: 0;
+  border-radius: 6px;
+  display: block;
+  text-align: center;
+  font-size: 17px;
+  font-family: inherit;
+  width: auto;
+}
 
 .form-group textarea {
   background: rgb(152, 202, 243);

@@ -16,11 +16,11 @@ export class AuditoriasServiceService {
   crearProyecto(proyecto: Proyecto, cedula:string): Observable<Proyecto> {
     const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify(proyecto);
+    console.log(body);
+    
     return this.http.post<Proyecto>(this.url + 'proyecto', body, {
-      headers: headers,
-      params: {
-        cedulaLogin: cedula
-      }
+      headers: headers,      
+      params: { cedulaLogin: cedula }
     });
   }
 

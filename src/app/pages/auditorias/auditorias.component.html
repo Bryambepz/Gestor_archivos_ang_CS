@@ -18,13 +18,13 @@
     <nav id="primary_nav_wrap">
       <ul>
         <!-- <li class="current-menu-item"><a href="#">Home</a></li> -->
-        <li><a href="">Actividad</a>
+        <li><a >Actividad</a>
           <ul>
             <li><a href="/actividad">Crear</a></li>
             <li><a href="/Listar">Ver</a></li>                        
           </ul>
         </li>
-        <li><a href="">Auditoria</a>
+        <li><a >Auditoria</a>
           <ul>
             <li><a href="/Historial_auditorias">Historial</a></li>
             <li><a href="/auditorias">Crear Proyecto</a></li>
@@ -174,7 +174,7 @@
           <div>
             <div class="form-group">
               <label for="cod_reg"># Proceso</label>
-              <input [(ngModel)]="proceso.proceso" name="cod_reg" type="Number" placeholder="# Proceso"/>
+              <input name="cod_reg" type="Number" placeholder="# Proceso" [value]=cant_proceso [(ngModel)]="proceso.proceso" readonly/>
             </div>
             <form class="form_descripcion">
               <div class="form-group">
@@ -202,16 +202,35 @@
                 <input [(ngModel)]="proceso.fecha_fin" name="fecha_fin" type="date" placeholder="dd-MM-yyyy"/>
               </div>
               <div class="form-group">
-                <label for="estado">Aprobado</label>
-                <input [(ngModel)]="proceso.estado_contrato" name="estado" type="checkbox" placeholder="Aprobado"/>
+                <label for="estado">Estado</label>
+                <!-- <input [(ngModel)]="proceso.estado_contrato" name="estado" type="checkbox" placeholder="Aprobado"/> -->
+                <select id="estado" name="estado" class="select" [(ngModel)]="proceso.estado_contrato">
+                  <option value="" disabled>Indique Estado</option>
+                  <option value="En elaboracion TDR">En elaboración TDR</option>
+                  <option value="Presentacion TDR">Presentación TDR</option>
+                  <option value="Aprobacion TDR">Aprobación TDR</option>
+                  <option value="Presentacion informe preeliminar">Presentación informe preeliminar</option>
+                  <option value="Pronunciamiento favorable del informe">Pronunciamiento favorable del informe</option>
+                  <option value="Aprobacion de la Auditoria Ambiental">Aprobación de la Auditoria Ambiental</option>
+                </select>
               </div>
               <div class="form-group">
                 <label for="pl_accion">Plan de Acción</label>
-                <input [(ngModel)]="proceso.plan_acc" name="pl_accion" type="checkbox" placeholder="Plan Accion"/>
+                <!-- <input [(ngModel)]="proceso.plan_acc" name="pl_accion" type="checkbox" placeholder="Plan Accion"/> -->
+                <select class="select" name="plan_accion" id="plan_accion" [(ngModel)]="proceso.plan_acc">                  
+                  <option value="" disabled>Escoja opción</option>
+                  <option value="si">Si</option>
+                  <option value="no">No</option>
+                </select>
               </div>
               <div class="form-group">
                 <label for="pl_manejo">Actualización Plan de Manejo</label>
-                <input [(ngModel)]="proceso.confirmacion_actual" name="pl_manejo" type="checkbox" placeholder="Plan Manejo"/>
+                <!-- <input [(ngModel)]="proceso.confirmacion_actual" name="pl_manejo" type="checkbox" placeholder="Plan Manejo"/> -->
+                <select name="act_plan" id="act_plan" class="select" [(ngModel)]="proceso.confirmacion_actual">
+                  <option value="" disabled>Escoja opción</option>
+                  <option value="si">Si</option>
+                  <option value="no">No</option>
+                </select>
               </div>
               <div class="form-group">
                 <label for="descripcion">Descripción</label>
@@ -231,6 +250,7 @@
                   <th>Registro</th>
                   <th>Contrato</th>
                   <th>Consultor</th>
+                  <th>Estado</th>
                 </tr>
               </thead>
   
@@ -240,6 +260,7 @@
                   <td>{{procs.codigo_registro}}</td>
                   <td>{{procs.num_contrato}}</td>
                   <td>{{procs.consultor}}</td>
+                  <td>{{procs.estado_contrato}}</td>
                 </tr>
               </tbody>
             </table>

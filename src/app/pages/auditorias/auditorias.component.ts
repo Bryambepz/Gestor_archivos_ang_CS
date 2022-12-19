@@ -35,6 +35,7 @@ export class AuditoriasComponent implements OnInit {
   descripcionSeleccionado: string = '';
   registroSeleccionado: string = '';
   procesoSeleccionado: number = 0;
+  cant_proceso:number = 0;
 
   list_contenido: string[] = [];
   menu_cont: string[] = [];
@@ -57,7 +58,9 @@ export class AuditoriasComponent implements OnInit {
 
   crearProyecto() {
     console.log('p ', this.proyecto);
-    this.servAuditorias.crearProyecto(this.proyecto, localStorage.getItem('ced_log')!.toString()).subscribe((data) => {
+    console.log('ced >> ', localStorage.getItem('ced_log'));
+    
+    this.servAuditorias.crearProyecto(this.proyecto, localStorage.getItem('ced_log')!).subscribe((data) => {
       console.log('creado ', data);
       this.listarProyectos();
     });
@@ -94,21 +97,26 @@ export class AuditoriasComponent implements OnInit {
           console.log();
         } else {
           this.procesos = d.sort((a, b) => a.proceso - b.proceso);
+          this.cant_proceso = this.procesos.length + 1
         }
       });
   }
 
   crearProceso() {
-    if (this.descripcionSeleccionado != '') {
-      this.servAuditorias
-        .crearProceso(this.descripcionSeleccionado, this.proceso)
-        .subscribe((d) => {
-          console.log('creado =.', d);
-          this.listarProcesos();
-        });
-      console.log(this.descripcionSeleccionado);
-    } else {
-      console.log('escoja');
+    this.proceso.proceso = this.cant_proceso
+    console.log("guard > ",this.proceso);
+    if(this.proceso.estado_contrato != "" && this.proceso.plan_acc != "" && this.proceso.confirmacion_actual != ""){
+      if (this.descripcionSeleccionado != '') {
+        this.servAuditorias
+          .crearProceso(this.descripcionSeleccionado, this.proceso)
+          .subscribe((d) => {
+            console.log('creado =.', d);
+            this.listarProcesos();
+          });
+        console.log(this.descripcionSeleccionado);
+      } else {
+        console.log('escoja');
+      }
     }
   }
 
