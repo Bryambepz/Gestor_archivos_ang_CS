@@ -244,15 +244,15 @@ thead th {
   background-color: rgba(51, 130, 199, 0.3);
 }
 
-.select_tables tbody tr:active {
-  background-color: #123456;
-  color: #fff;
-}
+// .select_tables tbody tr:active {
+//   background-color: #123456;
+//   color: #fff;
+// }
 
-.select_tables tbody tr::after {
-  background-color: #123456;
-  color: #fff;
-}
+// .select_tables tbody tr::after {
+//   background-color: #123456;
+//   color: #fff;
+// }
 
 tbody td {
   position: relative;

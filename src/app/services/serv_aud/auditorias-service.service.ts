@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Desc_Proyecto } from 'src/app/domain/Desc_Proyecto';
 import { Info_Proceso } from 'src/app/domain/Info_Proceso';
@@ -11,6 +11,7 @@ import { Proyecto } from 'src/app/domain/Proyecto';
 })
 export class AuditoriasServiceService {
   private url: string = 'http://localhost:8081/CentroSur/Auditorias/';
+
   constructor(private http: HttpClient) {}
 
   crearProyecto(proyecto: Proyecto, cedula:string): Observable<Proyecto> {
@@ -72,6 +73,43 @@ export class AuditoriasServiceService {
     });
   }
 
+  getProcesoEditar(proyecto:string, licencia:string, proceso:number):Observable<Proceso>{
+    return this.http.get<Proceso>(this.url + 'getProcesoEditar', {
+      params: {
+        proyecto:proyecto,
+        licencia:licencia,
+        proceso:proceso
+      }
+    })
+  }
+
+  editarProceso(proceso:Proceso, proyecto:string, licencia:string, procesoN:number): Observable<Proceso>{
+    const headers = { 'content-type': 'application/json' };
+    const body = JSON.stringify(proceso);    
+    console.log(body);
+    return this.http.put<Proceso>(this.url + "actualizarProceso", body, {
+      headers: headers,
+      params: {
+        proyecto:proyecto,
+        licencia:licencia,
+        proceso:procesoN
+      }
+    })
+  }
+
+  eliminarProceso(proyecto:string, licencia:string, procesoN:number): Observable<boolean>{
+    const headers = { 'content-type': 'application/json' };
+    // const body = JSON.stringify(proceso);    
+
+    return this.http.delete<boolean>(this.url + "eliminarProceso", {
+      headers: headers,
+      params: {
+        proyecto:proyecto,
+        licencia:licencia,
+        proceso:procesoN
+      }
+    })
+  }
   informacionProceso( info_p:Info_Proceso, proceso: number, id_descrip:string ){
     const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify(info_p);    

@@ -81,7 +81,6 @@
         <table  style="margin: auto; width: 100%; margin-right: 3.5rem;">
           <thead>
             <tr>
-              <th></th>
               <th>Num. Licencia</th>
               <th>Fecha</th>
               <th>Código Dpt. Gestion Amb</th>
@@ -127,14 +126,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr (click)="clickTProceso(proceso.identificador, proceso.proceso)"
-              *ngFor="let proceso of procesos">
+              <tr *ngFor="let proceso of procesos">
+              <!-- (click)="clickTProceso(proceso.identificador, proceso.proceso)" -->
                 <td class="bot_table">
-                  <input class="seleccion" (click)="chang('edit')" src="../../../assets/imgs/edit.png" type="image" value="edit">
+                  <input class="seleccion" (click)="chang('edit', proceso.proceso, proceso.identificador)" src="../../../assets/imgs/edit.png" type="image" value="edit">
                   
-                  <input class="seleccion" (click)="chang('del')" src="../../../assets/imgs/delet.png" type="image" value="del">
+                  <input class="seleccion" (click)="chang('delet', proceso.proceso, proceso.identificador)" src="../../../assets/imgs/delet.png" type="image" value="del">
 
-                  <input class="seleccion" (click)="chang('del')" src="../../../assets/imgs/vermas.png" type="image" value="del">
+                  <input class="seleccion" (click)="clickTProceso(proceso.identificador, proceso.proceso)" src="../../../assets/imgs/vermas.png" type="image" value="del">
                 </td> 
                 <td>{{proceso.proceso}}</td>
                 <td>{{proceso.descripcion}}</td>

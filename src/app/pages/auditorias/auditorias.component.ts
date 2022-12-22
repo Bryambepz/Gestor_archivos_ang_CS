@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { lastValueFrom, Observable } from 'rxjs';
 import { Desc_Proyecto } from 'src/app/domain/Desc_Proyecto';
 import { Info_Proceso } from 'src/app/domain/Info_Proceso';
 import { Proceso } from 'src/app/domain/Proceso';
@@ -14,10 +14,7 @@ import { AuditoriasServiceService } from 'src/app/services/serv_aud/auditorias-s
   encapsulation: ViewEncapsulation.None,
 })
 export class AuditoriasComponent implements OnInit {
-  constructor(
-    private router: Router,
-    private servAuditorias: AuditoriasServiceService
-  ) {}
+  procesos_edit: string = '';
 
   proyecto: Proyecto = new Proyecto();
   proyectos: Proyecto[] = [];
@@ -35,20 +32,73 @@ export class AuditoriasComponent implements OnInit {
   descripcionSeleccionado: string = '';
   registroSeleccionado: string = '';
   procesoSeleccionado: number = 0;
-  cant_proceso:number = 0;
+  cant_proceso: number = 0;
+  estado: string = '';
 
   list_contenido: string[] = [];
   menu_cont: string[] = [];
 
+  constructor(
+    private servAuditorias: AuditoriasServiceService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
   ngOnInit(): void {
+    
+    this.route.queryParams.subscribe((d) => {
+      this.estado = d['estado'];
+    //   if(this.estado == "editarProceso"){
+    //     this.cargarDatosEdit();
+    //   }
+    });
+
     this.listarProyectos();
     this.menu_cont.push('proyecto');
     this.list_contenido.push('id_proyecto');
-
+    
     if (localStorage.getItem('ced_log') === '') {
       this.router.navigate(['/login']);
     }
+    
+    console.log("el estado >",this.estado);
+    if(this.estado == "editarProceso"){
+      this.procesos_edit = localStorage.getItem('editarProceso')!;
+      localStorage.setItem('editarProceso','')
+      let datos = this.procesos_edit.split(',', 3);
+      
+      if(datos.length < 3){
+        this.router.navigate(['/Historial_auditorias'])
+      }else{
+        console.log(datos[0]);
+        this.clickTProyectos(datos[0].toString())
+        this.clickTDescripcion(datos[1])        
+        
+        this.servAuditorias.getProcesoEditar(datos[0], datos[1], parseInt(datos[2])).subscribe((d) => {
+          console.log("proceso = ", d);
+          this.proceso = d          
+        })
+        document.getElementById("codigo_registro")!.setAttribute('readonly', 'readonly');
+        document.getElementById("num_contrato")!.setAttribute('readonly', 'readonly');
+        document.getElementById("consultor")!.setAttribute('readonly', 'readonly');
+        document.getElementById("fecha_in")!.setAttribute('readonly', 'readonly');
+        document.getElementById("fecha_fin")!.setAttribute('readonly', 'readonly');
+        document.getElementById("descripcion")!.setAttribute('readonly', 'readonly');
+
+        var doc = document.getElementById('btnProceso')
+        doc!.innerHTML = "Actualizar Proceso"
+      }
+        
+    }
+    
   }
+
+  // cargarDatosEdit() {
+  //   console.log(datos[0]);
+    
+  //   this.clickTProyectos(datos[0]);
+  //   // this.clickTDescripcion(datos[1]);
+  // }
 
   listarProyectos() {
     this.servAuditorias.getProyectos().subscribe((d) => {
@@ -59,17 +109,19 @@ export class AuditoriasComponent implements OnInit {
   crearProyecto() {
     console.log('p ', this.proyecto);
     console.log('ced >> ', localStorage.getItem('ced_log'));
-    
-    this.servAuditorias.crearProyecto(this.proyecto, localStorage.getItem('ced_log')!).subscribe((data) => {
-      console.log('creado ', data);
-      this.listarProyectos();
-    });
+
+    this.servAuditorias
+      .crearProyecto(this.proyecto, localStorage.getItem('ced_log')!)
+      .subscribe((data) => {
+        console.log('creado ', data);
+        this.listarProyectos();
+      });
   }
 
-  listarDescripciones(){
+  listarDescripciones() {
     this.servAuditorias
       .getDescByProyecto(this.proyectoSeleccionado)
-      .subscribe((d) => {        
+      .subscribe((d) => {
         this.desc_proyectos = d;
         console.log('pos ', this.desc_proyectos);
       });
@@ -97,23 +149,33 @@ export class AuditoriasComponent implements OnInit {
           console.log();
         } else {
           this.procesos = d.sort((a, b) => a.proceso - b.proceso);
-          this.cant_proceso = this.procesos.length + 1
+          this.cant_proceso = this.procesos.length + 1;
         }
       });
   }
 
   crearProceso() {
-    this.proceso.proceso = this.cant_proceso
-    console.log("guard > ",this.proceso);
-    if(this.proceso.estado_contrato != "" && this.proceso.plan_acc != "" && this.proceso.confirmacion_actual != ""){
-      if (this.descripcionSeleccionado != '') {
-        this.servAuditorias
-          .crearProceso(this.descripcionSeleccionado, this.proceso)
-          .subscribe((d) => {
-            console.log('creado =.', d);
+    if (
+      this.proceso.estado_contrato != '' &&
+      this.proceso.plan_acc != '' &&
+      this.proceso.confirmacion_actual != ''
+      ) {
+        if (this.descripcionSeleccionado != '') {
+          console.log("btn > ",document.getElementById('btnProceso')!.textContent);
+          if(document.getElementById('btnProceso')!.textContent == 'Proceso'){
+            this.proceso.proceso = this.cant_proceso;
+            this.servAuditorias
+            .crearProceso(this.descripcionSeleccionado, this.proceso)
+            .subscribe((d) => {
+              console.log('creado =.', d);
+              this.listarProcesos();
+            })
+          }else{
+          console.log('guard > ', this.proceso);
+          this.servAuditorias.editarProceso(this.proceso, this.proyectoSeleccionado, this.descripcionSeleccionado, this.proceso.proceso).subscribe((d) => {
             this.listarProcesos();
-          });
-        console.log(this.descripcionSeleccionado);
+          })
+        }
       } else {
         console.log('escoja');
       }
@@ -160,7 +222,6 @@ export class AuditoriasComponent implements OnInit {
   }
 
   clickTDescripcion(titulo: string) {
-    
     console.log('mos ', titulo);
     this.descripcionSeleccionado = titulo;
     this.listarProcesos();
@@ -192,23 +253,24 @@ export class AuditoriasComponent implements OnInit {
   }
 
   accionDiv(id: string) {
+    var contenido = document.getElementById(id);
+    contenido!.style.display = '';
+    try {
+      var href = document.getElementsByClassName('link_' + id)[0];
+      href!.classList.add('href');
+    } catch (error) {}
 
-      var contenido = document.getElementById(id);
-      contenido!.style.display = '';
-      try {
-        var href = document.getElementsByClassName('link_' + id)[0];
-        href!.classList.add('href');
-      } catch (error) {}
-  
-      this.list_contenido.forEach((f) => {
-        if (f !== id) {
-          contenido = document.getElementById(f);
-          contenido!.style.display = 'none';
-          var href = document.getElementsByClassName('link_' + f)[0];
+    this.list_contenido.forEach((f) => {
+      if (f !== id) {
+        
+        contenido = document.getElementById(f);
+        contenido!.style.display = 'none';
+        var href = document.getElementsByClassName('link_' + f)[0];
+        
+        if(href != undefined){
           href!.classList.remove('href');
         }
-      });
+      }
+    });
   }
-
-  
 }

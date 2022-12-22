@@ -196,6 +196,7 @@ li{
   grid-template-columns: 1fr 2fr;
   grid-area: contenido;
   gap: 1rem;
+  justify-items: center;
 }
 .form_descripcion{
   display: grid;
@@ -289,7 +290,7 @@ li{
 
 
 .form_descripcion .form-group{
-  width: max-content;
+  width:-webkit-fill-available;;
 }
 
 button {
@@ -309,14 +310,14 @@ button {
 
 table {
   overflow: auto;
-  width: 400px;  
+  width: -webkit-fill-available;
   border-radius: .7rem;
   border-collapse: collapse;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 #id_proyecto table{
-  width: 600px;
+  width: -webkit-fill-available;
 }
 #id_info table{
   width: 600px;
@@ -325,7 +326,7 @@ table {
   width: 60rem;
 }
 .table_scroll{
-  width: max-content;
+  width: -webkit-fill-available;
   height: 200px;
   overflow: auto;
 }

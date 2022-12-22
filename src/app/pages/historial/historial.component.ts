@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Desc_Proyecto } from 'src/app/domain/Desc_Proyecto';
 import { Info_Proceso } from 'src/app/domain/Info_Proceso';
@@ -18,15 +18,17 @@ export class HistorialComponent implements OnInit {
   desc_proyectos: Desc_Proyecto[] = [];
   procesos: Proceso[] = [];
   registros: Info_Proceso[] = [];
-
+  
   proyectoSeleccionado: string = '';
   descripcionSeleccionado: string = '';
   registroSeleccionado: string = '';
   procesoSeleccionado: number = 0;
-
+  
+  info_proceso_seleccionado:string[] = [];
+  
   constructor(
+    private servAuditorias: AuditoriasServiceService,    
     private router: Router,
-    private servAuditorias: AuditoriasServiceService
   ) { }
 
   ngOnInit(): void {
@@ -67,7 +69,7 @@ export class HistorialComponent implements OnInit {
     var doc = document.getElementById("id_contenido");
     doc!.style.display='';
     this.proyectoSeleccionado = titulo;
-    console.log(titulo);
+    // console.log(titulo);
     this.desc_proyectos = [];
     this.procesos = [];
     this.registros = [];
@@ -82,19 +84,6 @@ export class HistorialComponent implements OnInit {
             this.procesos.push(f_d2[i]);            
           }
           this.procesos = this.procesos.sort((a,b) => b.proceso - a.proceso)
-
-
-          // f_d2.forEach((d3) => {
-          //   this.servAuditorias.getInformacionBy(d2.identificador_desc,d3.proceso).forEach((f_d3) => {
-          //     for (let i = 0; i < f_d3.length; i++) {
-          //       console.log("id proceso = ", d3.proceso);
-          //       console.log(f_d3);
-          //       // f_d3[i].proceso = d3.proceso;
-          //       this.registros.push(f_d3[i]);    
-          //       // this.registros.push(d3.proceso)           
-          //     }
-          //   })
-          // })
         })
       })
     })      
@@ -111,12 +100,33 @@ export class HistorialComponent implements OnInit {
     }
   }
 
-  chang(opcion:string){
+  chang(opcion:string, id:number, licencia:string):void{
+    this.info_proceso_seleccionado = []
     if (opcion == 'edit'){
-      console.log("presiono edit");
+      // console.log("presiono edit", "id > ", id, " lic > ", licencia);     
+      
+      this.info_proceso_seleccionado.push(this.proyectoSeleccionado);
+      this.info_proceso_seleccionado.push(licencia)
+      this.info_proceso_seleccionado.push(id.toString())
+      console.log("a guardar", this.info_proceso_seleccionado);
+      localStorage.setItem('editarProceso', this.info_proceso_seleccionado.toString())
+      this.router.navigate(
+        ['/auditorias'],
+        { queryParams: {estado:'editarProceso'}}
+        );
     }else{
-      console.log("presiono bye");
+      this.servAuditorias.eliminarProceso(this.proyectoSeleccionado, licencia, id).subscribe((d) => {
+        console.log("se elimino? ", d);
+        this.clickTHistorial(this.proyectoSeleccionado)
+      })
     }
+
+    // this.servAuditorias.accionProceso.subscribe((d) => {
+    //   console.log("aaaaaaa ", d);
+    //   this.info_proceso_seleccionado=d
+    //   console.log(this.info_proceso_seleccionado.length);            
+    // })
+    // this.servAuditorias.accionProceso.emit(this.info_proceso_seleccionado)
     
   }
 }
