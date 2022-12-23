@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Persona } from 'src/app/domain/Persona';
 import { PersonaServiceService } from 'src/app/services/serv_per/persona-service.service';
 
@@ -15,7 +16,7 @@ export class RegistrarComponent implements OnInit {
   // roles: string[] = ['SuperAdmmin', 'Administrador', 'Usuario'];
   cargo: string[] = ['Jefe Departamento', 'Jefe Area', 'Otro'];
   
-  constructor(private personaServ: PersonaServiceService) {}
+  constructor(private personaServ: PersonaServiceService, private route:Router) {}
 
   ngOnInit(): void {}
 
@@ -40,6 +41,9 @@ export class RegistrarComponent implements OnInit {
     this.personaServ.registrar(this.new_persona).subscribe((data) => {
       console.log("la per => ",data);
       
+      if(data != null){
+        this.route.navigate(['/Login'])
+      }
     })
   }
 }
