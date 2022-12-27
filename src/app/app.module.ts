@@ -12,6 +12,7 @@ import { ActividadesComponent } from './pages/actividades/actividades.component'
 import { ListarActividadesComponent } from './pages/listar-actividades/listar-actividades.component';
 import { AuditoriasComponent } from './pages/auditorias/auditorias.component';
 import { HistorialComponent } from './pages/historial/historial.component';
+import { MenuComponent } from './pages/menu/menu.component';
 // import { HistorialComponent } from './page/historial/historial.component';
 
 @NgModule({
@@ -23,6 +24,7 @@ import { HistorialComponent } from './pages/historial/historial.component';
     ListarActividadesComponent,
     AuditoriasComponent,
     HistorialComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,

@@ -22,20 +22,26 @@ export class ActividadesComponent implements OnInit {
       this.router.navigate(["/login"])
     }
 
+    console.log("log ", localStorage.getItem('ced_log') );
+    
     let datos_fecha = this.actividad.fecha_inicio.toLocaleDateString().split('/');
     this.fecha = datos_fecha[0] + '-' + datos_fecha[1] + '-' + datos_fecha[2];
     console.log('fec ', this.fecha);
    
     this.servActividadGen.listarActividades(localStorage.getItem('ced_log')!.toString()).subscribe((d) => {
       console.log('acto ',d);
-      this.actividades = d;
+      this.actividades = d.sort((a,b) => a.id-b.id);
     })
   }
 
   crear() {
     this.servActividadGen.crearActividad(this.actividad, localStorage.getItem('ced_log')!).subscribe((data) => {
       console.log(" se ha creado => ", data);
-      
+      if(data != null){
+        console.log(this.actividad);
+        
+        window.location.href= "/Listar"
+      }
     })
     
   }

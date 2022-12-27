@@ -1,4 +1,9 @@
 <div class="main-contenedor">
+
+  <div class="header grid-header">
+    <h1>Actividades</h1>
+  </div>
+
   <div class="grid-logo">
     <div class="div-logo">
       <img src="../../../assets/imgs/picon2.png" alt="centrosur-icon" />
@@ -6,24 +11,41 @@
     </div>
   </div>
 
-  <div class="header grid-header">
-    <h1>Actividades</h1>
-  </div>
-
   <div class="grid-sidebar menu">
-    <h3>Menu</h3>
-    <a href="/actividad">Crear Actividad</a>
-    <a href="/Listar">Actividades</a>
-    <a href="/auditorias">Auditorias</a>
-    <a href="#">Actualizar Información</a>
-    <a href="/login">Cerrar Sesion</a>
+    <app-menu></app-menu>
   </div>
 
   <div class="grid-content">
     <div>
       listado
-      <div >
-        <table>
+      <div>
+        <div class='container'>
+          <div class='elemento'>
+            <div class='calendario'>
+              <div class='cal-header'>
+                Calendario Actividades
+              </div>
+              <div (click)="accion(act.titulo)" class='cal-body' *ngFor="let act of actividades; let i = index">
+
+                <div class='cal-row'>
+                  <div *ngIf="act.estado == false" class='badge rosso'></div>
+                  <div *ngIf="act.estado == true" class='badge'></div>
+                  <div class='date'>
+                    <div class="month">{{i+1}}</div>
+                  </div>
+                  <div class='info'>
+                    <a>{{act.descripcion}}</a>
+                    <div class='info-time'>
+                      <i class='fa fa-clock-o'></i>
+                      {{act.fecha_inicio}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <table>
           <thead>
             <tr>
               <th>Título</th>
@@ -38,26 +60,26 @@
               <td><button>+</button></td>
             </tr>
           </tbody>
-        </table>
+        </table> -->
       </div>
     </div>
     <div>
       <form>
         <div class="form-group">
           <label for="">Nombre Documento</label>
-          <input [(ngModel)] = "titulo" name = "titulo" type="text" readonly>
+          <input [(ngModel)]="titulo" name="titulo" type="text" readonly>
         </div>
         <div class="form-group">
           <label for="">Nombre Documento</label>
-          <input [(ngModel)] = "registro_act.nombre_documento" name = "nombre" type="text" placeholder="Nombre Documento">
+          <input [(ngModel)]="registro_act.nombre_documento" name="nombre" type="text" placeholder="Nombre Documento">
         </div>
         <div class="form-group">
           <label for="">Culminado</label>
-          <input [(ngModel)] = "registro_act.estado" name = "estado" type="checkbox" readonly disabled>
+          <input [(ngModel)]="registro_act.estado" name="estado" type="checkbox" readonly disabled>
         </div>
         <div class="form-group">
           <label for="">Fecha</label>
-          <input [value]="vFecha" name = "fecha" type="date" readonly placeholder="dd-MM-yyyy">
+          <input [value]="vFecha" name="fecha" type="date" readonly placeholder="dd-MM-yyyy">
         </div>
         <div class="butt-guardar">
           <button (click)="guardar_registro()">Cumplir</button>

@@ -42,7 +42,7 @@ export class RegistrarComponent implements OnInit {
       console.log("la per => ",data);
       
       if(data != null){
-        this.route.navigate(['/Login'])
+        this.route.navigate(['/login'])
       }
     })
   }

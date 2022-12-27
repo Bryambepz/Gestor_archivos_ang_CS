@@ -23,30 +23,40 @@ export class ListarActividadesComponent implements OnInit {
   ngOnInit(): void {
     // console.log("fecha . ", this.fecha[2] + "-" + this.fecha[1] + "-" + this.fecha[0]);
     this.vFecha = this.fecha[2] + "-" + this.fecha[1] + "-" + this.fecha[0];
-    let ced = localStorage.getItem('ced_log')
     if(localStorage.getItem('ced_log') == ""){
       this.router.navigate(["/login"])
     }else{
-      this.servActividadesGen.listarActividades(ced!).subscribe((data) => {
-        this.actividades = data;
-
-      })
+      this.listarAct();
     }
   }
-
+  
+  listarAct(){
+    this.servActividadesGen.listarActividades(localStorage.getItem('ced_log')!).subscribe((data) => {
+      console.log(data);
+      
+      this.actividades = data.sort((a,b) => b.id - a.id);
+      console.log(this.actividades);
+    })    
+  }
   guardar_registro(){
     if(this.titulo != ''){
-      this.registro_act.estado = true;
+      this.registro_act.estado = true;      
       console.log("reg > ", this.registro_act , '\n v-> ', this.titulo);
       this.servActividadesGen.registroActividad(this.registro_act,this.titulo).subscribe((data) => {
         console.log("gua ",data);
+        this.listarAct();
       })
     }else{
-      alert("Indique aque actividad agregará este registro")
+      alert("Indique a que actividad agregará este registro")
     }
     
   }
-  click_tabla(v:string){
-    this.titulo = v;
+  // click_tabla(v:string){
+  // }
+  
+  accion(tituloC:string){
+    console.log("posssss > ", tituloC);
+    this.titulo = tituloC;
+    
   }
 }

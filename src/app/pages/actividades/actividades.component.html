@@ -2,6 +2,10 @@
 <link rel="stylesheet" href="actividades.component.scss">
 <div class="main-contenedor">
 
+  <div class="header grid-header">
+    <h1>Crear Actividad</h1>
+  </div>
+
   <div class="grid-logo">
     <div class="div-logo">
       <img src="../../../assets/imgs/picon2.png" alt="centrosur-icon" />
@@ -9,20 +13,8 @@
     </div>
   </div>
 
-  <!-- <div style="text-align: right; padding-right: 15px;">
-  </div> -->
-
-  <div class="header grid-header">
-    <h1>Crear Actividad</h1>
-  </div>
-
   <div class="grid-sidebar menu">
-    <h3>Menu</h3>
-    <a href="/actividad">Crear Actividad</a>
-    <a href="/Listar">Actividades</a>
-    <a href="#">Auditorias</a>
-    <a href="#">Actualizar Información</a>
-    <a href="/login">Cerrar Sesion</a>
+    <app-menu></app-menu>
   </div>
 
   <div class="grid-content">
@@ -36,7 +28,7 @@
         
         <div class="form-group">
           <label for="description">Descripción</label>
-          <textarea name="descript" id="description" cols="30" rows="5" [(ngModel)] = "actividad.descripcion"></textarea>
+          <textarea name="descript" id="description" cols="600" rows="5" [(ngModel)] = "actividad.descripcion"></textarea>
         </div>
   
         <div class="form-group">
@@ -51,11 +43,11 @@
         </div>
         <div class="form-group">
           <label for="fecha_in">Fecha de inicio</label>
-          <input name="fecha_in" style="width: auto;" type="date" placeholder="Fecha inicio" [(ngModel)] = "actividad.fecha_inicio"/>
+          <input name="fecha_in" style="width: fit-content;" type="date" placeholder="Fecha inicio" [(ngModel)] = "actividad.fecha_inicio"/>
         </div>
         <div class="form-group">
           <label for="fecha_fin">Fecha de Finalización</label>
-          <input id="fecha_fin" name="fecha_fn" type="date" value="{{fecha}}" placeholder="dd-mm-yyyy" ngModel="actividad.fecha_fin"/> 
+          <input id="fecha_fin" name="fecha_fn" style="width: fit-content;" type="date" value="{{fecha}}" placeholder="dd-mm-yyyy" ngModel="actividad.fecha_fin"/> 
         </div>
       </form>
       <div style="text-align: center; padding: 1rem 0;">
@@ -63,7 +55,7 @@
       </div>
     </div>
 
-    <div class='container'>
+    <!-- <div class='container'>
       <div class='elemento'>
         <div class='calendario'>
           <div class='cal-header'>
@@ -74,8 +66,6 @@
             <div class='cal-row'>
               <div class='badge rosso'></div>
               <div class='date'>
-                <!-- <div class='month'>{{act.fecha_inicio}}</div>
-                <div class='day'>01</div> -->
                 <div class="month">{{i+1}}</div>
               </div>
               <div class='info' >
@@ -84,27 +74,13 @@
                   <i class='fa fa-clock-o'></i>
                   {{act.fecha_inicio}}
                 </div>
-                <!-- <div class='info-loc'>
-                  <a href='#'>
-                    <i class='fa fa-map-marker'></i>
-                    Basilica dei Frari, Venezia
-                  </a>
-                </div> -->
               </div>
             </div>
-
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     
-  </div>
-  
-  
-  <div style="background-color: rgba(127, 255, 212, 0.196);">
-  
-     
-
   </div>
 
 </div>

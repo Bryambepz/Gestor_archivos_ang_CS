@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'actividad', component: ActividadesComponent},
   {path: 'Listar', component: ListarActividadesComponent},
   {path: 'auditorias', component: AuditoriasComponent},
-  {path: 'Historial_auditorias', component: HistorialComponent}
+  {path: 'control_auditoria', component: HistorialComponent}
 ];
 
 @NgModule({

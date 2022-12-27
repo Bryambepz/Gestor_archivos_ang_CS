@@ -1,12 +1,10 @@
-
-
 body {
   background-image: radial-gradient(
     circle,
-    rgba(43, 206, 206, 0.682),
-    rgba(55, 45, 143, 0.768)
+    rgba(255, 255, 255, 0.77),
+    rgba(74, 153, 198, 0.68)
   );
-  // font-family: "Times New Roman", Times, serif;
+  font-family: "Times New Roman", Times, serif;
   // font-size: var(--base-font-size);
   // line-height: var(--base-line-height);
   -webkit-font-smoothing: antialiased;
@@ -56,7 +54,7 @@ body {
 
 .grid-content {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr;
   grid-area: contenido;
   background-color: rgba(255, 255, 255, 0.51);
   margin: 1rem 1.5rem;
@@ -79,7 +77,7 @@ body {
 
 .form-group label {
   display: block;
-  margin: 0 0 10px;
+  margin: 0 10px;
   color: rgba(0, 0, 0, 0.8);
   font-size: 12px;
   font-weight: 500;
@@ -93,10 +91,10 @@ body {
   color: rgba(0, 0, 0, 0.9);
   box-sizing: border-box;
   padding: 5px 10px;
-  width: 100%;
+  // width: auto;
   font-family: inherit;
   font-size: inherit;
-  font-weight: 100;
+  // font-weight: 100;
   text-align: justify;
 }
 
@@ -150,8 +148,9 @@ button {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: auto;
   grid-template-areas:
-    "logo header header header"
-    "sidebar contenido contenido contenido";
+    "header header header logo"
+    ". sidebar sidebar ."
+    ". contenido contenido .";
 }
 
 a {
