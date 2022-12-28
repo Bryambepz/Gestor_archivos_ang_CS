@@ -29,6 +29,18 @@ export class AuditoriasServiceService {
     return this.http.get<Proyecto[]>(this.url + 'getProyectos');
   }
 
+  actualizarProyecto(proyecto:Proyecto, cedulaLogin:string):Observable<Proyecto>{
+    const headers = { 'content-type': 'application/json' };
+    const body = JSON.stringify(proyecto);    
+    console.log(body);
+    return this.http.put<Proyecto>(this.url + 'actualizarProyecto', body, {
+      headers: headers,
+      params: {
+        cedulaLogin: cedulaLogin
+      }
+    })
+  }
+
   descripcionProyecto(desc_pro:Desc_Proyecto, titulo:string):Observable<Desc_Proyecto>{
     const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify(desc_pro);

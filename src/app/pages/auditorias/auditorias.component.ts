@@ -38,6 +38,8 @@ export class AuditoriasComponent implements OnInit {
   list_contenido: string[] = [];
   menu_cont: string[] = [];
 
+  editar:boolean = false;
+
   constructor(
     private servAuditorias: AuditoriasServiceService,
     private router: Router,
@@ -45,60 +47,95 @@ export class AuditoriasComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
+    this.editar = false;
     this.route.queryParams.subscribe((d) => {
       this.estado = d['estado'];
-    //   if(this.estado == "editarProceso"){
-    //     this.cargarDatosEdit();
-    //   }
     });
 
     this.listarProyectos();
     this.menu_cont.push('proyecto');
     this.list_contenido.push('id_proyecto');
-    
+
     if (localStorage.getItem('ced_log') === '') {
       this.router.navigate(['/login']);
     }
+
+    console.log('el estado >', this.estado);
+    console.log('edit > ', this.editar);
     
-    console.log("el estado >",this.estado);
-    if(this.estado == "editarProceso"){
-      this.procesos_edit = localStorage.getItem('editarProceso')!;
-      localStorage.setItem('editarProceso','')
-      let datos = this.procesos_edit.split(',', 3);
-      
-      if(datos.length < 3){
-        this.router.navigate(['/Historial_auditorias'])
-      }else{
+    this.procesos_edit = localStorage.getItem('editar')!;
+    localStorage.setItem('editar', '');
+    let datos = this.procesos_edit.split(',', 3);    
+
+    if (datos.length < 3 && this.estado != undefined) {
+      this.router.navigate(['/control_auditoria']);
+    } else {
+
+      this.editar = true;
+
+      if (this.estado == 'editarTitulo') {        
+        this.servAuditorias.getProyectos().subscribe((data) => {
+          data.forEach((f) => {
+            if (f.nombre == datos[0]) {              
+              this.proyecto = f;
+            }
+          });
+        });
+        var doc = document.getElementById('btnProyecto');
+        doc!.innerHTML = 'Actualizar Proyecto';
+        var doc = document.getElementById('tblProyecto');
+        doc!.remove();
+      } else if (this.estado == 'editarDescripcion') {
+        this.clickTProyectos(datos[0].toString());
+        this.servAuditorias.getDescByProyecto(datos[0]).subscribe((d) => {
+          this.desc_proy = d[0];
+        });
+
+        var doc = document.getElementById('btnDescripcion');
+        doc!.innerHTML = 'Actualizar Descripción';
+        var doc = document.getElementById('tblDescripcion');
+        doc!.remove();
+      }else if(this.estado == 'editarProceso'){
         console.log(datos[0]);
         this.clickTProyectos(datos[0].toString())
-        this.clickTDescripcion(datos[1])        
-        
+        this.clickTDescripcion(datos[1])
+
         this.servAuditorias.getProcesoEditar(datos[0], datos[1], parseInt(datos[2])).subscribe((d) => {
           console.log("proceso = ", d);
-          this.proceso = d          
+          this.proceso = d
         })
-        document.getElementById("codigo_registro")!.setAttribute('readonly', 'readonly');
-        document.getElementById("num_contrato")!.setAttribute('readonly', 'readonly');
-        document.getElementById("consultor")!.setAttribute('readonly', 'readonly');
-        document.getElementById("fecha_in")!.setAttribute('readonly', 'readonly');
-        document.getElementById("fecha_fin")!.setAttribute('readonly', 'readonly');
-        document.getElementById("descripcion")!.setAttribute('readonly', 'readonly');
 
         var doc = document.getElementById('btnProceso')
         doc!.innerHTML = "Actualizar Proceso"
-      }
+        var doc = document.getElementById('tblProceso');
+        doc!.remove();
         
+      }
     }
-    
-  }
 
-  // cargarDatosEdit() {
-  //   console.log(datos[0]);
-    
-  //   this.clickTProyectos(datos[0]);
-  //   // this.clickTDescripcion(datos[1]);
-  // }
+    // if(this.estado == "editarProceso"){
+
+    //     console.log(datos[0]);
+    //     this.clickTProyectos(datos[0].toString())
+    //     this.clickTDescripcion(datos[1])
+
+    //     this.servAuditorias.getProcesoEditar(datos[0], datos[1], parseInt(datos[2])).subscribe((d) => {
+    //       console.log("proceso = ", d);
+    //       this.proceso = d
+    //     })
+
+    //   //   // document.getElementById("codigo_registro")!.setAttribute('readonly', 'readonly');
+    //   //   // document.getElementById("num_contrato")!.setAttribute('readonly', 'readonly');
+    //   //   // document.getElementById("consultor")!.setAttribute('readonly', 'readonly');
+    //   //   // document.getElementById("fecha_in")!.setAttribute('readonly', 'readonly');
+    //   //   // document.getElementById("fecha_fin")!.setAttribute('readonly', 'readonly');
+    //   //   // document.getElementById("descripcion")!.setAttribute('readonly', 'readonly');
+
+    //   var doc = document.getElementById('btnProceso')
+    //   doc!.innerHTML = "Actualizar Proceso"
+
+    // }
+  }
 
   listarProyectos() {
     this.servAuditorias.getProyectos().subscribe((d) => {
@@ -110,12 +147,21 @@ export class AuditoriasComponent implements OnInit {
     console.log('p ', this.proyecto);
     console.log('ced >> ', localStorage.getItem('ced_log'));
 
-    this.servAuditorias
-      .crearProyecto(this.proyecto, localStorage.getItem('ced_log')!)
-      .subscribe((data) => {
-        console.log('creado ', data);
-        this.listarProyectos();
-      });
+    if (document.getElementById('btnProyecto')!.textContent == 'Crear Proyecto') {
+      this.servAuditorias
+        .crearProyecto(this.proyecto, localStorage.getItem('ced_log')!)
+        .subscribe((data) => {
+          console.log('creado ', data);
+          this.listarProyectos();
+        });
+      }else{
+        console.log("acccc");
+        this.servAuditorias.actualizarProyecto(this.proyecto, localStorage.getItem('ced_log')!).subscribe((d) => {
+          console.log("act > ", d);
+          window.location.href = '/control_auditoria'
+          // this.listarProyectos();        
+      })
+    }
   }
 
   listarDescripciones() {
@@ -159,22 +205,33 @@ export class AuditoriasComponent implements OnInit {
       this.proceso.estado_contrato != '' &&
       this.proceso.plan_acc != '' &&
       this.proceso.confirmacion_actual != ''
-      ) {
-        if (this.descripcionSeleccionado != '') {
-          console.log("btn > ",document.getElementById('btnProceso')!.textContent);
-          if(document.getElementById('btnProceso')!.textContent == 'Proceso'){
-            this.proceso.proceso = this.cant_proceso;
-            this.servAuditorias
+    ) {
+      if (this.descripcionSeleccionado != '') {
+        console.log(
+          'btn > ',
+          document.getElementById('btnProceso')!.textContent
+        );
+        if (document.getElementById('btnProceso')!.textContent == 'Proceso') {
+          this.proceso.proceso = this.cant_proceso;
+          this.servAuditorias
             .crearProceso(this.descripcionSeleccionado, this.proceso)
             .subscribe((d) => {
               console.log('creado =.', d);
               this.listarProcesos();
-            })
-          }else{
+              this.proceso = new Proceso();
+            });
+        } else {
           console.log('guard > ', this.proceso);
-          this.servAuditorias.editarProceso(this.proceso, this.proyectoSeleccionado, this.descripcionSeleccionado, this.proceso.proceso).subscribe((d) => {
-            this.listarProcesos();
-          })
+          this.servAuditorias
+            .editarProceso(
+              this.proceso,
+              this.proyectoSeleccionado,
+              this.descripcionSeleccionado,
+              this.proceso.proceso
+            )
+            .subscribe((d) => {
+              window.location.href = '/control_auditorias'
+            });
         }
       } else {
         console.log('escoja');
@@ -262,12 +319,11 @@ export class AuditoriasComponent implements OnInit {
 
     this.list_contenido.forEach((f) => {
       if (f !== id) {
-        
         contenido = document.getElementById(f);
         contenido!.style.display = 'none';
         var href = document.getElementsByClassName('link_' + f)[0];
-        
-        if(href != undefined){
+
+        if (href != undefined) {
           href!.classList.remove('href');
         }
       }

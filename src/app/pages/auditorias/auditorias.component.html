@@ -48,12 +48,12 @@
                 <input [(ngModel)]="proyecto.fecha_creacion" name="fecha" type="date" placeholder="dd-MM-yyyy"/>
               </div>
               <div class="butt-guardar">
-                <button style="font-size: 0.9rem;" (click)="crearProyecto()">Crear Proyecto</button>
+                <button id="btnProyecto" style="font-size: 0.9rem;" (click)="crearProyecto()">Crear Proyecto</button>
               </div>
             </form>
           </div>
   
-          <div class="table_scroll">
+          <div id="tblProyecto" class="table_scroll">
             <table>
               <thead>
                 <tr>
@@ -106,11 +106,11 @@
               </div>
             </form>
             <div class="butt-guardar">
-              <button (click)="crearDescProy()">Agregar Descripción</button>
+              <button id="btnDescripcion" (click)="crearDescProy()">Agregar Descripción</button>
             </div>
           </div>
     
-          <div class="table_descripcion">
+          <div id="tblDescripcion" class="table_descripcion">
             <table style="margin: auto; width: max-content;">
               <thead>
                 <tr>
@@ -142,8 +142,8 @@
           <label for="Proyecto" style="font-size: 1.5rem; font-weight: bold;">Proceso:  </label>           
           <label style="font-size: 1.5rem; text-transform: none;"> {{descripcionSeleccionado}}</label>             
         </div>
-        <div class="proyecto">
-  
+        <div class="proyecto">         
+
           <div>
             <div class="form-group">
               <label for="cod_reg"># Proceso</label>
@@ -206,8 +206,8 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="descripcion">Descripción</label>
-                <input id="descripcion" [(ngModel)]="proceso.descripcion" name="descripcion" type="tex" placeholder="Descripción"/>
+                <label for="descripcion">Tipo de Auditoria</label>
+                <input style="width: 17rem;" id="descripcion" [(ngModel)]="proceso.descripcion" name="descripcion" type="tex" placeholder="Tipo de Auditoria"/>
               </div>
             </form>
             <div class="butt-guardar">
@@ -215,7 +215,7 @@
             </div>
           </div>
           
-          <div>
+          <div id="tblProceso">
             <table>
               <thead>
                 <tr>

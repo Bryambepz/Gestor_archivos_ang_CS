@@ -234,7 +234,7 @@ img {
 .calendario .cal-row:hover .badge {
   width: 100%;
 }
-.calendario .cal-row:hover .date, .calendario .cal-row:hover .info, .calendario .cal-row:hover .info a {
+.calendario .cal-row:hover .date, .calendario .cal-row:hover .info, .calendario .cal-row:hover .info p  {
   color: #f8f8ff;
 }
 .calendario .cal-row .badge {
@@ -263,10 +263,10 @@ img {
   display: inline-block;
   vertical-align: top;
   height: 100%;
-  // transition: all ease 0.9s;
+  transition: all ease 0.9s;
 }
 .calendario .cal-row .date {
-  width: 15%;
+  width: 5%;
   margin: 0 10px 0 10px;
   font-family: "Lato", "Open Sans", sans-serif;
   text-align: center;
@@ -274,7 +274,8 @@ img {
 .calendario .cal-row .date .month {
   text-transform: uppercase;
   line-height: 0.5;
-  margin-top: 10px;
+  margin-top: 30px;
+  // align-items: center;
 }
 .calendario .cal-row .date .day {
   font-size: 1.5em;
@@ -283,12 +284,13 @@ img {
 .calendario .cal-row .info {
   text-align: left;
 }
-.calendario .cal-row .info a {
+.calendario .cal-row .info p {
   color: rgb(51, 51, 51);
-  text-decoration: none;
+  // text-decoration: none;
   transition: all ease 0.9s;
+  margin: 0;
 }
-.calendario .cal-row .info a:hover {
+.calendario .cal-row .info p:hover {
   text-decoration: underline;
 }
 .calendario .cal-row .info .info-time, .calendario .cal-row .info .info-loc {

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import { timeout, timer } from 'rxjs';
 import { Desc_Proyecto } from 'src/app/domain/Desc_Proyecto';
 import { Info_Proceso } from 'src/app/domain/Info_Proceso';
 import { Proceso } from 'src/app/domain/Proceso';
@@ -108,22 +109,85 @@ export class HistorialComponent implements OnInit {
     }
   }
 
-  chang(opcion: string, id: number, licencia: string): void {
+  // inputOptions = new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       'Editar Proyecto': 'Editar Proyecto',
+  //       'Editar Descripción': 'Editar Descripción',
+  //       'Editar Proceso': 'Editar Proceso',
+  //       'Editar Adjuntos': 'Editar Adjuntos',
+  //     })
+  //   }, 1000)
+  // })
+
+  chang(opcion: string, id: number, licencia: string){
     this.info_proceso_seleccionado = [];
     if (opcion == 'edit') {
-      // console.log("presiono edit", "id > ", id, " lic > ", licencia);
+      console.log("presiono edit", "id > ", id, " lic > ", licencia);
 
       this.info_proceso_seleccionado.push(this.proyectoSeleccionado);
       this.info_proceso_seleccionado.push(licencia);
       this.info_proceso_seleccionado.push(id.toString());
-      console.log('a guardar', this.info_proceso_seleccionado);
-      localStorage.setItem(
-        'editarProceso',
-        this.info_proceso_seleccionado.toString()
-      );
-      this.router.navigate(['/auditorias'], {
-        queryParams: { estado: 'editarProceso' },
-      });
+      // console.log('a guardar', this.info_proceso_seleccionado);
+
+      Swal.fire({
+        icon: 'warning',
+        title: 'Seleccione que desea modificar',
+        input: 'radio',
+        inputOptions: {
+          editarTitulo: 'Editar Titulo',
+          editarDesc: 'Editar Descripcion',
+          editarProceso: 'Editar Proceso',
+          editarAdjunto: 'Editar Adjuntos',
+        },
+        showCloseButton: true,
+        inputValidator: result => new Promise((d) => {
+          // Titulo
+          if(result == 'editarTitulo'){
+            localStorage.setItem(
+              'editar',
+              this.info_proceso_seleccionado.toString()
+            );
+            this.router.navigate(['/auditorias'], {
+              queryParams: { estado: 'editarTitulo' },
+            });          
+          // Descripcion Proy
+          }else if(result == 'editarDesc'){
+            localStorage.setItem(
+              'editar',
+              this.info_proceso_seleccionado.toString()
+            );
+            this.router.navigate(['/auditorias'], {
+              queryParams: { estado: 'editarDescripcion' },
+            });            
+          // Proceso
+          }else if(result == 'editarProceso'){
+            localStorage.setItem(
+              'editar',
+              this.info_proceso_seleccionado.toString()
+            );
+            this.router.navigate(['/auditorias'], {
+              queryParams: { estado: 'editarProceso' },
+            });            
+          }
+
+          Swal.fire(
+            {position: 'center',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1000}
+          )
+
+        })
+      })
+      
+      // localStorage.setItem(
+      //   'editarProceso',
+      //   this.info_proceso_seleccionado.toString()
+      // );
+      // this.router.navigate(['/auditorias'], {
+      //   queryParams: { estado: 'editarProceso' },
+      // });
     } else {
       Swal.fire({
         icon: 'warning',
@@ -131,6 +195,7 @@ export class HistorialComponent implements OnInit {
         text: 'Está seguro de eliminar este proceso y sus adjuntos',
         confirmButtonText: 'Si',
         showCancelButton: true,
+        cancelButtonText: 'Cancelar',
         confirmButtonColor: '#3a63a5',
         cancelButtonColor: 'rgb(221, 51, 51)',
       }).then((d) => {

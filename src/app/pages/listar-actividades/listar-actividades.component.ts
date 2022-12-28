@@ -38,6 +38,7 @@ export class ListarActividadesComponent implements OnInit {
       console.log(this.actividades);
     })    
   }
+  
   guardar_registro(){
     if(this.titulo != ''){
       this.registro_act.estado = true;      
