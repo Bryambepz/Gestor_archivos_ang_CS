@@ -4,13 +4,13 @@
     <div>
       <div class="div-logo">
         <img src="../../../assets/imgs/picon2.png" alt="centrosur-icon" />
-        <div class="texto-logo">Dpto. de Gestion Ambiental</div>
+        <!-- <div class="texto-logo">Dpto. de Gestion Ambiental</div> -->
       </div>
     </div>
   </div>
 
   <div class="header grid-header">
-    <h1>Control de Auditorias</h1>
+    <h1>Gestión Ambiental y Responsabilidad Social</h1>
   </div>
 
   <div class="grid-sidebar menu">
@@ -24,8 +24,8 @@
         <table>
           <thead>
             <tr>
-              <th>Proyecto</th>
-              <th>Fecha</th>
+              <th style="text-align: center; font-size: 1.5rem;">Proyectos</th>
+              <!-- <th>Fecha</th> -->
             </tr>
           </thead>
           <tbody>
@@ -34,7 +34,7 @@
               *ngFor="let proy of proyectos"
             >
               <td style="border-right: .3px solid #0000002b;width: min-content;padding-right: .5rem;text-align: justify;" >{{ proy.nombre }}</td>
-              <td style="width: 5rem;">{{ proy.fecha_creacion }}</td>
+              <!-- <td style="width: 5rem;">{{ proy.fecha_creacion }}</td> -->
             </tr>
           </tbody>
         </table>
@@ -54,18 +54,18 @@
         <table  style="margin: auto; width: 100%; margin-right: 3.5rem;">
           <thead>
             <tr>
-              <th>Num. Licencia</th>
-              <th>Fecha</th>
-              <th>Código Dpt. Gestion Amb</th>
-              <th>Código Autoridad Ambiental Resp.</th>
-              <th>Autoridad Ambiental Resp.</th>
+              <th>Código</th>
+              <th>Fecha de Emisión Licencia</th>
+              <!-- <th>Código Dpt. Gestion Amb</th> -->
+              <th>Número Licencia Ambiental</th>
+              <th>Autoridad Ambiental Respensoble</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let descs of desc_proyectos">                           
               <td>{{descs.identificador_desc}}</td>
               <td>{{descs.fecha_emision}}</td>
-              <td>{{descs.codigo_dga}}</td>
+              <!-- <td>{{descs.codigo_dga}}</td> -->
               <td>{{descs.codigo_aar}}</td>
               <td>{{descs.aar}}</td>
             </tr>               
@@ -84,18 +84,18 @@
             <thead>
               <tr>
                 <th></th>
-                <th>ID</th>
-                <th>Tipo de Auditoria</th>
-                <th>Periodo Inicio</th>
-                <th>Periodo Fin</th>
-                <th>Estado del Proceso</th>
-                <th>Actualización Plan de Manejo</th>
-                <th>Plan de Acción</th>
-                <th>Contrato</th>
-                <th>Monto</th>
-                <th>Consultor</th>
-                <th>Num. de Registro de Consultor</th>
-                <th>Pertenece a:</th>
+                <th style="text-align: center;">ID</th>
+                <th style="text-align: center;">Tipo de Auditoria</th>
+                <th style="width: 5rem; text-align: center">Periodo Inicio</th>
+                <th style="width: 5rem; text-align: center">Periodo Fin</th>
+                <th style="text-align: center;">Estado del Proceso</th>
+                <th style="text-align: center;">Actualización Plan de Manejo</th>
+                <th style="text-align: center;">Plan de Acción</th>
+                <th style="text-align: center;">Número Contrato</th>
+                <th style="text-align: center;">Monto</th>
+                <th style="text-align: center;">Consultor</th>
+                <th style="text-align: center;">Número de Registro de Consultor</th>
+                <th style="text-align: center;">Pertenece a:</th>
               </tr>
             </thead>
             <tbody>
@@ -113,8 +113,8 @@
                 <td>{{proceso.fecha_ini}}</td>
                 <td>{{proceso.fecha_fin}}</td>
                 <td>{{proceso.estado_contrato}}</td>
-                <td>{{proceso.confirmacion_actual}}</td>
-                <td>{{proceso.plan_acc}}</td>
+                <td style="text-transform: uppercase;">{{proceso.confirmacion_actual}}</td>
+                <td style="text-transform: uppercase;">{{proceso.plan_acc}}</td>
                 <td>{{proceso.num_contrato}}</td>
                 <td>{{proceso.monto}}</td>
                 <td>{{proceso.consultor}}</td>
@@ -136,10 +136,10 @@
             <table style="margin: auto; width: -webkit-fill-available; margin-right: 3.5rem;">          
               <thead>
                 <tr>
-                  <th>Titulo</th>
-                  <th>Descripción Archivo</th>
-                  <th>Archivo Inicial</th>
-                  <th>Archivo Final</th>
+                  <th style="text-align: center;">Titulo</th>
+                  <th style="text-align: center;">Descripción Archivo</th>
+                  <th style="text-align: center;">Archivo</th>
+                  <!-- <th>Archivo Final</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -147,7 +147,7 @@
                   <td>{{regs.titulo}}</td>
                   <td>{{regs.descripcion}}</td>
                   <td>{{regs.arch_inicial}}</td>
-                  <td>{{regs.arch_final}}</td>
+                  <!-- <td>{{regs.arch_final}}</td> -->
                 </tr>
               </tbody>
             </table>

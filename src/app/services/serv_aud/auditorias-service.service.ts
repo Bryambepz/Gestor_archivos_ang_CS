@@ -29,14 +29,14 @@ export class AuditoriasServiceService {
     return this.http.get<Proyecto[]>(this.url + 'getProyectos');
   }
 
-  actualizarProyecto(proyecto:Proyecto, cedulaLogin:string):Observable<Proyecto>{
+  actualizarProyecto(proyecto:Proyecto, id:number):Observable<Proyecto>{
     const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify(proyecto);    
     console.log(body);
     return this.http.put<Proyecto>(this.url + 'actualizarProyecto', body, {
       headers: headers,
       params: {
-        cedulaLogin: cedulaLogin
+        id: id
       }
     })
   }
@@ -58,6 +58,18 @@ export class AuditoriasServiceService {
     return this.http.get<Desc_Proyecto[]>(this.url + 'getDescripcionByProyecto', {
       params: {
         proyecto: proyecto
+      }
+    })
+  }
+
+  actualizarDescripcion(desc_proy:Desc_Proyecto, id:number):Observable<Desc_Proyecto>{
+    const headers = { 'content-type': 'application/json' };
+    const body = JSON.stringify(desc_proy);    
+    console.log(body);
+    return this.http.put<Desc_Proyecto>(this.url + 'actualizarDescripcion', body, {
+      headers: headers,
+      params: {
+        id: id
       }
     })
   }

@@ -9,25 +9,14 @@
   </div>
 
   <div class="header grid-header">
-    <h1>Auditorias</h1>
+    <h1>Auditorías Ambientales</h1>
   </div>
 
   <div class="grid-sidebar menu">
     <app-menu></app-menu>
   </div>
    
-  <div class="grid-content">
-    
-    <!-- <div id="menu-content">
-
-      <div style="display: grid; grid-template-columns: repeat(2, 1fr);">
-        <a class="link_historial" href="/auditorias#historial" (click)="accionDiv('historial')">Historial Proyectos</a>
-        <a class="link_proyectos" href="/auditorias#proyectos" (click)="accionDiv('proyectos')">Crear Proyectos</a>
-      </div>
-
-    </div> -->
-
-    
+  <div class="grid-content">   
 
     <div id="proyectos">
 
@@ -35,7 +24,7 @@
         <a (click)="accionDiv( list_contenido[i] )" class="link_{{list_contenido[i]}} href" href="/auditorias#{{nav}}" *ngFor="let nav of menu_cont; let i=index">{{nav}}</a>
       </div>
   
-      <div id="id_proyecto" class="contenido">
+      <div id="id_proyecto" class="contenido" >
         <div class="proyecto">
           <div style="width: -webkit-fill-available;">
             <form>
@@ -44,7 +33,7 @@
                 <input [(ngModel)]="proyecto.nombre" name="proy_name" type="text" placeholder="Proyecto"/>
               </div>
               <div class="form-group">
-                <label for="fecha">Fecha Creación</label>
+                <label for="fecha">Fecha de Emisión de la Licencia</label>
                 <input [(ngModel)]="proyecto.fecha_creacion" name="fecha" type="date" placeholder="dd-MM-yyyy"/>
               </div>
               <div class="butt-guardar">
@@ -58,7 +47,7 @@
               <thead>
                 <tr>
                   <th>Proyecto</th>
-                  <th>Fecha</th>
+                  <th>Fecha Emisión</th>
                 </tr>
               </thead>
               <tbody>
@@ -85,17 +74,17 @@
           <div style="width: -webkit-fill-available;">
             <form class="form_descripcion">
               <div class="form-group">
-                <label for="proy_name">Num. Licencia</label>
-                <input [(ngModel)]="desc_proy.identificador_desc" name="proy_name" type="text" placeholder="Num. Licencia"/>
+                <label for="proy_name">Código</label>
+                <input [(ngModel)]="desc_proy.identificador_desc" name="proy_name" type="text" placeholder="Código"/>
               </div>
               <div class="form-group">
-                <label for="fecha">Fecha</label>
+                <label for="fecha">Fecha de Emisión</label>
                 <input [(ngModel)]="desc_proy.fecha_emision" name="fecha" type="date" placeholder="dd-MM-yyyy" />
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label for="dga">Código Dpt. Gestión Ambiental</label>
                 <input [(ngModel)]="desc_proy.codigo_dga" name="dga" type="text" placeholder="Dpt. Gestión Ambiental"/>
-              </div>
+              </div> -->
               <div class="form-group">
                 <label for="caar">Código Autoridad Ambiental Responsable</label>
                 <input [(ngModel)]="desc_proy.codigo_aar" name="caar" type="text" placeholder="Autoridad Ambiental Responsable"/>
@@ -114,18 +103,18 @@
             <table style="margin: auto; width: max-content;">
               <thead>
                 <tr>
-                  <th>Num. Licencia</th>
-                  <th>Fecha</th>
-                  <th>Código Dpt. Gestion Amb</th>
-                  <th>Código Autoridad Ambiental Resp.</th>
-                  <th>Autoridad Ambiental Resp.</th>
+                  <th>Código</th>
+                  <th>Fecha de Emisión Licencia</th>
+                  <!-- <th>Código Dpt. Gestion Amb</th> -->
+                  <th>Número Licencia Ambiental</th>
+                  <th>Autoridad Ambiental Responsable</th>
                 </tr>
               </thead>
               <tbody>
                 <tr (click)="clickTDescripcion(descP.identificador_desc)" *ngFor="let descP of desc_proyectos">
                   <td>{{ descP.identificador_desc }}</td>
                   <td>{{ descP.fecha_emision }}</td>
-                  <td>{{ descP.codigo_dga }}</td>
+                  <!-- <td>{{ descP.codigo_dga }}</td> -->
                   <td>{{ descP.codigo_aar }}</td>
                   <td>{{ descP.aar }}</td>
                 </tr>
@@ -146,16 +135,16 @@
 
           <div>
             <div class="form-group">
-              <label for="cod_reg"># Proceso</label>
-              <input name="cod_reg" type="Number" placeholder="# Proceso" [value]=cant_proceso [(ngModel)]="proceso.proceso" readonly/>
+              <label for="cod_reg">ID</label>
+              <input name="cod_reg" type="Number" placeholder="ID" [value]=cant_proceso [(ngModel)]="proceso.proceso" readonly/>
             </div>
             <form class="form_descripcion">
               <div class="form-group">
-                <label for="cod_reg"># de Regístro de Consultor</label>
+                <label for="cod_reg">Número de Regístro de Consultor</label>
                 <input id="codigo_registro" [(ngModel)]="proceso.codigo_registro" name="cod_reg" type="text" placeholder="Codigo"/>
               </div>
               <div class="form-group">
-                <label for="proc_num"># Contrato</label>
+                <label for="proc_num">Número Contrato</label>
                 <input id="num_contrato" [(ngModel)]="proceso.num_contrato" name="proc_num" type="text" placeholder="Contrato"/>
               </div>
               <div class="form-group">
@@ -167,24 +156,26 @@
                 <input id="monto" [(ngModel)]="proceso.monto" name="monto" type="number" placeholder="Monto"/>
               </div>
               <div class="form-group">
-                <label for="fecha_in">Fecha Inicio</label>
+                <label for="fecha_in">Periodo Inicio</label>
                 <input id="fecha_in" [(ngModel)]="proceso.fecha_ini" name="fecha_in" type="date" placeholder="dd-MM-yyyy"/>
               </div>
               <div class="form-group">
-                <label for="fecha_fin">Fecha Fin</label>
+                <label for="fecha_fin">Periodo Fin</label>
                 <input id="fecha_fin" [(ngModel)]="proceso.fecha_fin" name="fecha_fin" type="date" placeholder="dd-MM-yyyy"/>
               </div>
               <div class="form-group">
-                <label for="estado">Estado</label>
+                <label for="estado">Estado del Proceso</label>
                 <!-- <input [(ngModel)]="proceso.estado_contrato" name="estado" type="checkbox" placeholder="Aprobado"/> -->
                 <select id="estado" name="estado" class="select" [(ngModel)]="proceso.estado_contrato" >
                   <option value="" disabled>Indique Estado</option>
-                  <option value="En elaboracion TDR">En elaboración TDR</option>
-                  <option value="Presentacion TDR">Presentación TDR</option>
-                  <option value="Aprobacion TDR">Aprobación TDR</option>
-                  <option value="Presentacion informe preeliminar">Presentación informe preeliminar</option>
+                  <option value="En elaboración TDR">En elaboración TDR</option>
+                  <option value="Presentación TDR">Presentación TDR</option>
+                  <option value="Aprobación TDR">Aprobación TDR</option>
+                  <option value="Proceso de Contratación">Proceso de Contratación</option>
+                  <option value="Ejecución de Auditoría">Ejecución de Auditoria</option>
+                  <option value="Presentación informe preeliminar">Presentación informe preeliminar</option>
                   <option value="Pronunciamiento favorable del informe">Pronunciamiento favorable del informe</option>
-                  <option value="Aprobacion de la Auditoria Ambiental">Aprobación de la Auditoria Ambiental</option>
+                  <option value="Aprobación de la Auditoría Ambiental">Aprobación de la Auditoria Ambiental</option>
                 </select>
               </div>
               <div class="form-group">
@@ -200,14 +191,20 @@
                 <label for="pl_manejo">Actualización Plan de Manejo</label>
                 <!-- <input [(ngModel)]="proceso.confirmacion_actual" name="pl_manejo" type="checkbox" placeholder="Plan Manejo"/> -->
                 <select name="act_plan" id="act_plan" class="select" [(ngModel)]="proceso.confirmacion_actual">
-                  <option value="" disabled>Escoja opción</option>
+                  <option value="" disabled>Escoja una opción</option>
                   <option value="si">Si</option>
                   <option value="no">No</option>
                 </select>
               </div>
               <div class="form-group">
                 <label for="descripcion">Tipo de Auditoria</label>
-                <input style="width: 17rem;" id="descripcion" [(ngModel)]="proceso.descripcion" name="descripcion" type="tex" placeholder="Tipo de Auditoria"/>
+                <select name="tipo_a" id="tipo_a" class="select" [(ngModel)]="proceso.descripcion">
+                  <option value="" disabled>Escoja una opción</option>
+                  <option value="Auditoria Ambiental de Cumplimiento">Auditoría Ambiental de Cumplimiento</option>
+                  <option value="Auditoria Ambiental de Conjuncion">Auditoría Ambiental de Conjunción</option>
+                  <option value="Auditoria Ambiental Interna">Auditoría Ambiental Interna</option>
+                </select>
+                <!-- <input style="width: 17rem;" id="descripcion" [(ngModel)]="proceso.descripcion" name="descripcion" type="tex" placeholder="Tipo de Auditoria"/> -->
               </div>
             </form>
             <div class="butt-guardar">
@@ -229,19 +226,19 @@
                   <th>Estado del Proceso</th>
                   <th>Actualización Plan de Manejo</th>
                   <th>Plan de Acción</th>
-                  <th>Contrato</th>
+                  <th>Número Contrato</th>
                   <th>Monto</th>
                   <th>Consultor</th>
                 </tr>
               </thead>
   
               <tbody>
-                <tr (click)="clickTProceso(procs.codigo_registro, procs.proceso)" *ngFor="let procs of procesos">
+                <tr (click)="clickTProceso(procs.codigo_registro, procs.proceso, procs.proceso)" *ngFor="let procs of procesos">
                   <td>{{procs.proceso}}</td>
                   <td>{{procs.descripcion}}</td>
                   <td>{{procs.estado_contrato}}</td>
-                  <td>{{procs.confirmacion_actual}}</td>
-                  <td>{{procs.plan_acc}}</td>
+                  <td style="text-transform: uppercase;">{{procs.confirmacion_actual}}</td>
+                  <td style="text-transform: uppercase;">{{procs.plan_acc}}</td>
                   <td>{{procs.num_contrato}}</td>
                   <td>{{procs.monto}}</td>
                   <td>{{procs.consultor}}</td>
@@ -258,7 +255,7 @@
       <div id="id_info" class="contenido" style="display: none;">
         <div class="form-group" style="padding: 1rem 0; display: inline-flex; gap: 1rem;">
           <label for="Proyecto" style="font-size: 1.5rem; font-weight: bold;">Registro Proceso:  </label>           
-          <label style="font-size: 1.5rem; text-transform: none;"> {{registroSeleccionado}}</label>             
+          <label style="font-size: 1.5rem; text-transform: none;"> {{idregistroSeleccionado}}</label>             
         </div>
         <div class="proyecto">
           
@@ -266,26 +263,34 @@
   
             <div class="form-group">
               <h4 for="titulo">Título</h4>
-              <div style="display: inline;">
-                <input style="display: inline; width: auto;" id="TDR" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Terminos De Referencia">
+              <div style="display: inline;" *ngFor="let titulo of titulos">
+                <input style="display: inline; width: auto;" id="TDR" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="titulo">
+                <label style="display: inline; width: auto;" for="TDR">{{titulo}}</label><br>
+                <!-- <input style="display: inline; width: auto;" id="TDR" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Terminos De Referencia">
                 <label style="display: inline; width: auto;" for="TDR">Terminos De Referencia</label><br>
+                <input style="display: inline; width: auto;" id="NP" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Notificación a Proponente">
+                <label style="display: inline; width: auto;" for="NP">Aprobación Terminos de Referencia</label><br>
+                <input style="display: inline; width: auto;" id="NP" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Notificación a Proponente">
+                <label style="display: inline; width: auto;" for="NP">Oficio de Ingreso de Auditoria</label><br>
                 <input style="display: inline; width: auto;" id="IAA" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Informe Auditoria Ambiental">
                 <label style="display: inline; width: auto;" for="IAA">Informe Auditoria Ambiental</label><br>
+                <input style="display: inline; width: auto;" id="IAA" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Informe Auditoria Ambiental">
+                <label style="display: inline; width: auto;" for="IAA">Oficio de Pronunciamiento favorable</label><br>
+                <input style="display: inline; width: auto;" id="IAA" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Informe Auditoria Ambiental">
+                <label style="display: inline; width: auto;" for="IAA">Pago de Tasas</label><br>
+                <input style="display: inline; width: auto;" id="IAA" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Informe Auditoria Ambiental">
+                <label style="display: inline; width: auto;" for="IAA">Solicitud de Aprobación AA</label><br>
                 <input style="display: inline; width: auto;" id="AAA" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Aprobación Auditoria Ambiental">
                 <label style="display: inline; width: auto;" for="AAA">Aprobación Auditoria Ambiental</label><br>
                 <input style="display: inline; width: auto;" id="NP" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Notificación a Proponente">
-                <label style="display: inline; width: auto;" for="NP">Notificación a Proponente</label><br>
+                <label style="display: inline; width: auto;" for="NP">Notificación a Proponente</label><br> -->
               </div>
               
             </div>            
             <form class="form_descripcion">
               <div class="form-group" style="align-items: center;">
-                <label for="arch">Archivo Inicial</label>
+                <label for="arch">Archivo</label>
                 <input (change)="cargaArchivo($event,'inicial')" name="arch" type="file" placeholder="Archivo"/>
-              </div>
-              <div class="form-group" style="align-items: center;">
-                <label for="arch">Archivo Final</label>
-                <input (change)="cargaArchivo($event,'final')" name="arch" type="file" placeholder="Archivo"/>
               </div>
             </form>
             <div class="form-group">
@@ -302,8 +307,7 @@
               <thead>
                 <tr>
                   <th>Titulo</th>
-                  <th>Archivo Inicial</th>
-                  <th>Archivo Final</th>
+                  <th>Archivo</th>
                   <th>Descripción</th>
                 </tr>
               </thead>
@@ -312,7 +316,6 @@
                 <tr *ngFor="let regs of registros">
                   <td>{{regs.titulo}}</td>
                   <td>{{regs.arch_inicial}}</td>
-                  <td>{{regs.arch_final}}</td>
                   <td>{{regs.descripcion}}</td>
                 </tr>
               </tbody>

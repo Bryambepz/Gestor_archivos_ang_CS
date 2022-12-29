@@ -38,7 +38,7 @@ export class HistorialComponent implements OnInit {
 
   listarProyectos() {
     this.servAuditorias.getProyectos().subscribe((d) => {
-      this.proyectos = d;
+      this.proyectos = d.sort((a,b) => b.id-a.id);
     });
   }
 
@@ -87,9 +87,13 @@ export class HistorialComponent implements OnInit {
           new Date(b.fecha_emision).getTime()
       );
       d.forEach((d2) => {
+        console.log("ident > ", d2.identificador_desc);
+        
         this.servAuditorias
           .getProcesoBy(d2.identificador_desc)
           .forEach((f_d2) => {
+            console.log("f_d22 > ", f_d2);
+            
             for (let i = 0; i < f_d2.length; i++) {
               f_d2[i].identificador = d2.identificador_desc;
               this.procesos.push(f_d2[i]);
@@ -123,12 +127,10 @@ export class HistorialComponent implements OnInit {
   chang(opcion: string, id: number, licencia: string){
     this.info_proceso_seleccionado = [];
     if (opcion == 'edit') {
-      console.log("presiono edit", "id > ", id, " lic > ", licencia);
 
       this.info_proceso_seleccionado.push(this.proyectoSeleccionado);
       this.info_proceso_seleccionado.push(licencia);
       this.info_proceso_seleccionado.push(id.toString());
-      // console.log('a guardar', this.info_proceso_seleccionado);
 
       Swal.fire({
         icon: 'warning',
@@ -170,13 +172,19 @@ export class HistorialComponent implements OnInit {
               queryParams: { estado: 'editarProceso' },
             });            
           }
-
-          Swal.fire(
-            {position: 'center',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 1000}
-          )
+          if(result != null){
+            Swal.fire(
+              {position: 'center',
+              icon: 'success',
+              showConfirmButton: false,
+              timer: 1000}
+              )
+            }else{
+              Swal.fire({
+              showConfirmButton: false,
+              timer: 1
+            })
+          }
 
         })
       })

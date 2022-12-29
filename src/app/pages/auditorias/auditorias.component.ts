@@ -6,6 +6,7 @@ import { Info_Proceso } from 'src/app/domain/Info_Proceso';
 import { Proceso } from 'src/app/domain/Proceso';
 import { Proyecto } from 'src/app/domain/Proyecto';
 import { AuditoriasServiceService } from 'src/app/services/serv_aud/auditorias-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-auditorias',
@@ -31,14 +32,27 @@ export class AuditoriasComponent implements OnInit {
   proyectoSeleccionado: string = '';
   descripcionSeleccionado: string = '';
   registroSeleccionado: string = '';
+  idregistroSeleccionado: number = 0;
   procesoSeleccionado: number = 0;
   cant_proceso: number = 0;
   estado: string = '';
 
   list_contenido: string[] = [];
   menu_cont: string[] = [];
+  titulos:string[]=[];
+  list_titulos:string[] = ['Oficio de Ingreso TDR',
+                            'Terminos De Referencia',
+                            'Aprobación Terminos de Referencia',
+                            'Oficio de Ingreso de Auditoria',
+                            'Informe Auditoria Ambiental',
+                            'Oficio de Pronunciamiento favorable',
+                            'Pago de Tasas',
+                            'Solicitud de Aprobación AA',
+                            'Aprobación Auditoria Ambiental',
+                            'Notificación a Proponente'
+                            ]
 
-  editar:boolean = false;
+  id_editar: number = 0;
 
   constructor(
     private servAuditorias: AuditoriasServiceService,
@@ -47,7 +61,7 @@ export class AuditoriasComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.editar = false;
+    
     this.route.queryParams.subscribe((d) => {
       this.estado = d['estado'];
     });
@@ -61,22 +75,30 @@ export class AuditoriasComponent implements OnInit {
     }
 
     console.log('el estado >', this.estado);
-    console.log('edit > ', this.editar);
-    
+
     this.procesos_edit = localStorage.getItem('editar')!;
     localStorage.setItem('editar', '');
-    let datos = this.procesos_edit.split(',', 3);    
+
+    let datos = this.procesos_edit.split(',');
+    let proy = [''];
+    if (datos.length > 3) {
+      for (let i = 0; i < datos.length - 3; i++) {
+        proy[0] = proy[0] + datos[i] + ',';
+      }
+      proy[0] = proy[0] + datos[datos.length - 3];
+      proy.push(datos[datos.length - 2]);
+      proy.push(datos[datos.length - 1]);
+      datos = proy;
+    }
 
     if (datos.length < 3 && this.estado != undefined) {
       this.router.navigate(['/control_auditoria']);
     } else {
-
-      this.editar = true;
-
-      if (this.estado == 'editarTitulo') {        
+      if (this.estado == 'editarTitulo') {
         this.servAuditorias.getProyectos().subscribe((data) => {
           data.forEach((f) => {
-            if (f.nombre == datos[0]) {              
+            if (f.nombre == datos[0]) {
+              this.id_editar = f.id;
               this.proyecto = f;
             }
           });
@@ -89,57 +111,37 @@ export class AuditoriasComponent implements OnInit {
         this.clickTProyectos(datos[0].toString());
         this.servAuditorias.getDescByProyecto(datos[0]).subscribe((d) => {
           this.desc_proy = d[0];
+          console.log('desc --> ', this.desc_proy);
+          this.id_editar = this.desc_proy.id;
         });
 
         var doc = document.getElementById('btnDescripcion');
         doc!.innerHTML = 'Actualizar Descripción';
         var doc = document.getElementById('tblDescripcion');
         doc!.remove();
-      }else if(this.estado == 'editarProceso'){
+      } else if (this.estado == 'editarProceso') {
         console.log(datos[0]);
-        this.clickTProyectos(datos[0].toString())
-        this.clickTDescripcion(datos[1])
+        this.clickTProyectos(datos[0].toString());
+        this.clickTDescripcion(datos[1]);
 
-        this.servAuditorias.getProcesoEditar(datos[0], datos[1], parseInt(datos[2])).subscribe((d) => {
-          console.log("proceso = ", d);
-          this.proceso = d
-        })
+        this.servAuditorias
+          .getProcesoEditar(datos[0], datos[1], parseInt(datos[2]))
+          .subscribe((d) => {
+            console.log('proceso = ', d);
+            this.proceso = d;
+          });
 
-        var doc = document.getElementById('btnProceso')
-        doc!.innerHTML = "Actualizar Proceso"
+        var doc = document.getElementById('btnProceso');
+        doc!.innerHTML = 'Actualizar Proceso';
         var doc = document.getElementById('tblProceso');
         doc!.remove();
-        
       }
     }
-
-    // if(this.estado == "editarProceso"){
-
-    //     console.log(datos[0]);
-    //     this.clickTProyectos(datos[0].toString())
-    //     this.clickTDescripcion(datos[1])
-
-    //     this.servAuditorias.getProcesoEditar(datos[0], datos[1], parseInt(datos[2])).subscribe((d) => {
-    //       console.log("proceso = ", d);
-    //       this.proceso = d
-    //     })
-
-    //   //   // document.getElementById("codigo_registro")!.setAttribute('readonly', 'readonly');
-    //   //   // document.getElementById("num_contrato")!.setAttribute('readonly', 'readonly');
-    //   //   // document.getElementById("consultor")!.setAttribute('readonly', 'readonly');
-    //   //   // document.getElementById("fecha_in")!.setAttribute('readonly', 'readonly');
-    //   //   // document.getElementById("fecha_fin")!.setAttribute('readonly', 'readonly');
-    //   //   // document.getElementById("descripcion")!.setAttribute('readonly', 'readonly');
-
-    //   var doc = document.getElementById('btnProceso')
-    //   doc!.innerHTML = "Actualizar Proceso"
-
-    // }
   }
 
   listarProyectos() {
     this.servAuditorias.getProyectos().subscribe((d) => {
-      this.proyectos = d;
+      this.proyectos = d.sort((a,b) => b.id-a.id);
     });
   }
 
@@ -147,20 +149,24 @@ export class AuditoriasComponent implements OnInit {
     console.log('p ', this.proyecto);
     console.log('ced >> ', localStorage.getItem('ced_log'));
 
-    if (document.getElementById('btnProyecto')!.textContent == 'Crear Proyecto') {
+    if (
+      document.getElementById('btnProyecto')!.textContent == 'Crear Proyecto'
+    ) {
       this.servAuditorias
         .crearProyecto(this.proyecto, localStorage.getItem('ced_log')!)
         .subscribe((data) => {
           console.log('creado ', data);
           this.listarProyectos();
         });
-      }else{
-        console.log("acccc");
-        this.servAuditorias.actualizarProyecto(this.proyecto, localStorage.getItem('ced_log')!).subscribe((d) => {
-          console.log("act > ", d);
-          window.location.href = '/control_auditoria'
-          // this.listarProyectos();        
-      })
+    } else {
+      console.log('acccc');
+      this.servAuditorias
+        .actualizarProyecto(this.proyecto, this.id_editar)
+        .subscribe((d) => {
+          console.log('act > ', d);
+          window.location.href = '/control_auditoria';
+          // this.listarProyectos();
+        });
     }
   }
 
@@ -174,16 +180,26 @@ export class AuditoriasComponent implements OnInit {
   }
 
   crearDescProy() {
-    if (this.proyectoSeleccionado != '') {
-      console.log('desc ', this.desc_proy);
-      this.servAuditorias
-        .descripcionProyecto(this.desc_proy, this.proyectoSeleccionado)
-        .subscribe((d) => {
-          console.log('creado -. ', d);
-          this.listarDescripciones();
-        });
+    if (document.getElementById('btnDescripcion')!.textContent == 'Agregar Descripción') {
+      if (this.proyectoSeleccionado != '') {
+        console.log('desccccc ', this.desc_proy);
+        this.servAuditorias
+          .descripcionProyecto(this.desc_proy, this.proyectoSeleccionado)
+          .subscribe((d) => {
+            console.log('creado -. ', d);
+            this.listarDescripciones();
+          });
+      } else {
+        console.log('escoja');
+      }
     } else {
-      console.log('escoja');
+      console.log('actt ', this.desc_proy);
+      this.servAuditorias
+        .actualizarDescripcion(this.desc_proy, this.id_editar)
+        .subscribe((d) => {
+          console.log('ddddacttt ', d);
+          window.location.href = '/control_auditoria';
+        });
     }
   }
 
@@ -230,7 +246,7 @@ export class AuditoriasComponent implements OnInit {
               this.proceso.proceso
             )
             .subscribe((d) => {
-              window.location.href = '/control_auditorias'
+              window.location.href = '/control_auditorias';
             });
         }
       } else {
@@ -242,29 +258,65 @@ export class AuditoriasComponent implements OnInit {
   listarInformacion() {
     this.servAuditorias
       .getInformacionBy(this.descripcionSeleccionado, this.procesoSeleccionado)
-      .subscribe((d) => {
+      .subscribe((d) => {        
         this.registros = d.sort();
+        console.log("regg > ", this.registros.length);
+        this.titulos = [];
+        for (let i = 0; i < this.registros.length+1; i++) {
+          this.titulos.push(this.list_titulos[i])
+        }
+        console.log("tit > ", this.titulos);
+        
       });
   }
 
   addInformacion() {
     if (
       this.registroSeleccionado != '' &&
+      this.info_proceso.arch_inicial != '' &&
       this.info_proceso.arch_inicial != ''
     ) {
-      console.log(this.info_proceso);
-      this.servAuditorias
-        .informacionProceso(
-          this.info_proceso,
-          this.procesoSeleccionado,
-          this.descripcionSeleccionado
-        )
-        .subscribe((d) => {
-          console.log('ccc = ', d);
-          this.listarInformacion();
-        });
+      Swal.fire({
+        icon: 'warning',
+        title: 'La documentación es la correcta',
+        // text: 'Seguro que los datos estan correctos',
+        confirmButtonText: 'Si',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#3a63a5',
+        cancelButtonColor: 'rgb(221, 51, 51)',
+      }).then((d) => {
+        console.log('dddAlert > ', d);
+
+        if (d.isConfirmed) {
+          console.log(this.info_proceso);
+          this.servAuditorias
+            .informacionProceso(
+              this.info_proceso,
+              this.procesoSeleccionado,
+              this.descripcionSeleccionado
+            )
+            .subscribe((d) => {
+              console.log('ccc = ', d);
+              this.listarInformacion();
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'La documentación ha sido registrada',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            });
+        }
+      });
     } else {
-      console.log('escoja');
+      Swal.fire({
+        icon: 'error',
+        title: 'Ocurrio un problema, \nrevise que selecciono todos los datos necesarios',        
+        showCloseButton: true,
+        showConfirmButton: false,
+        timer: 5500,        
+      })
     }
   }
 
@@ -289,10 +341,11 @@ export class AuditoriasComponent implements OnInit {
     this.accionDiv('id_proceso');
   }
 
-  clickTProceso(titulo: string, nproc: number) {
+  clickTProceso(titulo: string, nproc: number, id: number) {
     console.log('proc ', titulo);
     console.log('procn ', nproc);
     this.registroSeleccionado = titulo;
+    this.idregistroSeleccionado = id;
     this.procesoSeleccionado = nproc;
     this.listarInformacion();
     if (!this.menu_cont.some((s) => s == 'Información Procesos')) {

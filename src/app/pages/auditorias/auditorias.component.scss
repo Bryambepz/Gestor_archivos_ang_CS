@@ -4,7 +4,7 @@ body {
     rgba(255, 255, 255, 0.77),
     rgba(74, 153, 198, 0.68)
   );
-  font-family: "Times New Roman", Times, serif;
+  font-family: Arial, Helvetica, sans-serif;
   // font-size: var(--base-font-size);
   // line-height: var(--base-line-height);
   -webkit-font-smoothing: antialiased;
@@ -13,11 +13,11 @@ body {
 .grid-logo {
   grid-area: logo;
   text-align: center;
-  background-image: radial-gradient(
-    circle,
-    rgba(43, 206, 206, 0.682),
-    rgba(55, 45, 143, 0.768)
-  );
+  // background-image: radial-gradient(
+  //   circle,
+  //   rgba(43, 206, 206, 0.682),
+  //   rgba(55, 45, 143, 0.768)
+  // );
   border-radius: 10rem;
 }
 
@@ -217,7 +217,7 @@ li{
 }
 
 .form-group {
-  font-family: "Times New Roman", Times, serif;
+  // font-family: "Times New Roman", Times, serif;
   line-height: 15px;
   margin: 0.5rem 0.7rem;
 }
@@ -241,7 +241,7 @@ li{
   box-sizing: border-box;
   padding: 5px 10px;
   color: rgba(0, 0, 0, 0.9);
-  font-family: inherit;
+  // font-family: inherit;
   font-size: inherit;
   font-weight: 100;
   line-height: inherit;
@@ -254,9 +254,9 @@ li{
   border: 0;
   border-radius: 6px;
   display: block;
-  text-align: center;
+  text-align: left;
   font-size: 17px;
-  font-family: inherit;
+  // font-family: inherit;
   width: auto;
 }
 

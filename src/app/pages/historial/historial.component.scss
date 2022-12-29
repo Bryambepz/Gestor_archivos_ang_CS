@@ -4,7 +4,7 @@ body {
     rgba(255, 255, 255, 0.77),
     rgba(74, 153, 198, 0.68)
   );
-  font-family: "Times New Roman", Times, serif;
+  font-family: Arial, Helvetica, sans-serif;
   // font-size: var(--base-font-size);
   // line-height: var(--base-line-height);
   -webkit-font-smoothing: antialiased;
@@ -13,11 +13,11 @@ body {
 .grid-logo {
   grid-area: logo;
   text-align: center;
-  background-image: radial-gradient(
-    circle,
-    rgba(43, 206, 206, 0.682),
-    rgba(55, 45, 143, 0.768)
-  );
+  // background-image: radial-gradient(
+  //   circle,
+  //   rgba(43, 206, 206, 0.682),
+  //   rgba(55, 45, 143, 0.768)
+  // );
   border-radius: 10rem;
 }
 
@@ -199,7 +199,7 @@ li{
   grid-template-rows: auto;
   grid-template-areas:
     "header header header logo"
-    ". sidebar sidebar ."
+    ". sidebar sidebar sidebar"
     "contenido contenido contenido contenido";
 }
 
@@ -269,4 +269,8 @@ tbody td {
 
 input:hover{
   box-shadow: 5px;
+}
+
+.swal2-radio {
+  display: grid !important;
 }
