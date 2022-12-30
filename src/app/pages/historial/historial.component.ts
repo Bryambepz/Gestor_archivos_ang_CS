@@ -24,6 +24,7 @@ export class HistorialComponent implements OnInit {
   descripcionSeleccionado: string = '';
   registroSeleccionado: string = '';
   procesoSeleccionado: number = 0;
+  tituloS:string = '';
 
   info_proceso_seleccionado: string[] = [];
 
@@ -46,7 +47,9 @@ export class HistorialComponent implements OnInit {
     this.servAuditorias
       .getInformacionBy(this.descripcionSeleccionado, this.procesoSeleccionado)
       .subscribe((d) => {
-        this.registros = d;
+        this.registros = d.sort((a,b) => a.id-b.id);
+        console.log("ordd > ",this.registros);
+        
         if (this.registros.length > 0) {
           this.accionDiv('tbl_info');
         } else {
@@ -56,18 +59,9 @@ export class HistorialComponent implements OnInit {
   }
 
   clickTProceso(titulo: string, nproc: number) {
-    console.log('proc ', titulo);
-    console.log('procn ', nproc);
     this.descripcionSeleccionado = titulo;
     this.procesoSeleccionado = nproc;
-    console.log('yeaaaa > ', this.desc_proyectos);
-
     this.listarInformacion();
-
-    // if (!this.menu_cont.some((s) => s == 'Información Procesos')) {
-    //   this.menu_cont.push('Información Procesos');
-    //   this.list_contenido.push('id_info');
-    // }
   }
 
   clickTHistorial(titulo: string) {
@@ -92,7 +86,6 @@ export class HistorialComponent implements OnInit {
         this.servAuditorias
           .getProcesoBy(d2.identificador_desc)
           .forEach((f_d2) => {
-            console.log("f_d22 > ", f_d2);
             
             for (let i = 0; i < f_d2.length; i++) {
               f_d2[i].identificador = d2.identificador_desc;
@@ -113,24 +106,16 @@ export class HistorialComponent implements OnInit {
     }
   }
 
-  // inputOptions = new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve({
-  //       'Editar Proyecto': 'Editar Proyecto',
-  //       'Editar Descripción': 'Editar Descripción',
-  //       'Editar Proceso': 'Editar Proceso',
-  //       'Editar Adjuntos': 'Editar Adjuntos',
-  //     })
-  //   }, 1000)
-  // })
-
   chang(opcion: string, id: number, licencia: string){
     this.info_proceso_seleccionado = [];
-    if (opcion == 'edit') {
+    this.tituloS = opcion.split('|')[1];
+    opcion = opcion.split('|')[0];
+
+    if (opcion == 'editProy') {
 
       this.info_proceso_seleccionado.push(this.proyectoSeleccionado);
       this.info_proceso_seleccionado.push(licencia);
-      this.info_proceso_seleccionado.push(id.toString());
+      this.info_proceso_seleccionado.push(id.toString());      
 
       Swal.fire({
         icon: 'warning',
@@ -140,7 +125,7 @@ export class HistorialComponent implements OnInit {
           editarTitulo: 'Editar Titulo',
           editarDesc: 'Editar Descripcion',
           editarProceso: 'Editar Proceso',
-          editarAdjunto: 'Editar Adjuntos',
+          // editarAdjunto: 'Editar Adjuntos',
         },
         showCloseButton: true,
         inputValidator: result => new Promise((d) => {
@@ -171,14 +156,6 @@ export class HistorialComponent implements OnInit {
             this.router.navigate(['/auditorias'], {
               queryParams: { estado: 'editarProceso' },
             });            
-          }else if(result == 'editarAdjunto'){
-            localStorage.setItem(
-              'editar',
-              this.info_proceso_seleccionado.toString()
-            );
-            this.router.navigate(['/auditorias'], {
-              queryParams: { estado: 'editarAdjuntos' },
-            });   
           }
           if(result != null){
             Swal.fire(
@@ -196,15 +173,7 @@ export class HistorialComponent implements OnInit {
 
         })
       })
-      
-      // localStorage.setItem(
-      //   'editarProceso',
-      //   this.info_proceso_seleccionado.toString()
-      // );
-      // this.router.navigate(['/auditorias'], {
-      //   queryParams: { estado: 'editarProceso' },
-      // });
-    } else {
+    } else if(opcion == 'delet'){
       Swal.fire({
         icon: 'warning',
         title: 'Eliminar este proceso',
@@ -231,8 +200,22 @@ export class HistorialComponent implements OnInit {
             });
         }
       });
-      // if(window.confirm('¿Seguro que desea eliminar este proceso y adjuntos?')){
-      // }
+    }else if(opcion == "editAdjunto"){
+      this.info_proceso_seleccionado.push(this.proyectoSeleccionado);
+      this.info_proceso_seleccionado.push(licencia);
+      this.info_proceso_seleccionado.push(id.toString());       
+
+      localStorage.setItem(
+        'editar',
+        this.info_proceso_seleccionado.toString()
+      );
+      localStorage.setItem(
+        'tituloS',
+        this.tituloS
+      )
+      this.router.navigate(['/auditorias'], {
+        queryParams: { estado: 'editarAdjuntos' },
+      }); 
     }
   }
 }

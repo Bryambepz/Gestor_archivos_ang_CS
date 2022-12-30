@@ -107,7 +107,7 @@ export class AuditoriasServiceService {
     })
   }
 
-  editarProceso(proceso:Proceso, proyecto:string, licencia:string, procesoN:number): Observable<Proceso>{
+  actualizarProceso(proceso:Proceso, proyecto:string, licencia:string, procesoN:number): Observable<Proceso>{
     const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify(proceso);    
     console.log(body);
@@ -134,6 +134,7 @@ export class AuditoriasServiceService {
       }
     })
   }
+
   informacionProceso( info_p:Info_Proceso, proceso: number, id_descrip:string ){
     const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify(info_p);    
@@ -152,6 +153,18 @@ export class AuditoriasServiceService {
       params: {
         id_descripcion: id_descrip,
         proceso: proceso
+      }
+    })
+  }
+
+  actualizarInformacion(info_p:Info_Proceso, id:number):Observable<Info_Proceso>{
+    const headers = { 'content-type': 'application/json' };
+    const body = JSON.stringify(info_p);    
+    console.log(body);
+    return this.http.put<Info_Proceso>(this.url + 'actualizarInformacion', body, {
+      headers: headers,
+      params: {
+        id:id
       }
     })
   }

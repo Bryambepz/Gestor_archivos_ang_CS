@@ -226,7 +226,7 @@ li{
   display: block;
   margin: 0 0 10px;
   color: rgba(0, 0, 0, 0.8);
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 500;
   text-transform: uppercase;
 }
@@ -273,6 +273,22 @@ li{
   font-size: inherit;
   font-weight: 100;
   text-align: justify;
+}
+
+input[type="radio"][disabled] + #label_titulo
+{
+    color: black;    
+}
+input[type="radio"]:checked + #label_titulo
+{
+    font-weight: bold;
+}
+input[type="radio"]{
+  border: 1px solid #000000;
+  border-radius: 8px;
+  height: 16px;
+  width: 16px;
+  cursor: pointer;
 }
 
 #id_descripcion .form_descripcion .form-group input{

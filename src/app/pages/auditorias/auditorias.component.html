@@ -263,27 +263,10 @@
   
             <div class="form-group">
               <h4 for="titulo">Título</h4>
-              <div style="display: inline;" *ngFor="let titulo of titulos">
-                <input style="display: inline; width: auto;" id="TDR" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="titulo">
-                <label style="display: inline; width: auto;" for="TDR">{{titulo}}</label><br>
-                <!-- <input style="display: inline; width: auto;" id="TDR" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Terminos De Referencia">
-                <label style="display: inline; width: auto;" for="TDR">Terminos De Referencia</label><br>
-                <input style="display: inline; width: auto;" id="NP" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Notificación a Proponente">
-                <label style="display: inline; width: auto;" for="NP">Aprobación Terminos de Referencia</label><br>
-                <input style="display: inline; width: auto;" id="NP" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Notificación a Proponente">
-                <label style="display: inline; width: auto;" for="NP">Oficio de Ingreso de Auditoria</label><br>
-                <input style="display: inline; width: auto;" id="IAA" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Informe Auditoria Ambiental">
-                <label style="display: inline; width: auto;" for="IAA">Informe Auditoria Ambiental</label><br>
-                <input style="display: inline; width: auto;" id="IAA" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Informe Auditoria Ambiental">
-                <label style="display: inline; width: auto;" for="IAA">Oficio de Pronunciamiento favorable</label><br>
-                <input style="display: inline; width: auto;" id="IAA" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Informe Auditoria Ambiental">
-                <label style="display: inline; width: auto;" for="IAA">Pago de Tasas</label><br>
-                <input style="display: inline; width: auto;" id="IAA" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Informe Auditoria Ambiental">
-                <label style="display: inline; width: auto;" for="IAA">Solicitud de Aprobación AA</label><br>
-                <input style="display: inline; width: auto;" id="AAA" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Aprobación Auditoria Ambiental">
-                <label style="display: inline; width: auto;" for="AAA">Aprobación Auditoria Ambiental</label><br>
-                <input style="display: inline; width: auto;" id="NP" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="Notificación a Proponente">
-                <label style="display: inline; width: auto;" for="NP">Notificación a Proponente</label><br> -->
+              <div id="radiobtntitulo" style="display: inline;" *ngFor="let titulo of titulos">
+                <input *ngIf="editarInfo == false" disabled="true" style="display: inline; width: auto;" id="titulo" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="{{titulo}}">
+                <input *ngIf="editarInfo == true" style="display: inline; width: auto;" id="titulo" type="radio" name="v_titulo" [(ngModel)]="info_proceso.titulo" value="{{titulo}}">
+                <label id="label_titulo" style="display: inline; width: auto;" for="titulo">{{titulo}}</label><br>
               </div>
               
             </div>            
@@ -298,11 +281,11 @@
               <textarea [(ngModel)]="info_proceso.descripcion" name="descripc" rows="4" type="text" placeholder="Descripción"></textarea>
             </div>            
             <div class="butt-guardar">
-              <button (click)="addInformacion()">Agregar Registro</button>
+              <button id="btnInformacion" (click)="addInformacion()">Agregar Registro</button>
             </div>
           </div>
     
-          <div>
+          <div id="tblInfo">
             <table>
               <thead>
                 <tr>
@@ -315,7 +298,7 @@
               <tbody>
                 <tr *ngFor="let regs of registros">
                   <td>{{regs.titulo}}</td>
-                  <td>{{regs.arch_inicial}}</td>
+                  <td>{{regs.arch_adjunto}}</td>
                   <td>{{regs.descripcion}}</td>
                 </tr>
               </tbody>

@@ -1,9 +1,6 @@
 export class Info_Proceso{
+    id:number = 0;
     titulo:string = '';
-    arch_inicial:string = '';
-    arch_final:string = '';
+    arch_adjunto:string = '';
     descripcion:string = '';
-    // proceso:number = 0;
-    // fechaArch:Date = new Date();
-    // ubi_archivo:string = '';
 }

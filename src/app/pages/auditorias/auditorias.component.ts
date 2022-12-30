@@ -53,6 +53,8 @@ export class AuditoriasComponent implements OnInit {
                             ]
 
   id_editar: number = 0;
+  tituloS:string = '';
+  editarInfo:boolean = false;
 
   constructor(
     private servAuditorias: AuditoriasServiceService,
@@ -78,10 +80,14 @@ export class AuditoriasComponent implements OnInit {
 
     this.procesos_edit = localStorage.getItem('editar')!;
     localStorage.setItem('editar', '');
+    this.tituloS = localStorage.getItem('tituloS')!;
+    localStorage.setItem('tituloS', '');
+    this.editarInfo = false;
 
     let datos = this.procesos_edit.split(',');
+    
     let proy = [''];
-    if (datos.length > 3) {
+    if (datos.length > 3) {      
       for (let i = 0; i < datos.length - 3; i++) {
         proy[0] = proy[0] + datos[i] + ',';
       }
@@ -90,7 +96,9 @@ export class AuditoriasComponent implements OnInit {
       proy.push(datos[datos.length - 1]);
       datos = proy;
     }
-    console.log("datos>>> ", datos);
+    if(this.tituloS != ''){      
+      datos.push(this.tituloS)
+    }
     
     if (datos.length < 3 && this.estado != undefined) {
       this.router.navigate(['/control_auditoria']);
@@ -112,7 +120,6 @@ export class AuditoriasComponent implements OnInit {
         this.clickTProyectos(datos[0].toString());
         this.servAuditorias.getDescByProyecto(datos[0]).subscribe((d) => {
           this.desc_proy = d[0];
-          console.log('desc --> ', this.desc_proy);
           this.id_editar = this.desc_proy.id;
         });
 
@@ -121,14 +128,13 @@ export class AuditoriasComponent implements OnInit {
         var doc = document.getElementById('tblDescripcion');
         doc!.remove();
       } else if (this.estado == 'editarProceso') {
-        console.log(datos[0]);
         this.clickTProyectos(datos[0].toString());
         this.clickTDescripcion(datos[1]);
 
         this.servAuditorias
           .getProcesoEditar(datos[0], datos[1], parseInt(datos[2]))
           .subscribe((d) => {
-            console.log('proceso = ', d);
+            
             this.proceso = d;
           });
 
@@ -137,6 +143,7 @@ export class AuditoriasComponent implements OnInit {
         var doc = document.getElementById('tblProceso');
         doc!.remove();
       }else if(this.estado == 'editarAdjuntos'){
+        this.editarInfo = true;
         this.idregistroSeleccionado = parseInt(datos[2]);
         console.log(datos[0]);
         this.clickTProyectos(datos[0].toString());
@@ -144,21 +151,21 @@ export class AuditoriasComponent implements OnInit {
         this.clickTProceso(datos[1], parseInt(datos[2]))
 
         this.servAuditorias.getInformacionBy(datos[1], parseInt(datos[2])).subscribe((d) => {
-          console.log("conse > ", d);
-          
+          d.forEach((f) => {
+            if(f.titulo == datos[3]){
+              // console.log("la F > ", f);
+              this.info_proceso = f
+            }
+          })
         })
-        // this.servAuditorias
-        //   .getProcesoEditar(datos[0], datos[1], parseInt(datos[2]))
-        //   .subscribe((d) => {
-        //     console.log('proceso = ', d);
-        //     this.proceso = d;
-        //   });
 
-        // var doc = document.getElementById('btnProceso');
-        // doc!.innerHTML = 'Actualizar Proceso';
-        // var doc = document.getElementById('tblProceso');
-        // doc!.remove();
+        var doc = document.getElementById('btnInformacion');
+        doc!.innerHTML = 'Actualizar Registro';
+        var doc = document.getElementById('tblInfo');
+        doc!.remove();
       }
+      console.log("info edi>",this.editarInfo);
+      
     }
   }
 
@@ -169,8 +176,6 @@ export class AuditoriasComponent implements OnInit {
   }
 
   crearProyecto() {
-    console.log('p ', this.proyecto);
-    console.log('ced >> ', localStorage.getItem('ced_log'));
 
     if (
       document.getElementById('btnProyecto')!.textContent == 'Crear Proyecto'
@@ -178,15 +183,12 @@ export class AuditoriasComponent implements OnInit {
       this.servAuditorias
         .crearProyecto(this.proyecto, localStorage.getItem('ced_log')!)
         .subscribe((data) => {
-          console.log('creado ', data);
           this.listarProyectos();
         });
     } else {
-      console.log('acccc');
       this.servAuditorias
         .actualizarProyecto(this.proyecto, this.id_editar)
         .subscribe((d) => {
-          console.log('act > ', d);
           window.location.href = '/control_auditoria';
           // this.listarProyectos();
         });
@@ -198,29 +200,22 @@ export class AuditoriasComponent implements OnInit {
       .getDescByProyecto(this.proyectoSeleccionado)
       .subscribe((d) => {
         this.desc_proyectos = d;
-        console.log('pos ', this.desc_proyectos);
       });
   }
 
   crearDescProy() {
     if (document.getElementById('btnDescripcion')!.textContent == 'Agregar Descripción') {
       if (this.proyectoSeleccionado != '') {
-        console.log('desccccc ', this.desc_proy);
         this.servAuditorias
           .descripcionProyecto(this.desc_proy, this.proyectoSeleccionado)
           .subscribe((d) => {
-            console.log('creado -. ', d);
             this.listarDescripciones();
           });
-      } else {
-        console.log('escoja');
       }
     } else {
-      console.log('actt ', this.desc_proy);
       this.servAuditorias
         .actualizarDescripcion(this.desc_proy, this.id_editar)
         .subscribe((d) => {
-          console.log('ddddacttt ', d);
           window.location.href = '/control_auditoria';
         });
     }
@@ -230,9 +225,7 @@ export class AuditoriasComponent implements OnInit {
     this.servAuditorias
       .getProcesoBy(this.descripcionSeleccionado)
       .subscribe((d) => {
-        if (d == null) {
-          console.log();
-        } else {
+        if (d != null){
           this.procesos = d.sort((a, b) => a.proceso - b.proceso);
           this.cant_proceso = this.procesos.length + 1;
         }
@@ -246,23 +239,17 @@ export class AuditoriasComponent implements OnInit {
       this.proceso.confirmacion_actual != ''
     ) {
       if (this.descripcionSeleccionado != '') {
-        console.log(
-          'btn > ',
-          document.getElementById('btnProceso')!.textContent
-        );
         if (document.getElementById('btnProceso')!.textContent == 'Proceso') {
           this.proceso.proceso = this.cant_proceso;
           this.servAuditorias
             .crearProceso(this.descripcionSeleccionado, this.proceso)
             .subscribe((d) => {
-              console.log('creado =.', d);
               this.listarProcesos();
               this.proceso = new Proceso();
             });
         } else {
-          console.log('guard > ', this.proceso);
           this.servAuditorias
-            .editarProceso(
+            .actualizarProceso(
               this.proceso,
               this.proyectoSeleccionado,
               this.descripcionSeleccionado,
@@ -272,8 +259,6 @@ export class AuditoriasComponent implements OnInit {
               window.location.href = '/control_auditoria';
             });
         }
-      } else {
-        console.log('escoja');
       }
     }
   }
@@ -282,13 +267,16 @@ export class AuditoriasComponent implements OnInit {
     this.servAuditorias
       .getInformacionBy(this.descripcionSeleccionado, this.procesoSeleccionado)
       .subscribe((d) => {        
-        this.registros = d.sort();
-        console.log("regg > ", this.registros.length);
+        this.registros = d.sort((a,b) => a.id-b.id);
         this.titulos = [];
         for (let i = 0; i < this.registros.length+1; i++) {
           this.titulos.push(this.list_titulos[i])
         }
-        console.log("tit > ", this.titulos);
+        if(this.editarInfo == false){
+          this.info_proceso.titulo = this.titulos[this.titulos.length-1];
+          console.log("no edit", this.editarInfo);        
+        }
+        
         
       });
   }
@@ -296,8 +284,8 @@ export class AuditoriasComponent implements OnInit {
   addInformacion() {
     if (
       this.registroSeleccionado != '' &&
-      this.info_proceso.arch_inicial != '' &&
-      this.info_proceso.arch_inicial != ''
+      this.info_proceso.arch_adjunto != '' &&
+      this.info_proceso.arch_adjunto != ''
     ) {
       Swal.fire({
         icon: 'warning',
@@ -309,27 +297,32 @@ export class AuditoriasComponent implements OnInit {
         confirmButtonColor: '#3a63a5',
         cancelButtonColor: 'rgb(221, 51, 51)',
       }).then((d) => {
-        console.log('dddAlert > ', d);
-
         if (d.isConfirmed) {
           console.log(this.info_proceso);
-          this.servAuditorias
-            .informacionProceso(
-              this.info_proceso,
-              this.procesoSeleccionado,
-              this.descripcionSeleccionado
-            )
-            .subscribe((d) => {
-              console.log('ccc = ', d);
-              this.listarInformacion();
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'La documentación ha sido registrada',
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            });
+          if (document.getElementById('btnInformacion')!.textContent == 'Agregar Registro') {
+            // this.servAuditorias
+          //   .informacionProceso(
+          //     this.info_proceso,
+          //     this.procesoSeleccionado,
+          //     this.descripcionSeleccionado
+          //   )
+          //   .subscribe((d) => {
+          //     console.log('ccc = ', d);
+          //     this.listarInformacion();
+          //     Swal.fire({
+          //       position: 'center',
+          //       icon: 'success',
+          //       title: 'La documentación ha sido registrada',
+          //       showConfirmButton: false,
+          //       timer: 1500,
+          //     });
+          //   });
+          }else{                        
+            this.servAuditorias.actualizarInformacion(this.info_proceso, 3).subscribe((d) => {
+              console.log("el inf > ", d);
+              window.location.href = "/control_auditoria"              
+            })
+          }   
         }
       });
     } else {
@@ -354,7 +347,6 @@ export class AuditoriasComponent implements OnInit {
   }
 
   clickTDescripcion(titulo: string) {
-    console.log('mos ', titulo);
     this.descripcionSeleccionado = titulo;
     this.listarProcesos();
     if (!this.menu_cont.some((s) => s == 'Proceso')) {
@@ -365,8 +357,6 @@ export class AuditoriasComponent implements OnInit {
   }
 
   clickTProceso(titulo: string, nproc: number) {
-    console.log('proc ', titulo);
-    console.log('procn ', nproc);
     this.registroSeleccionado = titulo;
     this.idregistroSeleccionado = nproc;
     this.procesoSeleccionado = nproc;
@@ -379,10 +369,9 @@ export class AuditoriasComponent implements OnInit {
   }
 
   cargaArchivo(event: any, estado: string) {
-    console.log(event.target.files[0].name);
     estado === 'inicial'
-      ? (this.info_proceso.arch_inicial = event.target.files[0].name)
-      : (this.info_proceso.arch_final = event.target.files[0].name);
+      ? (this.info_proceso.arch_adjunto = event.target.files[0].name)
+      : (this.info_proceso.arch_adjunto = event.target.files[0].name);
   }
 
   accionDiv(id: string) {

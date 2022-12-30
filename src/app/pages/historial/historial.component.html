@@ -95,14 +95,14 @@
                 <th style="text-align: center;">Monto</th>
                 <th style="text-align: center;">Consultor</th>
                 <th style="text-align: center;">Número de Registro de Consultor</th>
-                <th style="text-align: center;">Pertenece a:</th>
+                <!-- <th style="text-align: center;">Pertenece a:</th> -->
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let proceso of procesos">
               <!-- (click)="clickTProceso(proceso.identificador, proceso.proceso)" -->
                 <td class="bot_table">
-                  <input class="seleccion" (click)="chang('edit', proceso.proceso, proceso.identificador)" src="../../../assets/imgs/edit.png" type="image" value="edit">
+                  <input class="seleccion" (click)="chang('editProy', proceso.proceso, proceso.identificador)" src="../../../assets/imgs/edit.png" type="image" value="edit">
                   
                   <input class="seleccion" (click)="chang('delet', proceso.proceso, proceso.identificador)" src="../../../assets/imgs/delet.png" type="image" value="del">
 
@@ -119,7 +119,7 @@
                 <td>{{proceso.monto}}</td>
                 <td>{{proceso.consultor}}</td>
                 <td>{{proceso.codigo_registro}}</td>
-                <td>{{proceso.identificador}}</td>
+                <!-- <td>{{proceso.identificador}}</td> -->
               </tr>
             </tbody>
           </table>
@@ -136,6 +136,7 @@
             <table style="margin: auto; width: -webkit-fill-available; margin-right: 3.5rem;">          
               <thead>
                 <tr>
+                  <th></th>
                   <th style="text-align: center;">Titulo</th>
                   <th style="text-align: center;">Descripción Archivo</th>
                   <th style="text-align: center;">Archivo</th>
@@ -144,9 +145,10 @@
               </thead>
               <tbody>
                 <tr *ngFor="let regs of registros">
+                  <input class="seleccion" (click)="chang('editAdjunto|'+regs.titulo, procesoSeleccionado, descripcionSeleccionado)" src="../../../assets/imgs/edit.png" type="image" value="edit">
                   <td>{{regs.titulo}}</td>
                   <td>{{regs.descripcion}}</td>
-                  <td>{{regs.arch_inicial}}</td>
+                  <td>{{regs.arch_adjunto}}</td>
                   <!-- <td>{{regs.arch_final}}</td> -->
                 </tr>
               </tbody>
