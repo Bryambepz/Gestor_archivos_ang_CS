@@ -171,6 +171,14 @@ export class HistorialComponent implements OnInit {
             this.router.navigate(['/auditorias'], {
               queryParams: { estado: 'editarProceso' },
             });            
+          }else if(result == 'editarAdjunto'){
+            localStorage.setItem(
+              'editar',
+              this.info_proceso_seleccionado.toString()
+            );
+            this.router.navigate(['/auditorias'], {
+              queryParams: { estado: 'editarAdjuntos' },
+            });   
           }
           if(result != null){
             Swal.fire(

@@ -90,7 +90,8 @@ export class AuditoriasComponent implements OnInit {
       proy.push(datos[datos.length - 1]);
       datos = proy;
     }
-
+    console.log("datos>>> ", datos);
+    
     if (datos.length < 3 && this.estado != undefined) {
       this.router.navigate(['/control_auditoria']);
     } else {
@@ -135,6 +136,28 @@ export class AuditoriasComponent implements OnInit {
         doc!.innerHTML = 'Actualizar Proceso';
         var doc = document.getElementById('tblProceso');
         doc!.remove();
+      }else if(this.estado == 'editarAdjuntos'){
+        this.idregistroSeleccionado = parseInt(datos[2]);
+        console.log(datos[0]);
+        this.clickTProyectos(datos[0].toString());
+        this.clickTDescripcion(datos[1]);
+        this.clickTProceso(datos[1], parseInt(datos[2]))
+
+        this.servAuditorias.getInformacionBy(datos[1], parseInt(datos[2])).subscribe((d) => {
+          console.log("conse > ", d);
+          
+        })
+        // this.servAuditorias
+        //   .getProcesoEditar(datos[0], datos[1], parseInt(datos[2]))
+        //   .subscribe((d) => {
+        //     console.log('proceso = ', d);
+        //     this.proceso = d;
+        //   });
+
+        // var doc = document.getElementById('btnProceso');
+        // doc!.innerHTML = 'Actualizar Proceso';
+        // var doc = document.getElementById('tblProceso');
+        // doc!.remove();
       }
     }
   }
@@ -246,7 +269,7 @@ export class AuditoriasComponent implements OnInit {
               this.proceso.proceso
             )
             .subscribe((d) => {
-              window.location.href = '/control_auditorias';
+              window.location.href = '/control_auditoria';
             });
         }
       } else {
@@ -341,11 +364,11 @@ export class AuditoriasComponent implements OnInit {
     this.accionDiv('id_proceso');
   }
 
-  clickTProceso(titulo: string, nproc: number, id: number) {
+  clickTProceso(titulo: string, nproc: number) {
     console.log('proc ', titulo);
     console.log('procn ', nproc);
     this.registroSeleccionado = titulo;
-    this.idregistroSeleccionado = id;
+    this.idregistroSeleccionado = nproc;
     this.procesoSeleccionado = nproc;
     this.listarInformacion();
     if (!this.menu_cont.some((s) => s == 'Información Procesos')) {
