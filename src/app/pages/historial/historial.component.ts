@@ -34,6 +34,9 @@ export class HistorialComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (localStorage.getItem('ced_log') === '') {
+      this.router.navigate(['/login']);
+    }
     this.listarProyectos();
   }
 

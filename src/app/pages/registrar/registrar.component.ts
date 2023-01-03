@@ -12,9 +12,9 @@ import { PersonaServiceService } from 'src/app/services/serv_per/persona-service
 export class RegistrarComponent implements OnInit {
   new_persona: Persona = new Persona();
   conf_pass: string = '';
+  // password: string = '';
 
-  // roles: string[] = ['SuperAdmmin', 'Administrador', 'Usuario'];
-  cargo: string[] = ['Jefe Departamento', 'Jefe Area', 'Otro'];
+  cargo: string[] = ['Jefe Departamental', 'Ingeniero Ambiental'];
   
   constructor(private personaServ: PersonaServiceService, private route:Router) {}
 
@@ -37,16 +37,23 @@ export class RegistrarComponent implements OnInit {
 
   registrar() {
     console.log("json => ", this.new_persona);
-    
-    this.personaServ.registrar(this.new_persona).subscribe((data) => {
-      console.log("la per => ",data);
-      
-      if(data != null){
-        this.route.navigate(['/login'])
-      }
-    })
-  }
+    if(this.new_persona.cargo != ""){
+      this.hash(this.new_persona.contrasenia).then((th) => {        
+        let p = this.new_persona;
+        p.contrasenia = th
 
+        this.personaServ.registrar(p).subscribe((data) => {
+          console.log("la per => ",data);
+          
+          if(data != null){
+          this.new_persona = new Persona();          
+            this.route.navigate(['/login'])
+          }
+        })
+  
+      })
+    }
+  }
   
   async hash(string:string) {
     const utf8 = new TextEncoder().encode(string);

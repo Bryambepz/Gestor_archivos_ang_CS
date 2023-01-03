@@ -64,6 +64,11 @@ export class AuditoriasComponent implements OnInit {
 
   ngOnInit(): void {
     
+    if (localStorage.getItem('ced_log') === '') {
+      // this.router.navigate(['/login']);
+      window.location.href = '/login';
+    }
+    
     this.route.queryParams.subscribe((d) => {
       this.estado = d['estado'];
     });
@@ -72,9 +77,6 @@ export class AuditoriasComponent implements OnInit {
     this.menu_cont.push('proyecto');
     this.list_contenido.push('id_proyecto');
 
-    if (localStorage.getItem('ced_log') === '') {
-      this.router.navigate(['/login']);
-    }
 
     console.log('el estado >', this.estado);
 
@@ -300,27 +302,33 @@ export class AuditoriasComponent implements OnInit {
         if (d.isConfirmed) {
           console.log(this.info_proceso);
           if (document.getElementById('btnInformacion')!.textContent == 'Agregar Registro') {
-            // this.servAuditorias
-          //   .informacionProceso(
-          //     this.info_proceso,
-          //     this.procesoSeleccionado,
-          //     this.descripcionSeleccionado
-          //   )
-          //   .subscribe((d) => {
-          //     console.log('ccc = ', d);
-          //     this.listarInformacion();
-          //     Swal.fire({
-          //       position: 'center',
-          //       icon: 'success',
-          //       title: 'La documentación ha sido registrada',
-          //       showConfirmButton: false,
-          //       timer: 1500,
-          //     });
-          //   });
+            this.servAuditorias
+            .informacionProceso(
+              this.info_proceso,
+              this.procesoSeleccionado,
+              this.descripcionSeleccionado
+            )
+            .subscribe((d) => {
+              console.log('ccc = ', d);
+              this.listarInformacion();
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'La documentación ha sido registrada',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            });
           }else{                        
             this.servAuditorias.actualizarInformacion(this.info_proceso, 3).subscribe((d) => {
-              console.log("el inf > ", d);
-              window.location.href = "/control_auditoria"              
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'La documentación ha sido actualizada',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              window.location.href = "/control_auditoria";           
             })
           }   
         }
