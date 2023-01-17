@@ -3,9 +3,11 @@ import { Router } from '@angular/router';
 import { timeout, timer } from 'rxjs';
 import { Desc_Proyecto } from 'src/app/domain/Desc_Proyecto';
 import { Info_Proceso } from 'src/app/domain/Info_Proceso';
+import { Persona } from 'src/app/domain/Persona';
 import { Proceso } from 'src/app/domain/Proceso';
 import { Proyecto } from 'src/app/domain/Proyecto';
 import { AuditoriasServiceService } from 'src/app/services/serv_aud/auditorias-service.service';
+import { PersonaServiceService } from 'src/app/services/serv_per/persona-service.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -25,11 +27,14 @@ export class HistorialComponent implements OnInit {
   registroSeleccionado: string = '';
   procesoSeleccionado: number = 0;
   tituloS:string = '';
+  adminRol:boolean = false;
+  persona:Persona = new Persona();
 
   info_proceso_seleccionado: string[] = [];
 
   constructor(
     private servAuditorias: AuditoriasServiceService,
+    private servPersona: PersonaServiceService, 
     private router: Router
   ) {}
 
@@ -37,6 +42,14 @@ export class HistorialComponent implements OnInit {
     if (localStorage.getItem('ced_log') === '') {
       this.router.navigate(['/login']);
     }
+    this.servPersona.getPersonas().subscribe((d) => {
+      d.forEach(f => {        
+        this.persona = (f.cedula == localStorage.getItem('ced_log'))? f:new Persona();
+      })
+      if(this.persona.rol == 'Administrador'){
+        this.adminRol = true;
+      }
+    })
     this.listarProyectos();
   }
 

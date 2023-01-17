@@ -1,74 +1,93 @@
-li {
-  background: #7fa6e5;
-}
-#primary_nav_wrap {
-  margin-top: 15px;
+#container {
+  margin: 0 auto;
 }
 
-#primary_nav_wrap ul {
+nav {
+  margin: 50px 0;
+}
+
+nav ul {
+  padding: 0;
+  margin: 0;
   list-style: none;
   position: relative;
-  float: left;
-  margin-top: 0;
-  padding: 0;
 }
 
-#primary_nav_wrap ul a {
+nav ul li {
+  display: inline-block;
+  @media only screen and (max-width: 700px) {
+    display: block;
+  }
+
+  background: #3a63a5;
+  border-radius: 1rem;
+  margin: 0 10px;
+}
+
+nav a {
+  @media only screen and (max-width: 700px) {
+    margin-bottom: 5px;
+  }
   display: block;
-  color: #000c43;
+  padding: 0 10px;
+  color: #fff;
+  font-size: 20px;
+  line-height: 60px;
   text-decoration: none;
-  font-weight: 700;
-  font-size: 1.5rem;
-  line-height: 32px;
-  padding: 1rem 1.5rem;
-  font-family: Arial, Helvetica, sans-serif
 }
 
-#primary_nav_wrap ul li {
-  position: relative;
-  float: left;
-  margin-right: 1rem;
-  padding: 0;
-  border-radius: 1.5rem;
+nav a:hover {
+  background-color: #042354;
+  border-radius: 1rem;
 }
 
-// #primary_nav_wrap ul li.current-menu-item
-// {
-// 	background:rgb(172, 19, 21)
-// }
-
-#primary_nav_wrap ul li:hover a:hover {
-  color: white;
-  background: #123456;
-  border-radius: 1.5rem;
-}
-
-#primary_nav_wrap ul ul {
+/* Hide Dropdowns by Default */
+nav ul ul {
   display: none;
   position: absolute;
-  top: 100%;
-  left: 0;
-  background: #3a63a5;
-  padding: 0;
+  // margin: 0 calc(100% - 600px);
+  // top: 60px; /* the height of the main nav */
+  @media only screen and (max-width: 700px) {
+    display: none;
+    position: relative;
+    // margin-left: 14.7rem;
+    background-color: #103776;
+  }
 }
 
-#primary_nav_wrap ul ul li {
-  float: none;
+/* Display Dropdowns on Hover */
+nav ul li:hover > ul {
+  display: inherit;
+  border-radius: 1rem;
+  background-color: #3a63a5;
+}
+
+/* Fisrt Tier Dropdown */
+nav ul ul li {
+  @media only screen and (max-width: 700px) {
+    width: auto;
+  }
   width: 200px;
+  float: none;
+  display: list-item;  
+  position: relative;
+  margin: 0;
+  // background-color: red;
 }
 
-#primary_nav_wrap ul ul a {
-  line-height: 120%;
-  padding: 10px 15px;
+/* Second, Third and more Tiers	*/
+// nav ul ul ul li {
+//   position: relative;
+//   top: -60px;
+//   left: 170px;
+// }
+
+/* Change this in order to change the Dropdown symbol */
+li > a:after {
+  content: " +";
+}
+li > a:only-child:after {
+  content: "";
 }
 
-#primary_nav_wrap ul ul ul {
-  top: 0;
-  left: 100%;
-}
 
-#primary_nav_wrap ul li:hover > ul {
-  display: block;
-  border-radius: 1.5rem;
-  box-shadow: 0.3rem 0.2rem 0.7rem #123456;
-}

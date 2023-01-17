@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
         this.personaServ.login(this.email, pass).subscribe((data) => {
           console.log('log ', data);
           if (data) {
-            localStorage.setItem('ced_log', data.cedula);
+            localStorage.setItem('ced_log', data.body.cedula);
             // this.router.navigate(['/actividad']).then(() => window.location.reload())
             this.email = '';
             this.password = '';

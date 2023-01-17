@@ -185,6 +185,8 @@ export class AuditoriasComponent implements OnInit {
       this.servAuditorias
         .crearProyecto(this.proyecto, localStorage.getItem('ced_log')!)
         .subscribe((data) => {
+          console.log(this.proyecto);
+          
           this.listarProyectos();
         });
     } else {

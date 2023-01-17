@@ -22,7 +22,7 @@ body {
 #btnCerrar {
   display: grid;
   grid-template-columns: 40px 90px;  
-  background: #3a63a5;
+  // background: #3a63a5;
   width: fit-content;
   border: 0;
   border-radius: 4px;
@@ -72,10 +72,8 @@ body {
 // }
 .menu {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-align: center;
-  // text-transform: uppercase;  
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 // i
@@ -178,8 +176,8 @@ li{
   align-items: center;
   justify-self: center;
   gap: 1.5rem;
-//   width: -webkit-fill-available;
-  padding: 1rem 2rem;
+  width: -webkit-fill-available;
+  padding: 1rem .5rem;
 }
 
 .grid_scroll {
@@ -232,6 +230,7 @@ table {
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
+
 // #id_proyecto table {
 //   width: 600px;
 // }
@@ -241,10 +240,29 @@ table {
 #proyecto_hist table {
   width: 100%;
 }
+
 .table_scroll {
   width: auto;
-  height: 200px;
+  height: fit-content;
   overflow: auto;
+}
+::-webkit-scrollbar{
+  width: 10px;
+  height: 8px;
+  background-color: rgb(199, 198, 198);
+  border-radius: 1rem;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  // border-radius: 10px;
+  background-color: white;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(38, 147, 157); 
+  border-radius: 1rem;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #10677b; 
 }
 
 th,
@@ -262,7 +280,8 @@ thead th {
   background-color: #3a63a5;
 }
 .select_tables tbody tr:hover {
-  background-color: rgba(51, 130, 199, 0.3);
+  background-color: rgba(51, 130, 199, 0.44);
+  cursor: pointer;
 }
 
 // .select_tables tbody tr:active {
@@ -281,6 +300,9 @@ tbody td {
   // border-color: #c4cdf561;  
 }
 
+table tbody tr:nth-child(even){
+  background-color: #9eb6de;
+}
 .bot_table{
   display: grid;
   grid-template-columns: repeat(3, 1fr);

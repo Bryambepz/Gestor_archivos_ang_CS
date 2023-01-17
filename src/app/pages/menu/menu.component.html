@@ -1,20 +1,56 @@
-<nav id="primary_nav_wrap">
-    <ul>
-        <!-- <li class="current-menu-item"><a href="#">Home</a></li> -->
-        <li id="id_ctrl_act"><a>Control de Actividades</a>
+<div id="container">
+    <nav>
+        <ul>
+            <li ><a>Control de Actividades</a>
+                <ul>
+                    <li><a href="/actividad">Crear</a></li>
+                    <li><a href="/Listar">Ver</a></li>
+                </ul>
+            </li>
+            <li><a>Control de Auditorías</a>
+                <ul>
+                    <li><a href="/control_auditoria">Historial</a></li>
+                    <li><a href="/auditorias">Crear Proyecto</a></li>
+                </ul>
+            </li>
+            <li *ngIf="adminRol"><a href="#">Configuración</a></li>
+        </ul>
+    </nav>
+</div>
+
+<!-- <div id="container">
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">WordPress</a>
             <ul>
-                <li><a href="/actividad">Crear</a></li>
-                <li><a href="/Listar">Ver</a></li>
-            </ul>
-        </li>
-        <li id="id_ctrl_auditoria"><a>Control de Auditorías</a>
+                <li><a href="#">Themes</a></li>
+                <li><a href="#">Plugins</a></li>
+                <li><a href="#">Tutorials</a></li>
+            </ul>        
+            </li>
+            <li><a href="#">Web Design</a>
             <ul>
-                <li><a href="/control_auditoria">Historial</a></li>
-                <li><a href="/auditorias">Crear Proyecto</a></li>
-                <!-- <li><a >Informe</a></li> -->
+                <li><a href="#">Resources</a></li>
+                <li><a href="#">Links</a></li>
+                <li><a href="#">Tutorials</a>
+                <ul>
+                    <li><a href="#">HTML/CSS</a></li>
+                    <li><a href="#">jQuery</a></li>
+                    <li><a href="#">Other</a>
+                        <ul>
+                            <li><a href="#">Stuff</a></li>
+                            <li><a href="#">Things</a></li>
+                            <li><a href="#">Other Stuff</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                </li>
             </ul>
-        </li>
-        <li><a href="#">Configuración</a></li>
-        <!-- <li><a href="/login">Cerrar Sesión</a></li> -->
-    </ul>
-</nav>
+            </li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </nav>
+    <h1>Pure CSS Drop Down Menu</h1>
+<p> A simple dropdown navigation menu made with CSS Only. Dropdowns are marked with a plus sign ( + )</p>
+</div> -->

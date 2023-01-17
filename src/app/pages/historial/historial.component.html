@@ -4,7 +4,6 @@
     <div class="logo">
       <div class="div-logo">
         <img src="../../../assets/imgs/picon2.png" alt="centrosur-icon" />
-        <!-- <div class="texto-logo">Dpto. de Gestion Ambiental</div> -->
       </div>
     </div>
     <div>
@@ -22,7 +21,7 @@
   </div>
 
   <div class="grid-sidebar menu">
-    <app-menu></app-menu>
+      <app-menu></app-menu>
   </div>
    
   <div class="grid-content">
@@ -33,7 +32,6 @@
           <thead>
             <tr>
               <th style="text-align: center; font-size: 1.5rem;">Proyectos</th>
-              <!-- <th>Fecha</th> -->
             </tr>
           </thead>
           <tbody>
@@ -42,7 +40,6 @@
               *ngFor="let proy of proyectos"
             >
               <td style="border-right: .3px solid #0000002b;width: min-content;padding-right: .5rem;text-align: justify;" >{{ proy.nombre }}</td>
-              <!-- <td style="width: 5rem;">{{ proy.fecha_creacion }}</td> -->
             </tr>
           </tbody>
         </table>
@@ -57,29 +54,27 @@
       </div>
 
       <h1>Descripción</h1>
-      <div >
-
-        <table  style="margin: auto; width: 100%; margin-right: 3.5rem;">
-          <thead>
-            <tr>
-              <th>Código</th>
-              <th>Fecha de Emisión Licencia</th>
-              <!-- <th>Código Dpt. Gestion Amb</th> -->
-              <th>Número Licencia Ambiental</th>
-              <th>Autoridad Ambiental Respensoble</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let descs of desc_proyectos">                           
-              <td>{{descs.identificador_desc}}</td>
-              <td>{{descs.fecha_emision}}</td>
-              <!-- <td>{{descs.codigo_dga}}</td> -->
-              <td>{{descs.codigo_aar}}</td>
-              <td>{{descs.aar}}</td>
-            </tr>               
-          <tbody>
-        </table>            
-        
+      <div id="table_descripcion">
+        <div class="table_scroll">
+          <table style="margin: auto; width: 100%; margin-right: 3.5rem;">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Fecha de Emisión Licencia</th>
+                <th>Número Licencia Ambiental</th>
+                <th>Autoridad Ambiental Respensoble</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let descs of desc_proyectos">                           
+                <td>{{descs.identificador_desc}}</td>
+                <td>{{descs.fecha_emision}}</td>
+                <td>{{descs.codigo_aar}}</td>
+                <td>{{descs.aar}}</td>
+              </tr>               
+            <tbody>
+          </table>            
+        </div>        
       </div>
 
       <div>
@@ -87,7 +82,7 @@
       </div>
       
       <div id="table_proceso" class="select_tables">
-        <div>
+        <div class="table_scroll">
           <table style="margin: auto; width: 100%; margin-right: 3.5rem;">          
             <thead>
               <tr>
@@ -103,32 +98,29 @@
                 <th style="text-align: center;">Monto</th>
                 <th style="text-align: center;">Consultor</th>
                 <th style="text-align: center;">Número de Registro de Consultor</th>
-                <!-- <th style="text-align: center;">Pertenece a:</th> -->
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let proceso of procesos">
-              <!-- (click)="clickTProceso(proceso.identificador, proceso.proceso)" -->
-                <td class="bot_table">
-                  <input class="seleccion" (click)="chang('editProy', proceso.proceso, proceso.identificador)" src="../../../assets/imgs/edit.png" type="image" value="edit">
-                  
-                  <input class="seleccion" (click)="chang('delet', proceso.proceso, proceso.identificador)" src="../../../assets/imgs/delet.png" type="image" value="del">
-
-                  <input class="seleccion" (click)="clickTProceso(proceso.identificador, proceso.proceso)" src="../../../assets/imgs/vermas.png" type="image" value="del">
-                </td> 
-                <td>{{proceso.proceso}}</td>
-                <td>{{proceso.descripcion}}</td>
-                <td>{{proceso.fecha_ini}}</td>
-                <td>{{proceso.fecha_fin}}</td>
-                <td>{{proceso.estado_contrato}}</td>
-                <td style="text-transform: uppercase;">{{proceso.confirmacion_actual}}</td>
-                <td style="text-transform: uppercase;">{{proceso.plan_acc}}</td>
-                <td>{{proceso.num_contrato}}</td>
-                <td>{{proceso.monto}}</td>
-                <td>{{proceso.consultor}}</td>
-                <td>{{proceso.codigo_registro}}</td>
-                <!-- <td>{{proceso.identificador}}</td> -->
-              </tr>
+                <tr *ngFor="let proceso of procesos">
+                  <td class="bot_table">
+                    <input *ngIf="adminRol" class="seleccion" (click)="chang('editProy', proceso.proceso, proceso.identificador)" src="../../../assets/imgs/edit.png" type="image" value="edit">
+                    
+                    <input *ngIf="adminRol" class="seleccion" (click)="chang('delet', proceso.proceso, proceso.identificador)" src="../../../assets/imgs/delet.png" type="image" value="del">
+  
+                    <input class="seleccion" (click)="clickTProceso(proceso.identificador, proceso.proceso)" src="../../../assets/imgs/vermas.png" type="image" value="del">
+                  </td> 
+                  <td>{{proceso.proceso}}</td>
+                  <td>{{proceso.descripcion}}</td>
+                  <td>{{proceso.fecha_ini}}</td>
+                  <td>{{proceso.fecha_fin}}</td>
+                  <td>{{proceso.estado_contrato}}</td>
+                  <td style="text-transform: uppercase;">{{proceso.confirmacion_actual}}</td>
+                  <td style="text-transform: uppercase;">{{proceso.plan_acc}}</td>
+                  <td>{{proceso.num_contrato}}</td>
+                  <td>{{proceso.monto}}</td>
+                  <td>{{proceso.consultor}}</td>
+                  <td>{{proceso.codigo_registro}}</td>
+                </tr>
             </tbody>
           </table>
         </div>
@@ -140,24 +132,22 @@
         </div>
   
         <div>
-          <div >
+          <div class="table_scroll">
             <table style="margin: auto; width: -webkit-fill-available; margin-right: 3.5rem;">          
               <thead>
                 <tr>
-                  <th></th>
+                  <th *ngIf="adminRol"></th>
                   <th style="text-align: center;">Titulo</th>
                   <th style="text-align: center;">Descripción Archivo</th>
                   <th style="text-align: center;">Archivo</th>
-                  <!-- <th>Archivo Final</th> -->
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let regs of registros">
-                  <input class="seleccion" (click)="chang('editAdjunto|'+regs.titulo, procesoSeleccionado, descripcionSeleccionado)" src="../../../assets/imgs/edit.png" type="image" value="edit">
+                  <input *ngIf="adminRol" class="seleccion" (click)="chang('editAdjunto|'+regs.titulo, procesoSeleccionado, descripcionSeleccionado)" src="../../../assets/imgs/edit.png" type="image" value="edit">
                   <td>{{regs.titulo}}</td>
                   <td>{{regs.descripcion}}</td>
                   <td>{{regs.arch_adjunto}}</td>
-                  <!-- <td>{{regs.arch_final}}</td> -->
                 </tr>
               </tbody>
             </table>

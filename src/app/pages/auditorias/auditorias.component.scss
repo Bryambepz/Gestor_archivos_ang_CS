@@ -64,10 +64,9 @@ body {
 
 .grid-sidebar {
   grid-area: sidebar;
-}
-.sidebar_div{
   margin: auto;
 }
+
 .menu {
   display: flex;
   flex-direction: column;
@@ -170,14 +169,7 @@ li{
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
-  // opacity: 10;
-  // width: min-content;
-  // display: grid;
   grid-area: contenido;
-  // gap: 1rem;
-  // background-color: rgba(255, 255, 255, 0.499);
-  // margin: 1rem 1.5rem;
-  // padding: 1rem;
   align-items: center;
   justify-self: center;
   gap: 1.5rem;
@@ -362,10 +354,27 @@ table {
 }
 .table_scroll{
   width: -webkit-fill-available;
-  height: 200px;
+  height: 400px;
   overflow: auto;
 }
-
+::-webkit-scrollbar{
+  width: 10px;
+  height: 8px;
+  background-color: rgb(199, 198, 198);
+  border-radius: 1rem;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  // border-radius: 10px;
+  background-color: white;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(38, 147, 157); 
+  border-radius: 1rem;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #10677b; 
+}
 th,
 td {
   font-family: inherit;
@@ -381,17 +390,14 @@ thead th {
   background-color: #3a63a5;
 }
 tbody tr:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(55, 126, 188, 0.44);
+  cursor: pointer;
 }
-
-tbody tr:active {
-  background-color: #123456;
-  color: #fff;
+table tbody tr:nth-child(even){
+  background-color: #9eb6de;
 }
-
-tbody tr::after {
-  background-color: #123456;
-  color: #fff;
+table tbody tr:nth-child(even):hover{
+  background-color: rgba(62, 144, 215, 0.44);
 }
 
 tbody td{
@@ -417,27 +423,6 @@ tbody td{
   background-color: #123456;
 }
 
-
-// .link_id_proyecto:active{
-//   background-color: #327ac3;
-// }
-
 .href:visited{
   background-color: #123456;
 }
-
-// .link_id_proyecto:link, .link_id_descripcion:link, .link_id_proceso:link, .link_id_info:link{
-//   background-color: #2a629a;
-// }
-
-// .link_id_proyecto:active, .link_id_descripcion:active, .link_id_proceso:active, .link_id_info:active{
-//   background-color: #123456;
-// }
-
-// .link_id_proyecto:active, .link_id_proyecto:visited{
-//   background-color: #123456;
-// }
-
-// .link_id_proyecto:active::after, .link_id_proyecto:visited::after, .link_id_proyecto:link{
-//   background-color: #3a63a5;
-// }
